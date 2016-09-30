@@ -30,20 +30,6 @@ public class SectionFragment extends BaseFragment<MainPresenter> implements Main
 
     }
 
-    @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void hideLoading() {
-
-    }
-
-    @Override
-    public void showToastMessage(String message) {
-
-    }
 
     @Override
     public <V> Observable.Transformer<V, V> bind() {

@@ -30,20 +30,6 @@ public class ThemeFragment extends BaseFragment<MainPresenter> implements MainCo
 
     }
 
-    @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void hideLoading() {
-
-    }
-
-    @Override
-    public void showToastMessage(String message) {
-
-    }
 
     @Override
     public <V> Observable.Transformer<V, V> bind() {

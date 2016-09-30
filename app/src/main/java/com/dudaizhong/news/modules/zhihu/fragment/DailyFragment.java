@@ -64,7 +64,6 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
                 return false;
             }
         });
-        getPresenter().showLoading();
         getPresenter().getContent();
     }
 
@@ -77,11 +76,6 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
     @Override
     public void hideLoading() {
         swipeZhihuDaily.setRefreshing(false);
-    }
-
-    @Override
-    public void showToastMessage(String message) {
-
     }
 
     @Override

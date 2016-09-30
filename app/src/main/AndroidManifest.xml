@@ -32,9 +32,8 @@
             android:name=".modules.main.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".modules.login.LoginActivity"></activity>
 
     </application>
 

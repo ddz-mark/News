@@ -3,6 +3,7 @@ package com.dudaizhong.news.common;
 import android.content.Context;
 
 import com.dudaizhong.news.base.utils.ToastUtil;
+import com.dudaizhong.news.base.utils.rxUtils.RxHelper;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuListNews;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
@@ -120,10 +121,7 @@ public class RetrofitSingleton {
 
     //知乎日报的列表数据
     public Observable<ZhihuListNews> getZhihuListNews(){
-        return zhihuApiService.getZHihuListNews()
-                .subscribeOn(Schedulers.io())
-                .unsubscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread());
+        return zhihuApiService.getZHihuListNews().compose(RxHelper.<ZhihuListNews>rxSchedulerHelper());
     }
 
 }

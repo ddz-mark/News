@@ -14,6 +14,9 @@ public interface DailyContract {
 
         void showContent(ZhihuListNews zhihuListNews);
 
+        void showLoading();
+
+        void hideLoading();
     }
 
     abstract static class Presenter extends BasePresenter<View>{

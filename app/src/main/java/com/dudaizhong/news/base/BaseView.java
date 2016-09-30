@@ -12,21 +12,6 @@ import rx.Observable;
 public interface BaseView {
 
     /**
-     * 加载时显示加载框
-     */
-    void showLoading();
-
-    /**
-     * 加载完成时隐藏加载框
-     */
-    void hideLoading();
-
-    /**
-     * 显示提示消息
-     */
-    void showToastMessage(String message);
-
-    /**
      * 在p层没有此方法，需要在这里写上
      *
      * @param <V>

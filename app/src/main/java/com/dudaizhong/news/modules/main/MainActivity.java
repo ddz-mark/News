@@ -1,6 +1,7 @@
 package com.dudaizhong.news.modules.main;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -17,11 +18,14 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.dudaizhong.news.R;
 import com.dudaizhong.news.app.Constants;
 import com.dudaizhong.news.base.BaseActivity;
 import com.dudaizhong.news.modules.gank.GankFragment;
+import com.dudaizhong.news.modules.login.LoginActivity;
 import com.dudaizhong.news.modules.zhihu.fragment.ZhihuFragment;
 
 import butterknife.Bind;
@@ -43,6 +47,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     NavigationView navView;
     @Bind(R.id.drawer_layout)
     DrawerLayout drawerLayout;
+
 
     FragmentManager fragmentManager;
     ZhihuFragment mZhihuFragment;
@@ -76,6 +81,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         toggle.syncState();
 
         navView.setNavigationItemSelectedListener(this);
+        View headerView = navView.getHeaderView(0);
+        ImageView imageView = (ImageView) headerView.findViewById(R.id.imageView);
+        imageView.setOnClickListener(this);
+
         //默认显示知乎fragment
         setNowFragment(Constants.ZHIHU_FRAGMENT);
     }
@@ -103,26 +112,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         fragmentTransaction.commit();
     }
 
-    @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void hideLoading() {
-
-    }
-
-    @Override
-    public void showToastMessage(String message) {
-
-    }
 
     @Override
     public <V> Observable.Transformer<V, V> bind() {
         return bindToLifecycle();
     }
-
 
     @Override
     public void onBackPressed() {
@@ -175,6 +169,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             case R.id.fab:
                 Snackbar.make(v, "点点点", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                break;
+            case R.id.imageView:
+                startActivity(new Intent(mActivity,LoginActivity.class));
+                drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             default:
                 break;

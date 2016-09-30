@@ -10,9 +10,6 @@ import com.dudaizhong.news.base.BaseView;
 
 public interface MainContract {
 
-    interface Model extends BaseModel{
-
-    }
 
     interface View extends BaseView{
 

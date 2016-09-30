@@ -17,14 +17,17 @@ public class DailyPresenter extends DailyContract.Presenter {
 
     @Override
     public void getContent() {
-        Log.e("<<<<<<<<<<<<<<<<<<<<<<", "进入到getContent");
-//        add(
         RetrofitSingleton.getInstance().getZhihuListNews()
                 .compose(this.<ZhihuListNews>bindToLifeCycle())
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        getView().showLoading();
+                    }
+                })
                 .doOnTerminate(new Action0() {
                     @Override
                     public void call() {
-                        Log.e("<<<<<<<<<<<<<<<<<<<<", "presenter的影藏");
                         getView().hideLoading();
                     }
                 })
@@ -39,11 +42,9 @@ public class DailyPresenter extends DailyContract.Presenter {
 
                     @Override
                     public void onNext(ZhihuListNews zhihuListNews) {
-                        Log.e("<<<<<<<<<<<<<<<<<<<", "presenter的显示");
                         getView().showContent(zhihuListNews);
                     }
                 });
-//        );
     }
 
 
