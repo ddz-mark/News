@@ -1,34 +1,33 @@
 package com.dudaizhong.news.modules.zhihu.adapter;
 
-
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import com.dudaizhong.news.base.BaseViewHolder;
-import com.dudaizhong.news.modules.zhihu.adapter.viewholder.DailyViewHolder;
-import com.dudaizhong.news.modules.zhihu.domain.ZhihuList;
+import com.dudaizhong.news.modules.zhihu.adapter.viewholder.HotViewHolder;
+import com.dudaizhong.news.modules.zhihu.domain.HotList;
 
 import java.util.ArrayList;
 
 /**
- * Created by Dudaizhong on 2016/9/21.
+ * Created by Dudaizhong on 2016/10/1.
  */
 
-public class DailyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class HotAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private Context context;
-    private ArrayList<ZhihuList.StoriesBean> datas;
+    private ArrayList<HotList.RecentBean> datas;
     private BaseViewHolder.OnRecyclerViewListener onRecyclerViewListener;
+    private Context context;
 
-    public DailyAdapter(Context context, ArrayList<ZhihuList.StoriesBean> datas) {
+    public HotAdapter(Context context, ArrayList<HotList.RecentBean> datas) {
         this.context = context;
         this.datas = datas;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new DailyViewHolder(context, parent, onRecyclerViewListener);
+        return new HotViewHolder(context,parent,onRecyclerViewListener);
     }
 
     @Override
@@ -44,5 +43,4 @@ public class DailyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public void setOnRecyclerViewListener(BaseViewHolder.OnRecyclerViewListener onRecyclerViewListener) {
         this.onRecyclerViewListener = onRecyclerViewListener;
     }
-
 }

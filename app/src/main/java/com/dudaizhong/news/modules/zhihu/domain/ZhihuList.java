@@ -7,7 +7,7 @@ import java.util.List;
  * Created by Dudaizhong on 2016/9/24.
  */
 
-public class ZhihuListNews implements Serializable {
+public class ZhihuList implements Serializable {
 
     private String date;
     private List<StoriesBean> stories;

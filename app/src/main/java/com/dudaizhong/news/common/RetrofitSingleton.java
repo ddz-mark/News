@@ -4,7 +4,10 @@ import android.content.Context;
 
 import com.dudaizhong.news.base.utils.ToastUtil;
 import com.dudaizhong.news.base.utils.rxUtils.RxHelper;
-import com.dudaizhong.news.modules.zhihu.domain.ZhihuListNews;
+import com.dudaizhong.news.modules.zhihu.domain.HotList;
+import com.dudaizhong.news.modules.zhihu.domain.SectionList;
+import com.dudaizhong.news.modules.zhihu.domain.ThemeList;
+import com.dudaizhong.news.modules.zhihu.domain.ZhihuList;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import java.util.ArrayList;
@@ -21,9 +24,6 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
-import rx.Scheduler;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by Dudaizhong on 2016/9/16.
@@ -120,8 +120,22 @@ public class RetrofitSingleton {
     /************************知乎日报*************************/
 
     //知乎日报的列表数据
-    public Observable<ZhihuListNews> getZhihuListNews(){
-        return zhihuApiService.getZHihuListNews().compose(RxHelper.<ZhihuListNews>rxSchedulerHelper());
+    public Observable<ZhihuList> getZhihuListNews(){
+        return zhihuApiService.getZhihuListNews().compose(RxHelper.<ZhihuList>rxSchedulerHelper());
     }
 
+    //知乎的主题
+    public Observable<ThemeList> getThemeList(){
+        return zhihuApiService.getThemeList().compose(RxHelper.<ThemeList>rxSchedulerHelper());
+    }
+
+    //知乎的专栏
+    public Observable<SectionList> getSectionList(){
+        return zhihuApiService.getSectionList().compose(RxHelper.<SectionList>rxSchedulerHelper());
+    }
+
+    //知乎的热门
+    public Observable<HotList> getHotList(){
+        return zhihuApiService.getHotList().compose(RxHelper.<HotList>rxSchedulerHelper());
+    }
 }

@@ -1,34 +1,33 @@
 package com.dudaizhong.news.modules.zhihu.adapter;
 
-
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import com.dudaizhong.news.base.BaseViewHolder;
-import com.dudaizhong.news.modules.zhihu.adapter.viewholder.DailyViewHolder;
-import com.dudaizhong.news.modules.zhihu.domain.ZhihuList;
+import com.dudaizhong.news.modules.zhihu.adapter.viewholder.SectionViewHolder;
+import com.dudaizhong.news.modules.zhihu.domain.SectionList;
 
 import java.util.ArrayList;
 
 /**
- * Created by Dudaizhong on 2016/9/21.
+ * Created by Dudaizhong on 2016/10/1.
  */
 
-public class DailyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class SectionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private Context context;
-    private ArrayList<ZhihuList.StoriesBean> datas;
     private BaseViewHolder.OnRecyclerViewListener onRecyclerViewListener;
+    private Context context;
+    private ArrayList<SectionList.DataBean> datas;
 
-    public DailyAdapter(Context context, ArrayList<ZhihuList.StoriesBean> datas) {
+    public SectionAdapter(Context context,ArrayList<SectionList.DataBean> datas) {
         this.context = context;
         this.datas = datas;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new DailyViewHolder(context, parent, onRecyclerViewListener);
+        return new SectionViewHolder(context,parent,onRecyclerViewListener);
     }
 
     @Override

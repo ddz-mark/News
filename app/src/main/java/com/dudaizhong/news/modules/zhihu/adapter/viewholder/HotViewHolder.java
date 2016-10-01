@@ -8,31 +8,31 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.dudaizhong.news.R;
 import com.dudaizhong.news.base.BaseViewHolder;
-import com.dudaizhong.news.modules.zhihu.domain.ZhihuList;
+import com.dudaizhong.news.modules.zhihu.domain.HotList;
 
 import butterknife.Bind;
 
 /**
- * Created by Dudaizhong on 2016/9/21.
+ * Created by Dudaizhong on 2016/10/1.
  */
 
-public class DailyViewHolder extends BaseViewHolder {
+public class HotViewHolder extends BaseViewHolder {
+
 
     @Bind(R.id.image_item)
     ImageView imageItem;
     @Bind(R.id.content_item)
     TextView contentItem;
 
-    //这里的布局记住高度是wrap_content。。。。
-    public DailyViewHolder(Context context, ViewGroup root, OnRecyclerViewListener onRecyclerViewListener) {
+    public HotViewHolder(Context context, ViewGroup root,OnRecyclerViewListener onRecyclerViewListener) {
         super(context, root, R.layout.item_zhihu_daily, onRecyclerViewListener);
     }
 
     @Override
     public void bindData(Object o) {
-        ZhihuList.StoriesBean data = (ZhihuList.StoriesBean) o;
+        HotList.RecentBean data = (HotList.RecentBean) o;
         Glide.with(getContext())
-                .load(data.getImages().get(0))
+                .load(data.getThumbnail())
                 .placeholder(R.mipmap.ic_launcher)
                 .into(imageItem);
 
