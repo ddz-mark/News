@@ -1,8 +1,6 @@
 package com.dudaizhong.news.modules.zhihu.presenter;
 
-import android.content.res.Resources;
-
-import com.dudaizhong.news.common.RetrofitSingleton;
+import com.dudaizhong.news.common.api.RetrofitSingleton;
 import com.dudaizhong.news.modules.zhihu.domain.ThemeList;
 import com.dudaizhong.news.modules.zhihu.presenter.contract.ThemeContract;
 

@@ -1,6 +1,6 @@
 package com.dudaizhong.news.modules.zhihu.presenter;
 
-import com.dudaizhong.news.common.RetrofitSingleton;
+import com.dudaizhong.news.common.api.RetrofitSingleton;
 import com.dudaizhong.news.modules.zhihu.domain.SectionList;
 import com.dudaizhong.news.modules.zhihu.presenter.contract.SectionContract;
 

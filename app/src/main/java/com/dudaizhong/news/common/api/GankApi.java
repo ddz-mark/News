@@ -1,4 +1,4 @@
-package com.dudaizhong.news.common;
+package com.dudaizhong.news.common.api;
 
 /**
  * Created by Dudaizhong on 2016/9/16.

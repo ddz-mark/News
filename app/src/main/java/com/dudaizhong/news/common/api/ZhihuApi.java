@@ -1,4 +1,4 @@
-package com.dudaizhong.news.common;
+package com.dudaizhong.news.common.api;
 
 import com.dudaizhong.news.modules.zhihu.domain.HotList;
 import com.dudaizhong.news.modules.zhihu.domain.SectionList;

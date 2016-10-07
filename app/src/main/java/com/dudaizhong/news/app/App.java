@@ -1,19 +1,14 @@
 package com.dudaizhong.news.app;
 
-import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 
-import com.dudaizhong.news.common.RetrofitSingleton;
+import com.dudaizhong.news.common.api.RetrofitSingleton;
 import com.facebook.stetho.Stetho;
 import com.orhanobut.logger.Logger;
-
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by Dudaizhong on 2016/9/13.

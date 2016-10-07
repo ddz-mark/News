@@ -1,4 +1,4 @@
-package com.dudaizhong.news.common;
+package com.dudaizhong.news.common.api;
 
 import android.content.Context;
 
