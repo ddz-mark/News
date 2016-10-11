@@ -7,6 +7,9 @@ import android.view.Display;
 import android.view.WindowManager;
 
 import com.dudaizhong.news.common.api.RetrofitSingleton;
+import com.dudaizhong.news.di.AppComponent;
+import com.dudaizhong.news.di.AppModule;
+import com.dudaizhong.news.di.DaggerAppComponent;
 import com.facebook.stetho.Stetho;
 import com.orhanobut.logger.Logger;
 
@@ -18,7 +21,8 @@ import com.orhanobut.logger.Logger;
 public class App extends Application {
 
     public static String cacheDir = "";
-    public static Context mContext;
+    public static Context context;
+    public AppComponent appComponent;
 
     public static int SCREEN_WIDTH = -1;
     public static int SCREEN_HEIGHT = -1;
@@ -29,7 +33,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        mContext = this.getApplicationContext();
+        context = this.getApplicationContext();
 
         /*网络调试,在chrome的地址栏输入chrome://inspect
          *通过Elements标签查看界面的视图结构
@@ -57,6 +61,16 @@ public class App extends Application {
             cacheDir = getApplicationContext().getCacheDir().toString();
         }
 
+        /**
+         * 初始化依赖加载器
+         */
+        appComponent = DaggerAppComponent.builder()
+                .appModule(new AppModule(this))
+                .build();
+    }
+
+    public AppComponent getAppComponent(){
+        return appComponent;
     }
 
 //    public void addActivity(Activity activity) {
@@ -104,7 +118,7 @@ public class App extends Application {
     }
 
     public static Context getContext() {
-        return mContext;
+        return context;
     }
 
 }

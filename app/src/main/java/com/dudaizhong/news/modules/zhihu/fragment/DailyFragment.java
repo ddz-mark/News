@@ -54,7 +54,6 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
         data = new ArrayList<>();
         dailyAdapter = new DailyAdapter(getContext(), data);
         recyclerZhihuDaily.setAdapter(dailyAdapter);
-//        recyclerZhihuDaily.setPAGE_SIZE(5);
         recyclerZhihuDaily.setLoadMoreListener(this);
         swipeZhihuDaily.setOnRefreshListener(this);
 
