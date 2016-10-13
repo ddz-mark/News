@@ -1,5 +1,6 @@
 package com.dudaizhong.news.app;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.util.DisplayMetrics;
@@ -7,11 +8,14 @@ import android.view.Display;
 import android.view.WindowManager;
 
 import com.dudaizhong.news.common.api.RetrofitSingleton;
-import com.dudaizhong.news.di.AppComponent;
-import com.dudaizhong.news.di.AppModule;
-import com.dudaizhong.news.di.DaggerAppComponent;
+import com.dudaizhong.news.di.component.AppComponent;
+import com.dudaizhong.news.di.component.DaggerAppComponent;
+import com.dudaizhong.news.di.module.AppModule;
 import com.facebook.stetho.Stetho;
 import com.orhanobut.logger.Logger;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Dudaizhong on 2016/9/13.
@@ -22,6 +26,7 @@ public class App extends Application {
 
     public static String cacheDir = "";
     public static Context context;
+    private Set<Activity> activitySet;
     public AppComponent appComponent;
 
     public static int SCREEN_WIDTH = -1;
@@ -73,33 +78,33 @@ public class App extends Application {
         return appComponent;
     }
 
-//    public void addActivity(Activity activity) {
-//        if (activitySet == null) {
-//            activitySet = new HashSet<>();
-//        }
-//        activitySet.add(activity);
-//    }
-//
-//    public void removeActivity(Activity activity) {
-//        if (null != activitySet) {
-//            activitySet.remove(activity);
-//        }
-//    }
-//
-//    /**
-//     * 杀掉所有Activity，并退出程序
-//     */
-//    public void removeAllActivity() {
-//        if (null != activitySet) {
-//            synchronized (activitySet) {
-//                for (Activity activity : activitySet) {
-//                    activity.finish();
-//                }
-//            }
-//        }
-//        android.os.Process.killProcess(android.os.Process.myPid());
-//        System.exit(0);
-//    }
+    public void addActivity(Activity activity) {
+        if (activitySet == null) {
+            activitySet = new HashSet<>();
+        }
+        activitySet.add(activity);
+    }
+
+    public void removeActivity(Activity activity) {
+        if (null != activitySet) {
+            activitySet.remove(activity);
+        }
+    }
+
+    /**
+     * 杀掉所有Activity，并退出程序
+     */
+    public void removeAllActivity() {
+        if (null != activitySet) {
+            synchronized (activitySet) {
+                for (Activity activity : activitySet) {
+                    activity.finish();
+                }
+            }
+        }
+        android.os.Process.killProcess(android.os.Process.myPid());
+        System.exit(0);
+    }
 
     public void getScreenSize() {
         WindowManager windowManager = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
