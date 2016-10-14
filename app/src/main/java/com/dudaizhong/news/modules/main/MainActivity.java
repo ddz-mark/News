@@ -53,9 +53,14 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     ZhihuFragment mZhihuFragment;
     GankFragment mGankFragment;
 
+//    @Override
+//    protected MainPresenter createPresenter() {
+//        return new MainPresenter();
+//    }
+
     @Override
-    protected MainPresenter createPresenter() {
-        return new MainPresenter();
+    protected void initInject() {
+        getActivityComponent().inject(this);
     }
 
     @Override

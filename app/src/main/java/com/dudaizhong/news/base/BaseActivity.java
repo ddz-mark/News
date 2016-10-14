@@ -5,8 +5,14 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.dudaizhong.news.app.App;
+import com.dudaizhong.news.di.component.ActivityComponent;
+import com.dudaizhong.news.di.component.DaggerActivityComponent;
+import com.dudaizhong.news.di.module.ActivityModule;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 import com.trello.rxlifecycle.components.support.RxFragmentActivity;
+
+import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 
@@ -17,6 +23,7 @@ import butterknife.ButterKnife;
 
 public abstract class BaseActivity<T extends BasePresenter> extends RxFragmentActivity implements BaseView {
 
+    @Inject
     protected T mPresenter;
     protected Activity mActivity;
 
@@ -25,7 +32,8 @@ public abstract class BaseActivity<T extends BasePresenter> extends RxFragmentAc
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
         ButterKnife.bind(this);
-        mPresenter = createPresenter();
+//        mPresenter = createPresenter();
+        initInject();
         mActivity = this;
         if (mPresenter != null)
             mPresenter.attachView(this);
@@ -41,17 +49,21 @@ public abstract class BaseActivity<T extends BasePresenter> extends RxFragmentAc
         ButterKnife.unbind(this);
     }
 
-
-    protected T getPresenter() {
-        return mPresenter;
+    protected ActivityComponent getActivityComponent(){
+        return DaggerActivityComponent.builder()
+                .appComponent(App.getAppComponent())
+                .activityModule(getActivityModule())
+                .build();
     }
 
-    /**
-     * 创建Presenter, 然后通过调用{@link #getPresenter()}来使用生成的Presenter
-     *
-     * @return Presenter
-     */
-    protected abstract T createPresenter();
+    protected ActivityModule getActivityModule(){
+        return new ActivityModule(this);
+    }
+
+
+//    protected abstract T createPresenter();
+
+    protected abstract void initInject();
 
     protected abstract int getLayoutId();
 

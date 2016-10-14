@@ -26,8 +26,8 @@ public class App extends Application {
 
     public static String cacheDir = "";
     public static Context context;
-    private Set<Activity> activitySet;
-    public AppComponent appComponent;
+//    private Set<Activity> activitySet;
+    public static AppComponent appComponent;
 
     public static int SCREEN_WIDTH = -1;
     public static int SCREEN_HEIGHT = -1;
@@ -69,42 +69,43 @@ public class App extends Application {
         /**
          * 初始化依赖加载器
          */
-        appComponent = DaggerAppComponent.builder()
+        appComponent = DaggerAppComponent
+                .builder()
                 .appModule(new AppModule(this))
                 .build();
     }
 
-    public AppComponent getAppComponent(){
+    public static AppComponent getAppComponent(){
         return appComponent;
     }
 
-    public void addActivity(Activity activity) {
-        if (activitySet == null) {
-            activitySet = new HashSet<>();
-        }
-        activitySet.add(activity);
-    }
-
-    public void removeActivity(Activity activity) {
-        if (null != activitySet) {
-            activitySet.remove(activity);
-        }
-    }
-
-    /**
-     * 杀掉所有Activity，并退出程序
-     */
-    public void removeAllActivity() {
-        if (null != activitySet) {
-            synchronized (activitySet) {
-                for (Activity activity : activitySet) {
-                    activity.finish();
-                }
-            }
-        }
-        android.os.Process.killProcess(android.os.Process.myPid());
-        System.exit(0);
-    }
+//    public void addActivity(Activity activity) {
+//        if (activitySet == null) {
+//            activitySet = new HashSet<>();
+//        }
+//        activitySet.add(activity);
+//    }
+//
+//    public void removeActivity(Activity activity) {
+//        if (null != activitySet) {
+//            activitySet.remove(activity);
+//        }
+//    }
+//
+//    /**
+//     * 杀掉所有Activity，并退出程序
+//     */
+//    public void removeAllActivity() {
+//        if (null != activitySet) {
+//            synchronized (activitySet) {
+//                for (Activity activity : activitySet) {
+//                    activity.finish();
+//                }
+//            }
+//        }
+//        android.os.Process.killProcess(android.os.Process.myPid());
+//        System.exit(0);
+//    }
 
     public void getScreenSize() {
         WindowManager windowManager = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);

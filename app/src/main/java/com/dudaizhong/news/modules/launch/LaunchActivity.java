@@ -3,6 +3,7 @@ package com.dudaizhong.news.modules.launch;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -21,7 +22,7 @@ import rx.Observable;
  * Created by Dudaizhong on 2016/9/27.
  */
 
-public class LaunchActivity extends BaseActivity<LaunchContract.Presenter> implements LaunchContract.View {
+public class LaunchActivity extends BaseActivity<LaunchPresenter> implements LaunchContract.View {
 
     @Bind(R.id.viewPager_launch)
     ViewPager viewPagerLaunch;
@@ -41,9 +42,14 @@ public class LaunchActivity extends BaseActivity<LaunchContract.Presenter> imple
     private static final int[] pics = {R.layout.guid_view_1,
             R.layout.guid_view_2, R.layout.guid_view_3};
 
+//    @Override
+//    protected LaunchContract.Presenter createPresenter() {
+//        return new LaunchPresenter();
+//    }
+
     @Override
-    protected LaunchContract.Presenter createPresenter() {
-        return new LaunchPresenter();
+    protected void initInject() {
+        getActivityComponent().inject(this);
     }
 
     @Override
@@ -103,7 +109,7 @@ public class LaunchActivity extends BaseActivity<LaunchContract.Presenter> imple
         textViewLaunch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getPresenter().jumpToMain();
+                mPresenter.jumpToMain();
             }
         });
     }

@@ -17,7 +17,7 @@ import dagger.Component;
 public interface AppComponent {
 
     @ContextLife("Application")
-    App getApplication();
+    App getContext();
 
     //以下是注射目标，也就是说想要在哪个类里面使用依赖注解，必须在component里注射
 

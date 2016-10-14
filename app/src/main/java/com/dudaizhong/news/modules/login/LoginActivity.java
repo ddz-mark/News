@@ -31,9 +31,14 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @Bind(R.id.register)
     Button register;
 
+//    @Override
+//    protected LoginPresenter createPresenter() {
+//        return new LoginPresenter();
+//    }
+
     @Override
-    protected LoginPresenter createPresenter() {
-        return new LoginPresenter();
+    protected void initInject() {
+        getActivityComponent().inject(this);
     }
 
     @Override
@@ -72,10 +77,10 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.login:
-                getPresenter().login(name.getText().toString(),password.getText().toString());
+                mPresenter.login(name.getText().toString(),password.getText().toString());
                 break;
             case R.id.register:
-                getPresenter().register();
+                mPresenter.register();
                 break;
         }
     }
