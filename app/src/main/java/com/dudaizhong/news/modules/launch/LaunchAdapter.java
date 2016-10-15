@@ -1,5 +1,6 @@
 package com.dudaizhong.news.modules.launch;
 
+import android.media.Image;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -7,6 +8,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 
@@ -16,9 +18,9 @@ import java.util.ArrayList;
 
 public class LaunchAdapter extends PagerAdapter {
 
-    private ArrayList<View> views;
+    private ArrayList<ImageView> views;
 
-    public LaunchAdapter(ArrayList<View> views) {
+    public LaunchAdapter(ArrayList<ImageView> views) {
         this.views = views;
     }
 

@@ -7,6 +7,7 @@ import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
 
+import com.dudaizhong.news.base.utils.SharedPreferencesUtil;
 import com.dudaizhong.news.common.api.RetrofitSingleton;
 import com.dudaizhong.news.di.component.AppComponent;
 import com.dudaizhong.news.di.component.DaggerAppComponent;
@@ -57,6 +58,9 @@ public class App extends Application {
         //初始化日志
         Logger.init(getPackageName()).hideThreadInfo();
 
+        //初始化SharedPreferences
+        SharedPreferencesUtil.init(this);
+
         /**
          * 如果存在SD卡则将缓存写入SD卡,否则写入手机内存
          */
@@ -78,34 +82,6 @@ public class App extends Application {
     public static AppComponent getAppComponent(){
         return appComponent;
     }
-
-//    public void addActivity(Activity activity) {
-//        if (activitySet == null) {
-//            activitySet = new HashSet<>();
-//        }
-//        activitySet.add(activity);
-//    }
-//
-//    public void removeActivity(Activity activity) {
-//        if (null != activitySet) {
-//            activitySet.remove(activity);
-//        }
-//    }
-//
-//    /**
-//     * 杀掉所有Activity，并退出程序
-//     */
-//    public void removeAllActivity() {
-//        if (null != activitySet) {
-//            synchronized (activitySet) {
-//                for (Activity activity : activitySet) {
-//                    activity.finish();
-//                }
-//            }
-//        }
-//        android.os.Process.killProcess(android.os.Process.myPid());
-//        System.exit(0);
-//    }
 
     public void getScreenSize() {
         WindowManager windowManager = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);

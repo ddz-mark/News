@@ -13,7 +13,8 @@
         android:id="@+id/textView_launch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/ll_launch"
+        android:layout_above="@+id/re_point"
+        android:layout_marginBottom="20dp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/shape_launch"
         android:gravity="center"
@@ -24,41 +25,26 @@
         android:text="立即进入"
         android:visibility="gone" />
 
-    <LinearLayout
-        android:id="@+id/ll_launch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <RelativeLayout
+        android:id="@+id/re_point"
         android:layout_alignParentBottom="true"
-        android:layout_margin="30dp"
-        android:gravity="center">
+        android:layout_marginBottom="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
 
-        <ImageView
-            android:id="@+id/img_vp_page1"
+        <LinearLayout
+            android:id="@+id/point_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/app_name"
-            android:padding="2dp"
-            android:scaleType="matrix"
-            android:src="@mipmap/circle_selected" />
+            android:orientation="horizontal">
+        </LinearLayout>
 
         <ImageView
-            android:id="@+id/img_vp_page2"
+            android:id="@+id/white_point"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/app_name"
-            android:padding="2dp"
-            android:scaleType="matrix"
-            android:src="@mipmap/circle_unselected" />
-
-        <ImageView
-            android:id="@+id/img_vp_page3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/app_name"
-            android:padding="2dp"
-            android:scaleType="matrix"
-            android:src="@mipmap/circle_unselected" />
-
-    </LinearLayout>
+            android:src="@drawable/shape_point_selected"/>
+    </RelativeLayout>
 
 </RelativeLayout>

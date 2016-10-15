@@ -18,7 +18,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".modules.launch.LaunchActivity"
+            android:name=".modules.launch.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Launch">
             <intent-filter>
@@ -33,6 +33,10 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name=".modules.launch.LaunchActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
         <activity android:name=".modules.login.LoginActivity"></activity>
 
     </application>
