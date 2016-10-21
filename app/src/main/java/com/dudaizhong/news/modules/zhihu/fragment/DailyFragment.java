@@ -15,6 +15,8 @@ import com.dudaizhong.news.modules.zhihu.presenter.contract.DailyContract;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuList;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import butterknife.Bind;
 import rx.Observable;
@@ -30,7 +32,8 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
     @Bind(R.id.swipe_zhihu_daily)
     SwipeRefreshLayout swipeZhihuDaily;
 
-    private ArrayList<ZhihuList.StoriesBean> data;
+    private List<ZhihuList.StoriesBean> datas = new ArrayList<>();
+    private List<ZhihuList.TopStoriesBean> topdatas = new ArrayList<>();
     private DailyAdapter dailyAdapter;
 
     private int currentPage = 1;
@@ -51,8 +54,7 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
         recyclerZhihuDaily.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerZhihuDaily.setHasFixedSize(true);
 
-        data = new ArrayList<>();
-        dailyAdapter = new DailyAdapter(getContext(), data);
+        dailyAdapter = new DailyAdapter(getContext(), datas, topdatas);
         recyclerZhihuDaily.setAdapter(dailyAdapter);
         recyclerZhihuDaily.setLoadMoreListener(this);
         swipeZhihuDaily.setOnRefreshListener(this);
@@ -83,10 +85,9 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
 
     @Override
     public void showContent(ZhihuList zhihuList) {
-        if (currentPage == 1)
-            data.clear();
-        data.addAll(zhihuList.getStories());
-        recyclerZhihuDaily.notifyDataChange(currentPage + 1, data.size());
+        datas.addAll(zhihuList.getStories());
+        topdatas.addAll(zhihuList.getTop_stories());
+        dailyAdapter.addDatas(zhihuList);
     }
 
     @Override

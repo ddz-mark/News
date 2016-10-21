@@ -44,7 +44,7 @@ public class LaunchActivity extends BaseActivity<LaunchPresenter> implements Lau
     @Bind(R.id.re_point)
     RelativeLayout rePoint;
 
-    private ArrayList<ImageView> views;
+    private ArrayList<ImageView> views = new ArrayList<>();
     private int mPointMargin;
     private LaunchAdapter launchAdapter;
 
@@ -73,7 +73,6 @@ public class LaunchActivity extends BaseActivity<LaunchPresenter> implements Lau
         //设置pf成第一次进入
         SharedPreferencesUtil.setFirst(true);
 
-        views = new ArrayList<>();
         for (int i = 0; i < pics.length; i++) {
             // 准备好显示的图片
             ImageView image = new ImageView(this);

@@ -15,9 +15,6 @@ import com.dudaizhong.news.di.module.AppModule;
 import com.facebook.stetho.Stetho;
 import com.orhanobut.logger.Logger;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * Created by Dudaizhong on 2016/9/13.
  * 继承自Application,封装

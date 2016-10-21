@@ -2,14 +2,11 @@ package com.dudaizhong.news.base;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Window;
-import android.view.WindowManager;
 
 import com.dudaizhong.news.app.App;
 import com.dudaizhong.news.di.component.ActivityComponent;
 import com.dudaizhong.news.di.component.DaggerActivityComponent;
 import com.dudaizhong.news.di.module.ActivityModule;
-import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 import com.trello.rxlifecycle.components.support.RxFragmentActivity;
 
 import javax.inject.Inject;
@@ -59,9 +56,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends RxFragmentAc
     protected ActivityModule getActivityModule(){
         return new ActivityModule(this);
     }
-
-
-//    protected abstract T createPresenter();
 
     protected abstract void initInject();
 
