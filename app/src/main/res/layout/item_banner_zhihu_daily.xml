@@ -1,12 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="200dp"
+    android:background="#16162b"
+    android:orientation="vertical">
 
-   <com.dudaizhong.news.common.widget.AutoPlayViewPager
-       android:id="@+id/banner"
-       android:layout_width="match_parent"
-       android:layout_height="200dp"/>
+    <com.dudaizhong.news.common.widget.AutoPlayViewPager
+        android:id="@+id/banner"
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+    </com.dudaizhong.news.common.widget.AutoPlayViewPager>
 
-</LinearLayout>
+    <RelativeLayout
+        android:id="@+id/titleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:textColor="#ffffff"
+            tools:text="测试文本" />
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_alignParentRight="true"
+            android:id="@+id/point_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" />
+
+
+    </RelativeLayout>
+</RelativeLayout>

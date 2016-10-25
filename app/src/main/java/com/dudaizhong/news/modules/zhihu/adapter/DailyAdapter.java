@@ -26,13 +26,11 @@ public class DailyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private List<ZhihuList.StoriesBean> datas;
     private List<ZhihuList.TopStoriesBean> topdatas;
     private BannerAdapter bannerAdapter;
-    private LayoutInflater inflater;
 
     public DailyAdapter(Context context, List<ZhihuList.StoriesBean> datas, List<ZhihuList.TopStoriesBean> topdatas) {
         this.context = context;
         this.datas = datas;
         this.topdatas = topdatas;
-        inflater = LayoutInflater.from(context);
     }
 
     @Override

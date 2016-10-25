@@ -48,7 +48,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Bind(R.id.drawer_layout)
     DrawerLayout drawerLayout;
 
-
     FragmentManager fragmentManager;
     ZhihuFragment mZhihuFragment;
     GankFragment mGankFragment;
