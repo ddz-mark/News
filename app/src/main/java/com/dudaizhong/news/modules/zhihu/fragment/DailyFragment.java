@@ -85,6 +85,8 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
 
     @Override
     public void showContent(ZhihuList zhihuList) {
+        datas.clear();
+        topdatas.clear();
         datas.addAll(zhihuList.getStories());
         topdatas.addAll(zhihuList.getTop_stories());
         dailyAdapter.addDatas(zhihuList);
@@ -92,6 +94,6 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
 
     @Override
     public void onLoadMore() {
-        ToastUtil.show("上拉加载");
+        ToastUtil.showToast(getContext(), "上拉加载");
     }
 }

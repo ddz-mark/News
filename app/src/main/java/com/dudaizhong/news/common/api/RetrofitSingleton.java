@@ -1,6 +1,7 @@
 package com.dudaizhong.news.common.api;
 
 import android.content.Context;
+import android.support.design.widget.Snackbar;
 
 import com.dudaizhong.news.base.utils.ToastUtil;
 import com.dudaizhong.news.base.utils.rxUtils.RxHelper;
@@ -33,7 +34,6 @@ public class RetrofitSingleton {
     private static OkHttpClient okHttpClient = null;
     private static ZhihuApi zhihuApiService = null;
     private static GankApi gankApiService = null;
-
 
     private RetrofitSingleton() {
         initOkHttp();
@@ -106,11 +106,11 @@ public class RetrofitSingleton {
             if (t.toString().contains("GaiException")
                     || t.toString().contains("SocketTimeoutException")
                     || t.toString().contains("UnknownHostException")) {
-                ToastUtil.showLong("网络不给力");
+                ToastUtil.showLongToast(context,"网络不给力");
             } else if (t.toString().contains("ConnectException")) {
-                ToastUtil.showLong("网络出错");
+                ToastUtil.showLongToast(context,"网络出错");
             } else {
-                ToastUtil.showLong(t.getMessage());
+                ToastUtil.showLongToast(context,t.getMessage());
             }
         }
     }

@@ -28,7 +28,7 @@ import rx.Observable;
  * Created by Dudaizhong on 2016/9/18.
  */
 
-public class SectionFragment extends BaseFragment<SectionPresenter> implements SectionContract.View ,SwipeRefreshLayout.OnRefreshListener{
+public class SectionFragment extends BaseFragment<SectionPresenter> implements SectionContract.View, SwipeRefreshLayout.OnRefreshListener {
 
     @Bind(R.id.recycler_zhihu_section)
     RecyclerView recyclerZhihuSection;
@@ -50,9 +50,9 @@ public class SectionFragment extends BaseFragment<SectionPresenter> implements S
 
     @Override
     protected void initEventAndData() {
-        recyclerZhihuSection.setLayoutManager(new GridLayoutManager(getContext(),2));
+        recyclerZhihuSection.setLayoutManager(new GridLayoutManager(getContext(), 2));
         datas = new ArrayList<>();
-        adapter = new SectionAdapter(getContext(),datas);
+        adapter = new SectionAdapter(getContext(), datas);
         recyclerZhihuSection.setAdapter(adapter);
         swipeZhihuSection.setOnRefreshListener(this);
 
@@ -74,7 +74,8 @@ public class SectionFragment extends BaseFragment<SectionPresenter> implements S
 
     @Override
     public void hideLoading() {
-        swipeZhihuSection.setRefreshing(false);
+        if (null != swipeZhihuSection && swipeZhihuSection.isRefreshing())
+            swipeZhihuSection.setRefreshing(false);
     }
 
     @Override

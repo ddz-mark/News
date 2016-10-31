@@ -7,9 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.dudaizhong.news.R;
+import com.dudaizhong.news.base.utils.DensityUtil;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuList;
 
 import java.util.ArrayList;
@@ -24,6 +28,9 @@ public class BannerAdapter extends PagerAdapter {
     private List<ZhihuList.TopStoriesBean> topdatas = new ArrayList<>();
     private Context context;
 
+    TextView desc;
+    LinearLayout pointGroup;
+
     public BannerAdapter(Context context, List<ZhihuList.TopStoriesBean> topdatas) {
         this.topdatas = topdatas;
         this.context = context;
@@ -36,8 +43,10 @@ public class BannerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
+        //图片
         View view = LayoutInflater.from(context).inflate(R.layout.item_top_banner, container, false);
         ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
+
         final int size = topdatas.size();
         if (size > 0) {
             Glide.with(context)

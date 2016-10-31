@@ -1,7 +1,15 @@
 package com.dudaizhong.news.modules.zhihu.adapter.viewholder;
 
 import android.content.Context;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -13,7 +21,7 @@ import com.dudaizhong.news.common.widget.AutoPlayViewPager;
 import com.dudaizhong.news.modules.zhihu.adapter.BannerAdapter;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuList;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import butterknife.Bind;
 
@@ -23,15 +31,13 @@ import butterknife.Bind;
 
 public class BannerViewHolder extends BaseViewHolder {
 
-    @Bind(R.id.title)
-    TextView title;
-    @Bind(R.id.point_group)
-    LinearLayout pointGroup;
-    @Bind(R.id.titleLayout)
-    RelativeLayout titleLayout;
     @Bind(R.id.banner)
     AutoPlayViewPager banner;
+    @Bind(R.id.banner_bottom)
+    RelativeLayout bannerBottom;
 
+    TextView desc;
+    LinearLayout pointGroup;
     private BannerAdapter bannerAdapter;
     private Context context;
 
@@ -47,27 +53,68 @@ public class BannerViewHolder extends BaseViewHolder {
         switcherParams.height = DensityUtil.getWindowWidth(context) * 9 / 16;
         banner.setLayoutParams(switcherParams);
 
-        //设置小圆点
-        RelativeLayout.LayoutParams paramsDot = (RelativeLayout.LayoutParams) pointGroup.getLayoutParams();
-        paramsDot.setMargins(0, 0, DensityUtil.dip2px(context, 15), DensityUtil.dip2px(context, 15));
-        pointGroup.setLayoutParams(paramsDot);
+        //banner的文本提示
+        RelativeLayout titleLayout =
+                (RelativeLayout) LayoutInflater.from(context).inflate(R.layout.item_banner_zhihu_daily_title, null, false);
+        desc = (TextView) titleLayout.findViewById(R.id.banner_desc);
+        pointGroup = (LinearLayout) titleLayout.findViewById(R.id.point_group);
 
-        //设置整个导航栏的高度
         RelativeLayout.LayoutParams params =
                 new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DensityUtil.dip2px(context, 40));
         params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
         params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
         titleLayout.setLayoutParams(params);
+        bannerBottom.addView(titleLayout);
     }
 
     @Override
     public void bindData(Object o) {
+
+        final ArrayList<ZhihuList.TopStoriesBean> datas = (ArrayList<ZhihuList.TopStoriesBean>) o;
+        if (null != datas && datas.size() != 0) {
+            pointGroup.removeAllViews();
+            for (int i = 0; i < datas.size(); i++) {
+                ImageView point = new ImageView(context);
+                point.setImageResource(R.drawable.ic_page_indicator);
+                //设置间距
+                int pointSize = context.getResources().getDimensionPixelSize(R.dimen.point_size);
+                LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(pointSize, pointSize);
+                if (i > 0) {
+                    params2.leftMargin = context.getResources().getDimensionPixelSize(R.dimen.point_leftmargin);
+                }
+                point.setLayoutParams(params2);
+
+                pointGroup.addView(point);
+            }
+
+            banner.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                }
+
+                @Override
+                public void onPageSelected(int position) {
+                    desc.setText(datas.get(position % datas.size()).getTitle());
+                    ((ImageView)pointGroup.getChildAt(position % datas.size())).setImageResource(R.drawable.ic_page_indicator_focused);
+                    Log.i("<<<<<<<<<<<<<<<<<<<<<<<<<<<变白", "positon%datas.size=" + position % datas.size());
+//                    for (int i = 0; i < datas.size(); i++) {
+//                        if (position % datas.size() != i) {
+//                            Log.i("<<<<<<<<<<<<<<<<<<<<<<<<<<<", "变暗" + i);
+//                            pointGroup.getChildAt(position % datas.size()).setBackgroundResource(R.drawable.ic_page_indicator);
+//                        }
+//                    }
+                }
+                @Override
+                public void onPageScrollStateChanged(int state) {
+
+                }
+            });
+        }
+
         banner.setAdapter(bannerAdapter);
         banner.setDirection(AutoPlayViewPager.Direction.LEFT);// 设置播放方向
         banner.setCurrentItem(200); // 设置每个Item展示的时间
         banner.start(); // 开始轮播
-
-        ZhihuList.TopStoriesBean datas = (ZhihuList.TopStoriesBean) o;
-        title.setText(datas.getTitle());
     }
 }

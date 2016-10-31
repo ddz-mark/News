@@ -5,10 +5,12 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+
 import com.dudaizhong.news.base.BaseViewHolder;
 import com.dudaizhong.news.modules.zhihu.adapter.viewholder.BannerViewHolder;
 import com.dudaizhong.news.modules.zhihu.adapter.viewholder.DailyViewHolder;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuList;
+
 import java.util.List;
 
 /**
@@ -75,6 +77,7 @@ public class DailyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public void addDatas(ZhihuList zhihuList) {
         datas = zhihuList.getStories();
         topdatas = zhihuList.getTop_stories();
+        //banner里面的数据更新需要及时通知,否则crash
         bannerAdapter.notifyDataSetChanged();
         notifyDataSetChanged();
     }
