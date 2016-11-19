@@ -6,8 +6,11 @@ import android.support.design.widget.Snackbar;
 import com.dudaizhong.news.base.utils.ToastUtil;
 import com.dudaizhong.news.base.utils.rxUtils.RxHelper;
 import com.dudaizhong.news.modules.zhihu.domain.HotList;
+import com.dudaizhong.news.modules.zhihu.domain.SectionDetail;
 import com.dudaizhong.news.modules.zhihu.domain.SectionList;
+import com.dudaizhong.news.modules.zhihu.domain.ThemeDetail;
 import com.dudaizhong.news.modules.zhihu.domain.ThemeList;
+import com.dudaizhong.news.modules.zhihu.domain.ZhihuDetail;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuList;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 
@@ -124,9 +127,24 @@ public class RetrofitSingleton {
         return zhihuApiService.getZhihuListNews().compose(RxHelper.<ZhihuList>rxSchedulerHelper());
     }
 
+    //知乎的热门
+    public Observable<HotList> getHotList(){
+        return zhihuApiService.getHotList().compose(RxHelper.<HotList>rxSchedulerHelper());
+    }
+
+    //知乎日报的详情页
+    public Observable<ZhihuDetail> getZhihuDetail(int id){
+        return zhihuApiService.getZhihuDetailInfo(id).compose(RxHelper.<ZhihuDetail>rxSchedulerHelper());
+    }
+
     //知乎的主题
     public Observable<ThemeList> getThemeList(){
         return zhihuApiService.getThemeList().compose(RxHelper.<ThemeList>rxSchedulerHelper());
+    }
+
+    //知乎主题的详情页
+    public Observable<ThemeDetail> getThemeDetail(int id){
+        return zhihuApiService.getThemeDetailInfo(id).compose(RxHelper.<ThemeDetail>rxSchedulerHelper());
     }
 
     //知乎的专栏
@@ -134,8 +152,8 @@ public class RetrofitSingleton {
         return zhihuApiService.getSectionList().compose(RxHelper.<SectionList>rxSchedulerHelper());
     }
 
-    //知乎的热门
-    public Observable<HotList> getHotList(){
-        return zhihuApiService.getHotList().compose(RxHelper.<HotList>rxSchedulerHelper());
+    //知乎专栏的详情页
+    public Observable<SectionDetail> getSetionDetail(int id){
+        return zhihuApiService.getSectionDetailInfo(id).compose(RxHelper.<SectionDetail>rxSchedulerHelper());
     }
 }

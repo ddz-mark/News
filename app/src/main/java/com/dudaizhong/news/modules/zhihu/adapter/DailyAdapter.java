@@ -3,19 +3,13 @@ package com.dudaizhong.news.modules.zhihu.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.dudaizhong.news.base.BaseViewHolder;
-import com.dudaizhong.news.common.widget.AutoPlayViewPager;
 import com.dudaizhong.news.modules.zhihu.adapter.viewholder.BannerViewHolder;
 import com.dudaizhong.news.modules.zhihu.adapter.viewholder.DailyViewHolder;
-import com.dudaizhong.news.modules.zhihu.domain.ZhihuConst;
-import com.dudaizhong.news.modules.zhihu.domain.ZhihuData;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuList;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

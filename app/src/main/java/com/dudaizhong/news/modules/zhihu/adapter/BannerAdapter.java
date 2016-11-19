@@ -2,22 +2,15 @@ package com.dudaizhong.news.modules.zhihu.adapter;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.dudaizhong.news.R;
-import com.dudaizhong.news.base.utils.DensityUtil;
-import com.dudaizhong.news.modules.zhihu.domain.ZhihuData;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuList;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

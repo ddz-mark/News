@@ -38,7 +38,9 @@
             android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity android:name=".modules.login.LoginActivity"></activity>
-
+        <activity android:name=".modules.zhihu.activity.ZhihuDetailActivity"></activity>
+        <activity android:name=".modules.zhihu.activity.ThemeDetailActivity"></activity>
+        <activity android:name=".modules.zhihu.activity.SectionDetailActivity"></activity>
     </application>
 
 </manifest>

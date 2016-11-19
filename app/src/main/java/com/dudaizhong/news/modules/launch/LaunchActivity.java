@@ -32,7 +32,6 @@ import rx.Observable;
 
 public class LaunchActivity extends BaseActivity<LaunchPresenter> implements LaunchContract.View {
 
-
     @Bind(R.id.viewPager_launch)
     ViewPager viewPagerLaunch;
     @Bind(R.id.textView_launch)

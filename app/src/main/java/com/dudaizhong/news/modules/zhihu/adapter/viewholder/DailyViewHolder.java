@@ -1,7 +1,6 @@
 package com.dudaizhong.news.modules.zhihu.adapter.viewholder;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -9,7 +8,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.dudaizhong.news.R;
 import com.dudaizhong.news.base.BaseViewHolder;
-import com.dudaizhong.news.modules.zhihu.domain.ZhihuData;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuList;
 
 import butterknife.Bind;
