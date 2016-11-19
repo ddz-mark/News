@@ -40,8 +40,10 @@ public class BannerViewHolder extends BaseViewHolder {
     LinearLayout pointGroup;
     private BannerAdapter bannerAdapter;
     private Context context;
+    private int prePoint = 0;
+    private ArrayList<ZhihuList.TopStoriesBean> datas;
 
-    public BannerViewHolder(Context context, ViewGroup root, BannerAdapter bannerAdapter, OnRecyclerViewListener onRecyclerViewListener) {
+    public BannerViewHolder(Context context, ViewGroup root, OnRecyclerViewListener onRecyclerViewListener, BannerAdapter bannerAdapter) {
         super(context, root, R.layout.item_banner_zhihu_daily, onRecyclerViewListener);
         this.bannerAdapter = bannerAdapter;
         this.context = context;
@@ -69,13 +71,13 @@ public class BannerViewHolder extends BaseViewHolder {
 
     @Override
     public void bindData(Object o) {
-
-        final ArrayList<ZhihuList.TopStoriesBean> datas = (ArrayList<ZhihuList.TopStoriesBean>) o;
+        datas = (ArrayList<ZhihuList.TopStoriesBean>) o;
         if (null != datas && datas.size() != 0) {
             pointGroup.removeAllViews();
             for (int i = 0; i < datas.size(); i++) {
                 ImageView point = new ImageView(context);
                 point.setImageResource(R.drawable.ic_page_indicator);
+
                 //设置间距
                 int pointSize = context.getResources().getDimensionPixelSize(R.dimen.point_size);
                 LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(pointSize, pointSize);
@@ -84,9 +86,16 @@ public class BannerViewHolder extends BaseViewHolder {
                 }
                 point.setLayoutParams(params2);
 
-                pointGroup.addView(point);
+                pointGroup.addView(point, i);
             }
 
+            desc.setText(datas.get(0).getTitle());
+            ((ImageView) pointGroup.getChildAt(0)).setImageResource(R.drawable.ic_page_indicator_focused);
+
+            banner.setAdapter(bannerAdapter);
+            banner.setDirection(AutoPlayViewPager.Direction.LEFT);// 设置播放方向
+            banner.setCurrentItem(Integer.MAX_VALUE / 2 - Integer.MAX_VALUE / 2 % datas.size());
+            banner.start(); // 开始轮播
             banner.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                 @Override
                 public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -95,26 +104,20 @@ public class BannerViewHolder extends BaseViewHolder {
 
                 @Override
                 public void onPageSelected(int position) {
-                    desc.setText(datas.get(position % datas.size()).getTitle());
-                    ((ImageView)pointGroup.getChildAt(position % datas.size())).setImageResource(R.drawable.ic_page_indicator_focused);
-                    Log.i("<<<<<<<<<<<<<<<<<<<<<<<<<<<变白", "positon%datas.size=" + position % datas.size());
-//                    for (int i = 0; i < datas.size(); i++) {
-//                        if (position % datas.size() != i) {
-//                            Log.i("<<<<<<<<<<<<<<<<<<<<<<<<<<<", "变暗" + i);
-//                            pointGroup.getChildAt(position % datas.size()).setBackgroundResource(R.drawable.ic_page_indicator);
-//                        }
-//                    }
+
+                    final int nowPoint = position % datas.size();
+                    desc.setText(datas.get(nowPoint).getTitle());
+                    ((ImageView) pointGroup.getChildAt(prePoint)).setImageResource(R.drawable.ic_page_indicator);
+                    ((ImageView) pointGroup.getChildAt(nowPoint)).setImageResource(R.drawable.ic_page_indicator_focused);
+                    prePoint = nowPoint;
+
                 }
+
                 @Override
                 public void onPageScrollStateChanged(int state) {
 
                 }
             });
         }
-
-        banner.setAdapter(bannerAdapter);
-        banner.setDirection(AutoPlayViewPager.Direction.LEFT);// 设置播放方向
-        banner.setCurrentItem(200); // 设置每个Item展示的时间
-        banner.start(); // 开始轮播
     }
 }

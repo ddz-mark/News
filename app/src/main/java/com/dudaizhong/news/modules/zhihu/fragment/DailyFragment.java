@@ -2,6 +2,7 @@ package com.dudaizhong.news.modules.zhihu.fragment;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.dudaizhong.news.R;
@@ -10,6 +11,7 @@ import com.dudaizhong.news.base.utils.DensityUtil;
 import com.dudaizhong.news.base.utils.ToastUtil;
 import com.dudaizhong.news.common.widget.LoadMoreRecyclerView;
 import com.dudaizhong.news.modules.zhihu.adapter.DailyAdapter;
+import com.dudaizhong.news.modules.zhihu.domain.ZhihuData;
 import com.dudaizhong.news.modules.zhihu.presenter.DailyPresenter;
 import com.dudaizhong.news.modules.zhihu.presenter.contract.DailyContract;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuList;
@@ -25,18 +27,17 @@ import rx.Observable;
  * Created by Dudaizhong on 2016/9/18.
  */
 
-public class DailyFragment extends BaseFragment<DailyPresenter> implements DailyContract.View, SwipeRefreshLayout.OnRefreshListener, LoadMoreRecyclerView.LoadMoreListener {
+public class DailyFragment extends BaseFragment<DailyPresenter> implements DailyContract.View{
 
     @Bind(R.id.recycler_zhihu_daily)
-    LoadMoreRecyclerView recyclerZhihuDaily;
+    RecyclerView recyclerZhihuDaily;
     @Bind(R.id.swipe_zhihu_daily)
     SwipeRefreshLayout swipeZhihuDaily;
 
-    private List<ZhihuList.StoriesBean> datas = new ArrayList<>();
-    private List<ZhihuList.TopStoriesBean> topdatas = new ArrayList<>();
+    //TODO 为什么List在这里不行,是LoadMoreRecyclerView
+    private ArrayList<ZhihuList.StoriesBean> datas = new ArrayList<>();
+    private ArrayList<ZhihuList.TopStoriesBean> top_datas = new ArrayList<>();
     private DailyAdapter dailyAdapter;
-
-    private int currentPage = 1;
 
     @Override
     protected DailyPresenter createPresenter() {
@@ -54,11 +55,15 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
         recyclerZhihuDaily.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerZhihuDaily.setHasFixedSize(true);
 
-        dailyAdapter = new DailyAdapter(getContext(), datas, topdatas);
+        dailyAdapter = new DailyAdapter(getContext(), datas,top_datas);
         recyclerZhihuDaily.setAdapter(dailyAdapter);
-        recyclerZhihuDaily.setLoadMoreListener(this);
-        swipeZhihuDaily.setOnRefreshListener(this);
-
+        swipeZhihuDaily.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getPresenter().getContent();
+            }
+        });
+        getPresenter().showLoading();
         getPresenter().getContent();
     }
 
@@ -70,30 +75,17 @@ public class DailyFragment extends BaseFragment<DailyPresenter> implements Daily
 
     @Override
     public void hideLoading() {
-        swipeZhihuDaily.setRefreshing(false);
-    }
-
-    @Override
-    public <V> Observable.Transformer<V, V> bind() {
-        return bindToLifecycle();
-    }
-
-    @Override
-    public void onRefresh() {
-        getPresenter().getContent();
+        if (swipeZhihuDaily.isRefreshing() && null != swipeZhihuDaily)
+            swipeZhihuDaily.setRefreshing(false);
     }
 
     @Override
     public void showContent(ZhihuList zhihuList) {
         datas.clear();
-        topdatas.clear();
+        top_datas.clear();
         datas.addAll(zhihuList.getStories());
-        topdatas.addAll(zhihuList.getTop_stories());
-        dailyAdapter.addDatas(zhihuList);
+        top_datas.addAll(zhihuList.getTop_stories());
+        dailyAdapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void onLoadMore() {
-        ToastUtil.showToast(getContext(), "上拉加载");
-    }
 }

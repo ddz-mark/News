@@ -59,13 +59,6 @@ public class SectionFragment extends BaseFragment<SectionPresenter> implements S
         getPresenter().getContent();
     }
 
-
-    @Override
-    public <V> Observable.Transformer<V, V> bind() {
-        return bindToLifecycle();
-    }
-
-
     @Override
     public void showLoading() {
         swipeZhihuSection.setProgressViewOffset(false, 0, DensityUtil.dip2px(getContext(), 24));

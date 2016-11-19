@@ -72,10 +72,6 @@ public class HotFragment extends BaseFragment<HotPresenter> implements HotContra
         swipeZhihuSection.setRefreshing(false);
     }
 
-    @Override
-    public <V> Observable.Transformer<V, V> bind() {
-        return bindToLifecycle();
-    }
 
     @Override
     public void onRefresh() {

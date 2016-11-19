@@ -7,11 +7,13 @@ import com.dudaizhong.news.app.App;
 import com.dudaizhong.news.di.component.ActivityComponent;
 import com.dudaizhong.news.di.component.DaggerActivityComponent;
 import com.dudaizhong.news.di.module.ActivityModule;
+import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 import com.trello.rxlifecycle.components.support.RxFragmentActivity;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
+import rx.Observable;
 
 /**
  * Created by Dudaizhong on 2016/9/13.
@@ -34,6 +36,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends RxFragmentAc
         mActivity = this;
         if (mPresenter != null)
             mPresenter.attachView(this);
+
         initEventAndData(savedInstanceState);
     }
 
@@ -55,6 +58,10 @@ public abstract class BaseActivity<T extends BasePresenter> extends RxFragmentAc
 
     protected ActivityModule getActivityModule(){
         return new ActivityModule(this);
+    }
+
+    public <V> Observable.Transformer<V, V> bind() {
+        return bindToLifecycle();
     }
 
     protected abstract void initInject();

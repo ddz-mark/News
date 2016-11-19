@@ -51,12 +51,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     }
 
-
-    @Override
-    public <V> Observable.Transformer<V, V> bind() {
-        return bindToLifecycle();
-    }
-
     @Override
     public void showLoading() {
 

@@ -3,14 +3,19 @@ package com.dudaizhong.news.modules.zhihu.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.dudaizhong.news.base.BaseViewHolder;
+import com.dudaizhong.news.common.widget.AutoPlayViewPager;
 import com.dudaizhong.news.modules.zhihu.adapter.viewholder.BannerViewHolder;
 import com.dudaizhong.news.modules.zhihu.adapter.viewholder.DailyViewHolder;
+import com.dudaizhong.news.modules.zhihu.domain.ZhihuConst;
+import com.dudaizhong.news.modules.zhihu.domain.ZhihuData;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,7 +44,7 @@ public class DailyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == BANNER) {
             bannerAdapter = new BannerAdapter(context, topdatas);
-            return new BannerViewHolder(context, parent, bannerAdapter, onRecyclerViewListener);
+            return new BannerViewHolder(context, parent,onRecyclerViewListener,bannerAdapter);
         } else {
             return new DailyViewHolder(context, parent, onRecyclerViewListener);
         }
@@ -72,14 +77,6 @@ public class DailyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         } else {
             return CONTENT;
         }
-    }
-
-    public void addDatas(ZhihuList zhihuList) {
-        datas = zhihuList.getStories();
-        topdatas = zhihuList.getTop_stories();
-        //banner里面的数据更新需要及时通知,否则crash
-        bannerAdapter.notifyDataSetChanged();
-        notifyDataSetChanged();
     }
 
     public void setOnRecyclerViewListener(BaseViewHolder.OnRecyclerViewListener onRecyclerViewListener) {

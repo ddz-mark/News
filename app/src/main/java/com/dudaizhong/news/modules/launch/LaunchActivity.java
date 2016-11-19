@@ -155,11 +155,6 @@ public class LaunchActivity extends BaseActivity<LaunchPresenter> implements Lau
     }
 
     @Override
-    public <V> Observable.Transformer<V, V> bind() {
-        return bindToLifecycle();
-    }
-
-    @Override
     public void jumpToMain() {
         startActivity(new Intent(LaunchActivity.this, MainActivity.class));
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);

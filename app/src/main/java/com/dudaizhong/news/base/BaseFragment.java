@@ -12,15 +12,28 @@ import android.view.ViewGroup;
 import com.trello.rxlifecycle.components.support.RxFragment;
 
 import butterknife.ButterKnife;
+import rx.Observable;
 
 /**
  * Created by Dudaizhong on 2016/9/13.
+ * TODO 这个baseFragment还需要优化
  */
 
 public abstract class BaseFragment<T extends BasePresenter> extends RxFragment implements BaseView {
 
     protected T mPresenter;
     protected View parentView;
+
+//    @Override
+//    public void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        parentView = getLayoutInflater(savedInstanceState).inflate(getLayoutId(), null, false);
+//        mPresenter = createPresenter();
+//        if (mPresenter != null) mPresenter.attachView(this);
+//        ButterKnife.bind(this, parentView);
+//
+//        initEventAndData();
+//    }
 
     @Nullable
     @Override
@@ -38,7 +51,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends RxFragment i
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
     }
 
     @Override
@@ -46,8 +58,17 @@ public abstract class BaseFragment<T extends BasePresenter> extends RxFragment i
         super.onDestroy();
         if (mPresenter != null) mPresenter.detachView();
         mPresenter = null;
+        ButterKnife.unbind(this);
     }
 
+    /**
+     *
+     * @param <V>
+     * @return
+     */
+    public <V> Observable.Transformer<V, V> bind() {
+        return bindToLifecycle();
+    }
 
     protected T getPresenter() {
         return mPresenter;
@@ -67,11 +88,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends RxFragment i
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override

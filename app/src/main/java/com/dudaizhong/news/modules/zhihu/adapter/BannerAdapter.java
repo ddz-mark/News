@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.dudaizhong.news.R;
 import com.dudaizhong.news.base.utils.DensityUtil;
+import com.dudaizhong.news.modules.zhihu.domain.ZhihuData;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuList;
 
 import java.util.ArrayList;
@@ -25,11 +26,8 @@ import java.util.List;
 
 public class BannerAdapter extends PagerAdapter {
 
-    private List<ZhihuList.TopStoriesBean> topdatas = new ArrayList<>();
+    private List<ZhihuList.TopStoriesBean> topdatas;
     private Context context;
-
-    TextView desc;
-    LinearLayout pointGroup;
 
     public BannerAdapter(Context context, List<ZhihuList.TopStoriesBean> topdatas) {
         this.topdatas = topdatas;
@@ -44,18 +42,18 @@ public class BannerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         //图片
-        View view = LayoutInflater.from(context).inflate(R.layout.item_top_banner, container, false);
-        ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
-
-        final int size = topdatas.size();
-        if (size > 0) {
+        if (topdatas.size() > 0) {
+            View view = LayoutInflater.from(context).inflate(R.layout.item_top_banner, container, false);
+            ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
             Glide.with(context)
-                    .load(topdatas.get(position % size).getImage())
+                    .load(topdatas.get(position % topdatas.size()).getImage())
                     .placeholder(R.mipmap.ic_launcher)
                     .into(imageView);
             container.addView(view);
+
+            return view;
         }
-        return view;
+        return null;
     }
 
     @Override
