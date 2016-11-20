@@ -1,7 +1,11 @@
 package com.dudaizhong.news.base;
 
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.view.WindowManager;
 
 import com.dudaizhong.news.app.App;
 import com.dudaizhong.news.di.component.ActivityComponent;
@@ -9,6 +13,7 @@ import com.dudaizhong.news.di.component.DaggerActivityComponent;
 import com.dudaizhong.news.di.module.ActivityModule;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 import com.trello.rxlifecycle.components.support.RxFragmentActivity;
+
 
 import javax.inject.Inject;
 
@@ -20,7 +25,7 @@ import rx.Observable;
  * mvp Activity基类
  */
 
-public abstract class BaseActivity<T extends BasePresenter> extends RxFragmentActivity implements BaseView {
+public abstract class BaseActivity<T extends BasePresenter> extends RxAppCompatActivity implements BaseView {
 
     @Inject
     protected T mPresenter;
@@ -38,6 +43,23 @@ public abstract class BaseActivity<T extends BasePresenter> extends RxFragmentAc
             mPresenter.attachView(this);
 
         initEventAndData(savedInstanceState);
+    }
+
+    protected T getPresenter() {
+        return mPresenter;
+    }
+
+    protected void setToolBar(Toolbar toolbar, String title) {
+        toolbar.setTitle(title);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
     }
 
     @Override

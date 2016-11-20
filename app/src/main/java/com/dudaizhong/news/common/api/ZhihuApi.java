@@ -1,5 +1,6 @@
 package com.dudaizhong.news.common.api;
 
+import com.dudaizhong.news.modules.zhihu.domain.ZhihuCommentData;
 import com.dudaizhong.news.modules.zhihu.domain.HotList;
 import com.dudaizhong.news.modules.zhihu.domain.SectionDetail;
 import com.dudaizhong.news.modules.zhihu.domain.SectionList;
@@ -42,6 +43,15 @@ public interface ZhihuApi {
      */
     @GET("4/news/{id}")
     Observable<ZhihuDetail> getZhihuDetailInfo(@Path("id") int id);
+
+
+    /**
+     * 详情页点赞数量
+     * @param id
+     * @return
+     */
+    @GET("4/story-extra/{id}")
+    Observable<ZhihuCommentData> getZhihuCommentInfo(@Path("id") int id);
 
 
     /**

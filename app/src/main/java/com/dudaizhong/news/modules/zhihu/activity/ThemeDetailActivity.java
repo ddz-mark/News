@@ -14,7 +14,7 @@ public class ThemeDetailActivity extends BaseActivity<ThemeDetailPresenter> impl
 
     @Override
     protected void initInject() {
-
+        getActivityComponent().inject(this);
     }
 
     @Override

@@ -14,7 +14,7 @@ public class SectionDetailActivity extends BaseActivity<SectionDetailPresenter> 
 
     @Override
     protected void initInject() {
-
+        getActivityComponent().inject(this);
     }
 
     @Override

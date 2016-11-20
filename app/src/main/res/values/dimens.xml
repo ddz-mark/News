@@ -10,4 +10,6 @@
     <dimen name="point_size">6dp</dimen>
     <dimen name="point_margin">6dp</dimen>
     <dimen name="point_leftmargin">3dp</dimen>
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
 </resources>

@@ -10,6 +10,7 @@ import com.dudaizhong.news.modules.zhihu.domain.SectionDetail;
 import com.dudaizhong.news.modules.zhihu.domain.SectionList;
 import com.dudaizhong.news.modules.zhihu.domain.ThemeDetail;
 import com.dudaizhong.news.modules.zhihu.domain.ThemeList;
+import com.dudaizhong.news.modules.zhihu.domain.ZhihuCommentData;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuDetail;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuList;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
@@ -135,6 +136,11 @@ public class RetrofitSingleton {
     //知乎日报的详情页
     public Observable<ZhihuDetail> getZhihuDetail(int id){
         return zhihuApiService.getZhihuDetailInfo(id).compose(RxHelper.<ZhihuDetail>rxSchedulerHelper());
+    }
+
+    //详情页的点赞数
+    public Observable<ZhihuCommentData> getZhihuCommentInfo(int id){
+        return zhihuApiService.getZhihuCommentInfo(id).compose(RxHelper.<ZhihuCommentData>rxSchedulerHelper());
     }
 
     //知乎的主题

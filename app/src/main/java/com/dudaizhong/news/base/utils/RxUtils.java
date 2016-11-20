@@ -1,6 +1,5 @@
 package com.dudaizhong.news.base.utils;
 
-import retrofit2.adapter.rxjava.Result;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;

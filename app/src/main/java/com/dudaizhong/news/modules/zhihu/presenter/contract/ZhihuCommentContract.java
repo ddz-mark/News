@@ -4,16 +4,15 @@ import android.content.Context;
 
 import com.dudaizhong.news.base.BasePresenter;
 import com.dudaizhong.news.base.BaseView;
-import com.dudaizhong.news.modules.zhihu.domain.ZhihuDetail;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuDetailZip;
 
 /**
- * Created by Markable on 2016/11/19.
+ * Created by Markable on 2016/11/20.
  */
 
-public interface ZhihuDetailContract {
+public interface ZhihuCommentContract {
 
-    interface View extends BaseView{
+    interface View extends BaseView {
 
         void showLoading();
 
@@ -21,22 +20,12 @@ public interface ZhihuDetailContract {
 
         void showContent(ZhihuDetailZip zhihuDetailZip);
 
-        void showIsLike(boolean isLike);
-
-        void showShare();
     }
 
     abstract static class Presenter extends BasePresenter<View> {
 
         public abstract void showLoading();
 
-        public abstract void getContent(int id);
-
-        public abstract void insertLike();
-
-        public abstract void deleteLike();
-
-        public abstract void mainToCommentActivity(Context context);
     }
 
 }

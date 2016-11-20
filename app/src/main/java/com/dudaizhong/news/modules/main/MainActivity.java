@@ -118,11 +118,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
 
     @Override
-    public <V> Observable.Transformer<V, V> bind() {
-        return bindToLifecycle();
-    }
-
-    @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);

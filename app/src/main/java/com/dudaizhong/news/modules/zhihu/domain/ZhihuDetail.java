@@ -1,5 +1,7 @@
 package com.dudaizhong.news.modules.zhihu.domain;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -11,103 +13,38 @@ public class ZhihuDetail implements Serializable {
 
     private static final long serialVersionUID = -3081476346914501216L;
 
-    private String body;
 
-    private String image_source;
+    /**
+     * body : 片库
+     * title : 至今仍是死亡最多的单一传染病，肺结核有这么难治吗？
+     * image : http://pic1.zhimg.com/ac1ec871034ee6465827103e67987018.jpg
+     * share_url : http://daily.zhihu.com/story/8982887
+     * js : []
+     * ga_prefix : 112007
+     * images : ["http://pic3.zhimg.com/a47538addb8d3aa56369bf63340afbf6.jpg"]
+     * type : 0
+     * id : 8982887
+     * css : ["http://news-at.zhihu.com/css/news_qa.auto.css?v=4b3e3"]
+     */
 
-    private String title;
-
-    private List<String> image;
-
-    private String share_url;
-
-    private String ga_prefix;
-
-    private int type;
-
-    private int id;
-
-    private List<String> js;
-
-    private List<String> css;
-
-    public String getBody() {
-        return body;
-    }
-
-    public void setBody(String body) {
-        this.body = body;
-    }
-
-    public String getImage_source() {
-        return image_source;
-    }
-
-    public void setImage_source(String image_source) {
-        this.image_source = image_source;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public List<String> getImage() {
-        return image;
-    }
-
-    public void setImage(List<String> image) {
-        this.image = image;
-    }
-
-    public String getShare_url() {
-        return share_url;
-    }
-
-    public void setShare_url(String share_url) {
-        this.share_url = share_url;
-    }
-
-    public String getGa_prefix() {
-        return ga_prefix;
-    }
-
-    public void setGa_prefix(String ga_prefix) {
-        this.ga_prefix = ga_prefix;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    public List<String> getJs() {
-        return js;
-    }
-
-    public void setJs(List<String> js) {
-        this.js = js;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public List<String> getCss() {
-        return css;
-    }
-
-    public void setCss(List<String> css) {
-        this.css = css;
-    }
+    @SerializedName("body")
+    public String body;
+    @SerializedName("title")
+    public String title;
+    @SerializedName("image")
+    public String image;
+    @SerializedName("share_url")
+    public String shareUrl;
+    @SerializedName("ga_prefix")
+    public String gaPrefix;
+    @SerializedName("type")
+    public int type;
+    @SerializedName("id")
+    public int id;
+    @SerializedName("js")
+    public List<String> js;
+    @SerializedName("images")
+    public List<String> images;
+    @SerializedName("css")
+    public List<String> css;
 }
