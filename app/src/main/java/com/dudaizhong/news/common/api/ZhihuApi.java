@@ -1,13 +1,14 @@
 package com.dudaizhong.news.common.api;
 
-import com.dudaizhong.news.modules.zhihu.domain.ZhihuCommentData;
 import com.dudaizhong.news.modules.zhihu.domain.HotList;
 import com.dudaizhong.news.modules.zhihu.domain.SectionDetail;
 import com.dudaizhong.news.modules.zhihu.domain.SectionList;
 import com.dudaizhong.news.modules.zhihu.domain.ThemeDetail;
 import com.dudaizhong.news.modules.zhihu.domain.ThemeList;
+import com.dudaizhong.news.modules.zhihu.domain.ZhihuCommentData;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuDetail;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuList;
+import com.dudaizhong.news.modules.zhihu.domain.ZhihuShortCommentData;
 
 
 import retrofit2.http.GET;
@@ -24,6 +25,7 @@ public interface ZhihuApi {
 
     /**
      * 最新日报
+     *
      * @return
      */
     @GET("4/news/latest")
@@ -38,6 +40,7 @@ public interface ZhihuApi {
 
     /**
      * 日报详情内容
+     *
      * @param id
      * @return
      */
@@ -47,12 +50,30 @@ public interface ZhihuApi {
 
     /**
      * 详情页点赞数量
+     *
      * @param id
      * @return
      */
     @GET("4/story-extra/{id}")
     Observable<ZhihuCommentData> getZhihuCommentInfo(@Path("id") int id);
 
+    /**
+     * 短评论
+     *
+     * @param id
+     * @return
+     */
+    @GET("4/story/{id}/short-comments")
+    Observable<ZhihuShortCommentData> getZhihuShortComment(@Path("id") int id);
+
+    /**
+     * 长评论
+     *
+     * @param id
+     * @return
+     */
+    @GET("4/story/{id}/long-comments")
+    Observable<ZhihuShortCommentData> getZhihuLongComment(@Path("id") int id);
 
     /**
      * 主题日报
@@ -62,6 +83,7 @@ public interface ZhihuApi {
 
     /**
      * 主题日报的详情页
+     *
      * @param id
      * @return
      */
@@ -76,6 +98,7 @@ public interface ZhihuApi {
 
     /**
      * 专栏的详情页
+     *
      * @param id
      * @return
      */

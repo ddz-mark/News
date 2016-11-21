@@ -22,13 +22,13 @@ import com.dudaizhong.news.base.BaseActivity;
 import com.dudaizhong.news.base.utils.HtmlUtil;
 import com.dudaizhong.news.base.utils.ToastUtil;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuCommentData;
+import com.dudaizhong.news.modules.zhihu.domain.ZhihuShortCommentData;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuDetail;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuDetailZip;
 import com.dudaizhong.news.modules.zhihu.presenter.ZhihuDetailPresenter;
 import com.dudaizhong.news.modules.zhihu.presenter.contract.ZhihuDetailContract;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**

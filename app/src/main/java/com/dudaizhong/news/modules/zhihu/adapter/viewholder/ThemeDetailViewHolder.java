@@ -11,40 +11,43 @@ import com.dudaizhong.news.R;
 import com.dudaizhong.news.base.BaseViewHolder;
 import com.dudaizhong.news.base.utils.Util;
 import com.dudaizhong.news.modules.zhihu.activity.ZhihuDetailActivity;
-import com.dudaizhong.news.modules.zhihu.domain.HotList;
+import com.dudaizhong.news.modules.zhihu.domain.ThemeDetail;
+import com.orhanobut.logger.Logger;
 
 import butterknife.Bind;
 
 /**
- * Created by Dudaizhong on 2016/10/1.
+ * Created by Markable on 2016/11/21.
  */
 
-public class HotViewHolder extends BaseViewHolder {
+public class ThemeDetailViewHolder extends BaseViewHolder {
 
 
     @Bind(R.id.image_item)
-    ImageView imageItem;
+    ImageView mImageItem;
     @Bind(R.id.content_item)
-    TextView contentItem;
+    TextView mContentItem;
+    private String images;
 
-    public HotViewHolder(Context context, ViewGroup root, OnRecyclerViewListener onRecyclerViewListener) {
+    public ThemeDetailViewHolder(Context context, ViewGroup root, OnRecyclerViewListener onRecyclerViewListener) {
         super(context, root, R.layout.item_zhihu_daily, onRecyclerViewListener);
     }
 
     @Override
     public void bindData(Object o) {
-        final HotList.RecentBean data = (HotList.RecentBean) o;
+        final ThemeDetail.StoriesBean datas = (ThemeDetail.StoriesBean) o;
+        if (null != datas.images)
+            images = datas.images.get(0);
         Glide.with(getContext())
-                .load(Util.safeText(data.getThumbnail()))
+                .load(images)
                 .placeholder(R.mipmap.ic_launcher)
-                .into(imageItem);
-
-        contentItem.setText(Util.safeText(data.getTitle()));
+                .into(mImageItem);
+        mContentItem.setText(Util.safeText(datas.title));
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getContext().startActivity(ZhihuDetailActivity.getZhihuDetailIntent(getContext(), data.getNews_id()));
+                getContext().startActivity(ZhihuDetailActivity.getZhihuDetailIntent(getContext(), datas.id));
             }
         });
     }

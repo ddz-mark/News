@@ -1,11 +1,11 @@
 package com.dudaizhong.news.modules.zhihu.presenter;
 
 import android.content.Context;
-import android.content.Intent;
 
 import com.dudaizhong.news.common.api.RetrofitSingleton;
 import com.dudaizhong.news.modules.zhihu.activity.ZhihuCommentActivity;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuCommentData;
+import com.dudaizhong.news.modules.zhihu.domain.ZhihuShortCommentData;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuDetail;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuDetailZip;
 import com.dudaizhong.news.modules.zhihu.presenter.contract.ZhihuDetailContract;
@@ -85,6 +85,6 @@ public class ZhihuDetailPresenter extends ZhihuDetailContract.Presenter {
     @Override
     public void mainToCommentActivity(Context context) {
         if (null != mZhihuDetailZip)
-            context.startActivity(ZhihuCommentActivity.getZhihuCommentIntent(context, mZhihuDetailZip.mZhihuCommentData));
+            context.startActivity(ZhihuCommentActivity.getZhihuCommentIntent(context, mZhihuDetailZip));
     }
 }

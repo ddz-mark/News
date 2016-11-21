@@ -1,6 +1,7 @@
 package com.dudaizhong.news.modules.zhihu.adapter.viewholder;
 
 import android.content.Context;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.dudaizhong.news.R;
 import com.dudaizhong.news.base.BaseViewHolder;
+import com.dudaizhong.news.modules.zhihu.activity.SectionDetailActivity;
 import com.dudaizhong.news.modules.zhihu.domain.SectionList;
 
 import butterknife.Bind;
@@ -32,7 +34,7 @@ public class SectionViewHolder extends BaseViewHolder {
 
     @Override
     public void bindData(Object o) {
-        SectionList.DataBean dataBean = (SectionList.DataBean) o;
+        final SectionList.DataBean dataBean = (SectionList.DataBean) o;
 
         Glide.with(getContext())
                 .load(dataBean.getThumbnail())
@@ -41,5 +43,11 @@ public class SectionViewHolder extends BaseViewHolder {
 
         name.setText(dataBean.getName());
         descriptionc.setText(dataBean.getDescription());
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getContext().startActivity(SectionDetailActivity.getSectionDetailIntent(getContext(), dataBean.getId(), dataBean.getName()));
+            }
+        });
     }
 }

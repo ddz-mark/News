@@ -1,6 +1,7 @@
 package com.dudaizhong.news.modules.zhihu.adapter.viewholder;
 
 import android.content.Context;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -8,6 +9,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.dudaizhong.news.R;
 import com.dudaizhong.news.base.BaseViewHolder;
+import com.dudaizhong.news.base.utils.Util;
+import com.dudaizhong.news.modules.zhihu.activity.ThemeDetailActivity;
 import com.dudaizhong.news.modules.zhihu.domain.ThemeList;
 
 import butterknife.Bind;
@@ -29,13 +32,19 @@ public class ThemeViewHolder extends BaseViewHolder {
 
     @Override
     public void bindData(Object o) {
-        ThemeList.OthersBean data = (ThemeList.OthersBean) o;
+        final ThemeList.OthersBean data = (ThemeList.OthersBean) o;
 
         Glide.with(getContext())
-                .load(data.getThumbnail())
+                .load(Util.safeText(data.getThumbnail()))
                 .placeholder(R.mipmap.ic_launcher)
                 .into(image);
 
-        name.setText(data.getName());
+        name.setText(Util.safeText(data.getName()));
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getContext().startActivity(ThemeDetailActivity.getThemeDetailIntent(getContext(), data.getId(), data.getName()));
+            }
+        });
     }
 }

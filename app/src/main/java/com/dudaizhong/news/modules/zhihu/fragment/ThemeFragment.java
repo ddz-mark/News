@@ -58,12 +58,6 @@ public class ThemeFragment extends BaseFragment<ThemePresenter> implements Theme
         getPresenter().getContent();
     }
 
-
-    @Override
-    public <V> Observable.Transformer<V, V> bind() {
-        return bindToLifecycle();
-    }
-
     @Override
     public void onRefresh() {
         getPresenter().getContent();

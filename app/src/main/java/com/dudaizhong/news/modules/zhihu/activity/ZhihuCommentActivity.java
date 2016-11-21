@@ -1,43 +1,28 @@
 package com.dudaizhong.news.modules.zhihu.activity;
 
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.dudaizhong.news.R;
-import com.dudaizhong.news.app.Constants;
 import com.dudaizhong.news.base.BaseActivity;
-import com.dudaizhong.news.modules.gank.GankFragment;
 import com.dudaizhong.news.modules.zhihu.adapter.ViewPagerAdapter;
-import com.dudaizhong.news.modules.zhihu.domain.ZhihuCommentData;
-import com.dudaizhong.news.modules.zhihu.domain.ZhihuDetail;
-import com.dudaizhong.news.modules.zhihu.fragment.DailyFragment;
-import com.dudaizhong.news.modules.zhihu.fragment.HotFragment;
-import com.dudaizhong.news.modules.zhihu.fragment.LongCommentFragment;
-import com.dudaizhong.news.modules.zhihu.fragment.SectionFragment;
-import com.dudaizhong.news.modules.zhihu.fragment.ShortCommentFragment;
-import com.dudaizhong.news.modules.zhihu.fragment.ThemeFragment;
-import com.dudaizhong.news.modules.zhihu.fragment.ZhihuFragment;
-import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
+import com.dudaizhong.news.modules.zhihu.domain.ZhihuDetailZip;
+import com.dudaizhong.news.modules.zhihu.fragment.CommentFragment;
 
 import java.util.ArrayList;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Created by Markable on 2016/11/20.
  */
 
-public class ZhihuCommentActivity extends AppCompatActivity {
+public class ZhihuCommentActivity extends BaseActivity {
 
     @Bind(R.id.tab_comment)
     TabLayout mTabComment;
@@ -46,23 +31,35 @@ public class ZhihuCommentActivity extends AppCompatActivity {
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
 
-    private static final String COMMENT = "comment";
-    private ZhihuCommentData commentData;
+    public static final String COMMENT = "comment";
+    public ZhihuDetailZip mZhihuDetailZip;
     private ArrayList<Fragment> fragmentList = new ArrayList<>();
-    ArrayList<String> titles = new ArrayList<String>();
+    ArrayList<String> titles = new ArrayList<>();
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        commentData = (ZhihuCommentData) getIntent().getSerializableExtra(COMMENT);
+    protected void initInject() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_comment;
+    }
+
+    @Override
+    protected void initEventAndData(Bundle savedInstanceState) {
+        mZhihuDetailZip = (ZhihuDetailZip) getIntent().getSerializableExtra(COMMENT);
+        setToolBar(mToolbar, mZhihuDetailZip.mZhihuCommentData.comments + "条评论");
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        fragmentList.add(new LongCommentFragment());
-        fragmentList.add(new ShortCommentFragment());
+
+        fragmentList.add(CommentFragment.newInstance(mZhihuDetailZip.mZhihuDetail.id,0));
+        fragmentList.add(CommentFragment.newInstance(mZhihuDetailZip.mZhihuDetail.id,1));
+
         viewPagerAdapter.setData(fragmentList);
 
-        titles.add("长评论" + "(" + commentData.longComments + ")");
-        titles.add("短评论" + "(" + commentData.shortComments + ")");
+        titles.add("短评论" + "(" + mZhihuDetailZip.mZhihuCommentData.shortComments + ")");
+        titles.add("长评论" + "(" + mZhihuDetailZip.mZhihuCommentData.longComments + ")");
         viewPagerAdapter.setTitles(titles);
 
         mVpComment.setAdapter(viewPagerAdapter);
@@ -70,10 +67,10 @@ public class ZhihuCommentActivity extends AppCompatActivity {
         mTabComment.setTabsFromPagerAdapter(viewPagerAdapter);
     }
 
-    public static Intent getZhihuCommentIntent(Context context, ZhihuCommentData commentData) {
+    public static Intent getZhihuCommentIntent(Context context, ZhihuDetailZip zhihuDetailZip) {
         Intent intent = new Intent(context, ZhihuCommentActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putSerializable(COMMENT, commentData);
+        bundle.putSerializable(COMMENT, zhihuDetailZip);
         intent.putExtras(bundle);
         return intent;
     }
