@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,8 @@ import java.util.ArrayList;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+import static android.content.ContentValues.TAG;
+
 /**
  * Created by Dudaizhong on 2016/9/16.
  */
@@ -31,7 +34,7 @@ public class ZhihuFragment extends BaseLazyFragment {
     ViewPager viewPagerZhihu;
 
     private ArrayList<Fragment> fragmentList = new ArrayList<>();
-    ArrayList<String> titles = new ArrayList<String>();
+    private ArrayList<String> titles = new ArrayList<>();
 
     @Override
     protected void lazyLoad() {
@@ -45,7 +48,8 @@ public class ZhihuFragment extends BaseLazyFragment {
 
     @Override
     protected void initEventAndData() {
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getFragmentManager());
+
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager());
 
         fragmentList.add(new DailyFragment());
         fragmentList.add(new ThemeFragment());
@@ -62,8 +66,8 @@ public class ZhihuFragment extends BaseLazyFragment {
         viewPagerZhihu.setAdapter(viewPagerAdapter);
         tabLayoutZhihu.setupWithViewPager(viewPagerZhihu);
         tabLayoutZhihu.setTabsFromPagerAdapter(viewPagerAdapter);
+
+
     }
-
-
 
 }

@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.dudaizhong.news.base.utils.ToastUtil;
 import com.dudaizhong.news.base.utils.rxUtils.RxHelper;
+import com.dudaizhong.news.modules.gank.domain.AIList;
+import com.dudaizhong.news.modules.gank.domain.GankHttpResponse;
 import com.dudaizhong.news.modules.zhihu.domain.HotList;
 import com.dudaizhong.news.modules.zhihu.domain.SectionDetail;
 import com.dudaizhong.news.modules.zhihu.domain.SectionList;
@@ -174,5 +176,12 @@ public class RetrofitSingleton {
     //知乎专栏的详情页
     public Observable<SectionDetail> getSetionDetail(int id) {
         return zhihuApiService.getSectionDetailInfo(id).compose(RxHelper.<SectionDetail>rxSchedulerHelper());
+    }
+
+    //==============================================================================================
+
+    //Android,IOS,福利,视频列表页
+    public Observable<GankHttpResponse<AIList>> getGankList(String type,int num,int page){
+        return gankApiService.getGankData(type,num,page).compose(RxHelper.<GankHttpResponse<AIList>>rxSchedulerHelper());
     }
 }

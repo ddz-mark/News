@@ -14,22 +14,19 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.dudaizhong.news.R;
 import com.dudaizhong.news.app.Constants;
 import com.dudaizhong.news.base.BaseActivity;
-import com.dudaizhong.news.modules.gank.GankFragment;
+import com.dudaizhong.news.modules.gank.GankActivity;
 import com.dudaizhong.news.modules.login.LoginActivity;
 import com.dudaizhong.news.modules.zhihu.fragment.ZhihuFragment;
 
 import butterknife.Bind;
-import rx.Observable;
 
 /**
  * Created by Dudaizhong on 2016/9/16.
@@ -50,16 +47,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     FragmentManager fragmentManager;
     ZhihuFragment mZhihuFragment;
-    GankFragment mGankFragment;
-
-//    @Override
-//    protected MainPresenter createPresenter() {
-//        return new MainPresenter();
-//    }
+    GankActivity mGankFragment;
 
     @Override
     protected void initInject() {
-        getActivityComponent().inject(this);
     }
 
     @Override
@@ -103,13 +94,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 fragmentTransaction.replace(R.id.fragment_container, mZhihuFragment);
                 toolbar.setTitle("知乎");
                 break;
-            case Constants.GANK_FRAGMENT:
-                if (mGankFragment == null) {
-                    mGankFragment = new GankFragment();
-                }
-                fragmentTransaction.replace(R.id.fragment_container, mGankFragment);
-                toolbar.setTitle("Gank");
-                break;
+//            case Constants.GANK_FRAGMENT:
+//                if (mGankFragment == null) {
+//                    mGankFragment = new GankActivity();
+//                }
+//                fragmentTransaction.replace(R.id.fragment_container, mGankFragment);
+//                toolbar.setTitle("Gank");
+//                break;
             default:
                 break;
         }
@@ -151,7 +142,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         if (id == R.id.nav_camera) {
             setNowFragment(Constants.ZHIHU_FRAGMENT);
         } else if (id == R.id.nav_gallery) {
-            setNowFragment(Constants.GANK_FRAGMENT);
+            startActivity(new Intent(mActivity,GankActivity.class));
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
@@ -177,4 +168,5 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 break;
         }
     }
+
 }

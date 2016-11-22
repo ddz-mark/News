@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.dudaizhong.news.di.module.ActivityModule;
 import com.dudaizhong.news.di.scopes.ActivityScope;
+import com.dudaizhong.news.modules.gank.GankActivity;
 import com.dudaizhong.news.modules.launch.LaunchActivity;
 import com.dudaizhong.news.modules.login.LoginActivity;
 import com.dudaizhong.news.modules.main.MainActivity;

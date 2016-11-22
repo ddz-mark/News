@@ -49,6 +49,9 @@
         <activity
             android:name=".modules.zhihu.activity.ZhihuCommentActivity"
             android:screenOrientation="portrait"/>
+
+        <activity android:name=".modules.gank.GankActivity"
+                  android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
