@@ -181,7 +181,7 @@ public class RetrofitSingleton {
     //==============================================================================================
 
     //Android,IOS,福利,视频列表页
-    public Observable<GankHttpResponse<AIList>> getGankList(String type,int num,int page){
-        return gankApiService.getGankData(type,num,page).compose(RxHelper.<GankHttpResponse<AIList>>rxSchedulerHelper());
+    public Observable<GankHttpResponse<List<AIList>>> getGankList(String type,int num,int page){
+        return gankApiService.getGankData(type,num,page).compose(RxHelper.<GankHttpResponse<List<AIList>>>rxSchedulerHelper());
     }
 }

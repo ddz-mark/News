@@ -27,6 +27,8 @@ public class AIList implements Serializable {
      * images : ["http://img.gank.io/f8d19e7d-77e9-4e53-a83b-201120e6a67c"]
      */
 
+
+
     @SerializedName("_id")
     public String id;
     @SerializedName("createdAt")

@@ -52,8 +52,8 @@ public class GankActivity extends BaseActivity {
         setToolBar(mToolbar, "Gank");
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        fragmentList.add(new AIFragment());
-        fragmentList.add(new AIFragment());
+        fragmentList.add(AIFragment.newInstance("Android"));
+        fragmentList.add(AIFragment.newInstance("iOS"));
         fragmentList.add(new MeiziFragment());
         fragmentList.add(new VideoFragment());
         viewPagerAdapter.setData(fragmentList);

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp">
+
+        <ImageView
+            android:id="@+id/image_item"
+            android:layout_width="104dp"
+            android:layout_height="78dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="2dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher"/>
+
+        <TextView
+            android:id="@+id/desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_toRightOf="@id/image_item"
+            android:maxLines="1"
+            tools:text="hi礼服啊发掘of接发哦放啊分手拉发送啊分四级发丝发送i发送i家假哦的啊分离发抖啊石佛后啊放松和啊佛i啊的司机哦啊石佛诶vjaaivoea阿佛i家啊飞机警方iso"/>
+
+        <TextView
+            android:id="@+id/who"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/desc"
+            android:layout_margin="10dp"
+            android:layout_toRightOf="@+id/image_item"
+            tools:text="杜大忠"/>
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/who"
+            android:layout_margin="10dp"
+            android:layout_toRightOf="@+id/image_item"
+            tools:text="2017年10月20号"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/item_view"/>
+
+</LinearLayout>

@@ -6,6 +6,8 @@ import com.dudaizhong.news.modules.gank.domain.AIList;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuShortCommentData;
 import com.dudaizhong.news.modules.zhihu.presenter.contract.CommentContract;
 
+import java.util.ArrayList;
+
 /**
  * Created by Markable on 2016/11/22.
  */
@@ -17,7 +19,7 @@ public interface AIContract {
 
         void hideLoading();
 
-        void showContent(AIList aiList);
+        void showContent(ArrayList<AIList> aiList);
 
     }
 

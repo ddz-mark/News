@@ -13,4 +13,6 @@ public class Constants {
     public static final int GANK_FRAGMENT = 2;
     public static final String KIND_FRAGMENT= "kind";
     public static final String ID = "id";
+
+    public static final String TYPE = "type";
 }
