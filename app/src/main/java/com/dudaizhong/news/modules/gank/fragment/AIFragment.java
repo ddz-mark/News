@@ -100,7 +100,6 @@ public class AIFragment extends BaseFragment<AIPresenter> implements AIContract.
     @Override
     public void showContent(ArrayList<AIList> aiList) {
         datas.clear();
-        Logger.d(aiList);
         datas.addAll(aiList);
         adapter.notifyDataSetChanged();
     }

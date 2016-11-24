@@ -2,6 +2,9 @@ package com.dudaizhong.news.modules.gank.fragment;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -13,6 +16,7 @@ import com.dudaizhong.news.R;
 import com.dudaizhong.news.base.BaseFragment;
 import com.dudaizhong.news.base.BasePresenter;
 import com.dudaizhong.news.modules.gank.adapter.AIAdapter;
+import com.dudaizhong.news.modules.gank.adapter.GirlAdapter;
 import com.dudaizhong.news.modules.gank.domain.AIList;
 import com.dudaizhong.news.modules.gank.presenter.AIPresenter;
 import com.dudaizhong.news.modules.gank.presenter.contract.AIContract;
@@ -34,7 +38,7 @@ public class MeiziFragment extends BaseFragment<AIPresenter> implements AIContra
     SwipeRefreshLayout mSwipeZhihuSection;
 
     private ArrayList<AIList> datas;
-    private AIAdapter adapter;
+    private GirlAdapter adapter;
     StaggeredGridLayoutManager mStaggeredGridLayoutManager;
     private int page = 1;
     private static final int SPAN_COUNT = 2;
@@ -51,13 +55,17 @@ public class MeiziFragment extends BaseFragment<AIPresenter> implements AIContra
 
     @Override
     protected void initEventAndData() {
-        mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(SPAN_COUNT,StaggeredGridLayoutManager.VERTICAL);
+        mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(SPAN_COUNT, StaggeredGridLayoutManager.VERTICAL);
+        //解决item左右切换时闪烁问题
         mStaggeredGridLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_NONE);
         mRecyclerZhihuSection.setLayoutManager(mStaggeredGridLayoutManager);
 
         datas = new ArrayList<>();
-        adapter = new AIAdapter(getContext(), datas);
+        adapter = new GirlAdapter(datas, getContext());
         mRecyclerZhihuSection.setAdapter(adapter);
+        mRecyclerZhihuSection.setItemAnimator(new DefaultItemAnimator());
+//        mRecyclerZhihuSection.addItemDecoration();
+        mRecyclerZhihuSection.setHasFixedSize(true);
         mSwipeZhihuSection.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -75,11 +83,15 @@ public class MeiziFragment extends BaseFragment<AIPresenter> implements AIContra
 
     @Override
     public void hideLoading() {
-
+        if (null != mSwipeZhihuSection) {
+            mSwipeZhihuSection.setRefreshing(false);
+        }
     }
 
     @Override
     public void showContent(ArrayList<AIList> aiList) {
-
+        datas.clear();
+        datas.addAll(aiList);
+        adapter.notifyDataSetChanged();
     }
 }

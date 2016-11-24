@@ -53,7 +53,7 @@ public class AIPresenter extends AIContract.Presenter{
 
                     @Override
                     public void onError(Throwable e) {
-
+                        RetrofitSingleton.disposeFailureInfo(e,mContext);
                     }
 
                     @Override
