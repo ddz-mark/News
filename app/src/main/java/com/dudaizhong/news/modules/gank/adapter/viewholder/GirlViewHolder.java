@@ -1,6 +1,7 @@
 package com.dudaizhong.news.modules.gank.adapter.viewholder;
 
 import android.content.Context;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
@@ -8,6 +9,7 @@ import com.bumptech.glide.Glide;
 import com.dudaizhong.news.R;
 import com.dudaizhong.news.base.BaseViewHolder;
 import com.dudaizhong.news.base.utils.DensityUtil;
+import com.dudaizhong.news.modules.gank.activity.MeiziActivity;
 import com.dudaizhong.news.modules.gank.domain.AIList;
 
 import butterknife.Bind;
@@ -30,7 +32,7 @@ public class GirlViewHolder extends BaseViewHolder {
 
     @Override
     public void bindData(Object o) {
-        AIList data = (AIList) o;
+        final AIList data = (AIList) o;
 
         Glide.with(getContext())
                 .load(data.url)
@@ -42,6 +44,13 @@ public class GirlViewHolder extends BaseViewHolder {
         //(数据类型)(最小值+Math.random()*(最大值-最小值+1))
         params.height = (int) (((int) (Math.random() * (100))) + DensityUtil.getWindowheight(mContext) / 3.0);
         mImage.setLayoutParams(params);
+
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getContext().startActivity(MeiziActivity.getMeiziActivityIntent(getContext(),data.url));
+            }
+        });
 
     }
 }

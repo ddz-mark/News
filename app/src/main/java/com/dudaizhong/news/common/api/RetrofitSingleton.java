@@ -6,6 +6,7 @@ import com.dudaizhong.news.base.utils.ToastUtil;
 import com.dudaizhong.news.base.utils.rxUtils.RxHelper;
 import com.dudaizhong.news.modules.gank.domain.AIList;
 import com.dudaizhong.news.modules.gank.domain.GankHttpResponse;
+import com.dudaizhong.news.modules.gank.domain.VideoList;
 import com.dudaizhong.news.modules.zhihu.domain.HotList;
 import com.dudaizhong.news.modules.zhihu.domain.SectionDetail;
 import com.dudaizhong.news.modules.zhihu.domain.SectionList;
@@ -15,7 +16,6 @@ import com.dudaizhong.news.modules.zhihu.domain.ZhihuCommentData;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuDetail;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuList;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuShortCommentData;
-import com.facebook.stetho.okhttp3.StethoInterceptor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -78,7 +78,6 @@ public class RetrofitSingleton {
         };
 
         okHttpClient = new OkHttpClient.Builder()
-                .addNetworkInterceptor(new StethoInterceptor())
                 .addInterceptor(interceptor)
                 .cookieJar(mCookieJar)
                 .retryOnConnectionFailure(true)
@@ -184,4 +183,5 @@ public class RetrofitSingleton {
     public Observable<GankHttpResponse<List<AIList>>> getGankList(String type,int num,int page){
         return gankApiService.getGankData(type,num,page).compose(RxHelper.<GankHttpResponse<List<AIList>>>rxSchedulerHelper());
     }
+
 }

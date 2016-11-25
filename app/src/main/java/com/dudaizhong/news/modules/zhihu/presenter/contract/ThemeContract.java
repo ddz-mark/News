@@ -2,7 +2,6 @@ package com.dudaizhong.news.modules.zhihu.presenter.contract;
 
 import com.dudaizhong.news.base.BasePresenter;
 import com.dudaizhong.news.base.BaseView;
-import com.dudaizhong.news.modules.main.MainContract;
 import com.dudaizhong.news.modules.zhihu.domain.ThemeList;
 
 /**

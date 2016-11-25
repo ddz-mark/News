@@ -1,19 +1,15 @@
 package com.dudaizhong.news.base;
 
 import android.app.Activity;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.WindowManager;
 
 import com.dudaizhong.news.app.App;
 import com.dudaizhong.news.di.component.ActivityComponent;
 import com.dudaizhong.news.di.component.DaggerActivityComponent;
 import com.dudaizhong.news.di.module.ActivityModule;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
-import com.trello.rxlifecycle.components.support.RxFragmentActivity;
-
 
 import javax.inject.Inject;
 

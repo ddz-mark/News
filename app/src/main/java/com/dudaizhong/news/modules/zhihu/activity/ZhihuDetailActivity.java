@@ -9,8 +9,10 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -21,6 +23,7 @@ import com.dudaizhong.news.R;
 import com.dudaizhong.news.base.BaseActivity;
 import com.dudaizhong.news.base.utils.HtmlUtil;
 import com.dudaizhong.news.base.utils.ToastUtil;
+import com.dudaizhong.news.modules.gank.activity.AIActivity;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuCommentData;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuShortCommentData;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuDetail;
@@ -88,7 +91,6 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
         Intent getId = getIntent();
         id = getId.getIntExtra("id", 0);
         initView();
-        getPresenter().showLoading();
         getPresenter().getContent(id);
     }
 
@@ -129,14 +131,12 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
 
     @Override
     public void showLoading() {
-        mProgressBar.setVisibility(View.VISIBLE);
+
     }
 
     @Override
     public void hideLoading() {
-        if (null != mProgressBar) {
-            mProgressBar.setVisibility(View.GONE);
-        }
+
     }
 
     @Override
@@ -152,6 +152,27 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
         mCollapsingToolbar.setTitle(zhihuDetail.title);
         String htmlData = HtmlUtil.createHtmlData(zhihuDetail.body, zhihuDetail.css, zhihuDetail.js);
         mWebView.loadData(htmlData, HtmlUtil.MIME_TYPE, HtmlUtil.ENCODING);
+        mWebView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                // TODO Auto-generated method stub
+                view.loadUrl(url);// 使用当前WebView处理跳转
+                return true;//true表示此事件在此处被处理，不需要再广播
+            }
+
+            @Override   //转向错误时的处理
+            public void onReceivedError(WebView view, int errorCode,
+                                        String description, String failingUrl) {
+                // TODO Auto-generated method stub
+                ToastUtil.showToast(ZhihuDetailActivity.this, "网络错误");
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                mProgressBar.setVisibility(View.GONE);
+            }
+        });
 
         mTvDetailBottomLike.setText(zhihuCommentData.popularity + "点赞");
         mTvDetailBottomComment.setText(zhihuCommentData.comments + "评论");
@@ -165,6 +186,16 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
     @Override
     public void showShare() {
 
+    }
+
+    //监听WebView内的返回键
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && mWebView.canGoBack()) {
+            mWebView.goBack();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 }

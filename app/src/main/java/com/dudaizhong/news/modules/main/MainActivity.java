@@ -22,7 +22,7 @@ import android.widget.ImageView;
 import com.dudaizhong.news.R;
 import com.dudaizhong.news.app.Constants;
 import com.dudaizhong.news.base.BaseActivity;
-import com.dudaizhong.news.modules.gank.GankActivity;
+import com.dudaizhong.news.modules.gank.fragment.GankFragment;
 import com.dudaizhong.news.modules.login.LoginActivity;
 import com.dudaizhong.news.modules.zhihu.fragment.ZhihuFragment;
 
@@ -32,7 +32,7 @@ import butterknife.Bind;
  * Created by Dudaizhong on 2016/9/16.
  */
 
-public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View, NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     @Bind(R.id.fragment_container)
     FrameLayout fragmentContainer;
@@ -47,7 +47,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     FragmentManager fragmentManager;
     ZhihuFragment mZhihuFragment;
-    GankActivity mGankFragment;
+    GankFragment mGankFragment;
 
     @Override
     protected void initInject() {
@@ -94,17 +94,17 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 fragmentTransaction.replace(R.id.fragment_container, mZhihuFragment);
                 toolbar.setTitle("知乎");
                 break;
-//            case Constants.GANK_FRAGMENT:
-//                if (mGankFragment == null) {
-//                    mGankFragment = new GankActivity();
-//                }
-//                fragmentTransaction.replace(R.id.fragment_container, mGankFragment);
-//                toolbar.setTitle("Gank");
-//                break;
+            case Constants.GANK_FRAGMENT:
+                if (mGankFragment == null) {
+                    mGankFragment = new GankFragment();
+                }
+                fragmentTransaction.replace(R.id.fragment_container, mGankFragment);
+                toolbar.setTitle("Gank");
+                break;
             default:
                 break;
         }
-        fragmentTransaction.commit();
+        fragmentTransaction.commitAllowingStateLoss();
     }
 
 
@@ -142,11 +142,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         if (id == R.id.nav_camera) {
             setNowFragment(Constants.ZHIHU_FRAGMENT);
         } else if (id == R.id.nav_gallery) {
-            startActivity(new Intent(mActivity,GankActivity.class));
+            setNowFragment(Constants.GANK_FRAGMENT);
         } else if (id == R.id.nav_share) {
-
+            startActivity(new Intent(MainActivity.this,SettingActivity.class));
         } else if (id == R.id.nav_send) {
-
+            startActivity(new Intent(MainActivity.this,AboutActivity.class));
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
@@ -161,7 +161,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                         .setAction("Action", null).show();
                 break;
             case R.id.imageView:
-                startActivity(new Intent(mActivity,LoginActivity.class));
+                startActivity(new Intent(mActivity, LoginActivity.class));
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             default:

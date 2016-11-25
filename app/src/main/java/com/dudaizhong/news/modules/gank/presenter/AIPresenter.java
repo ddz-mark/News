@@ -6,6 +6,7 @@ import android.util.Log;
 import com.dudaizhong.news.common.api.RetrofitSingleton;
 import com.dudaizhong.news.modules.gank.domain.AIList;
 import com.dudaizhong.news.modules.gank.domain.GankHttpResponse;
+import com.dudaizhong.news.modules.gank.domain.VideoList;
 import com.dudaizhong.news.modules.gank.presenter.contract.AIContract;
 import com.orhanobut.logger.Logger;
 
@@ -21,7 +22,7 @@ import rx.functions.Func1;
  * Created by Markable on 2016/11/22.
  */
 
-public class AIPresenter extends AIContract.Presenter{
+public class AIPresenter extends AIContract.Presenter {
 
     private Context mContext;
 
@@ -30,8 +31,8 @@ public class AIPresenter extends AIContract.Presenter{
     }
 
     @Override
-    public void getContent(String type,int num,int page) {
-        RetrofitSingleton.getInstance().getGankList(type,num,page)
+    public void getContent(String type, int num, int page) {
+        RetrofitSingleton.getInstance().getGankList(type, num, page)
                 .filter(new Func1<GankHttpResponse<List<AIList>>, Boolean>() {
                     @Override
                     public Boolean call(GankHttpResponse<List<AIList>> response) {
@@ -53,7 +54,7 @@ public class AIPresenter extends AIContract.Presenter{
 
                     @Override
                     public void onError(Throwable e) {
-                        RetrofitSingleton.disposeFailureInfo(e,mContext);
+                        RetrofitSingleton.disposeFailureInfo(e, mContext);
                     }
 
                     @Override
@@ -61,6 +62,7 @@ public class AIPresenter extends AIContract.Presenter{
                         getView().showContent((ArrayList<AIList>) response.getResults());
                     }
                 });
-                
+
     }
+
 }

@@ -12,7 +12,6 @@ import com.dudaizhong.news.common.api.RetrofitSingleton;
 import com.dudaizhong.news.di.component.AppComponent;
 import com.dudaizhong.news.di.component.DaggerAppComponent;
 import com.dudaizhong.news.di.module.AppModule;
-import com.facebook.stetho.Stetho;
 import com.orhanobut.logger.Logger;
 
 /**
@@ -37,14 +36,6 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         context = this.getApplicationContext();
-
-        /*网络调试,在chrome的地址栏输入chrome://inspect
-         *通过Elements标签查看界面的视图结构
-         *通过Network标签观察网络请求
-         *通过Resources标签查看本地数据，比如sqlite数据库，sharepreference等等。同时可以在这里执行sql语句
-         *通过Console标签，在这里执行js语句，可以在APP上弹出一个Toast
-         */
-        Stetho.initializeWithDefaults(this);
 
         //初始化屏幕宽高
         getScreenSize();

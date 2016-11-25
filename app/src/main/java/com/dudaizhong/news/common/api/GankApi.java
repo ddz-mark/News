@@ -2,6 +2,7 @@ package com.dudaizhong.news.common.api;
 
 import com.dudaizhong.news.modules.gank.domain.AIList;
 import com.dudaizhong.news.modules.gank.domain.GankHttpResponse;
+import com.dudaizhong.news.modules.gank.domain.VideoList;
 
 import java.util.List;
 

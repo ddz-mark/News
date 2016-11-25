@@ -1,15 +1,8 @@
-package com.dudaizhong.news.modules.zhihu.fragment;
+package com.dudaizhong.news.modules.gank.fragment;
 
-
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.dudaizhong.news.R;
 import com.dudaizhong.news.base.BaseLazyFragment;
@@ -18,15 +11,12 @@ import com.dudaizhong.news.modules.zhihu.adapter.ViewPagerAdapter;
 import java.util.ArrayList;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
-
-import static android.content.ContentValues.TAG;
 
 /**
- * Created by Dudaizhong on 2016/9/16.
+ * Created by Markable on 2016/11/25.
  */
 
-public class ZhihuFragment extends BaseLazyFragment {
+public class GankFragment extends BaseLazyFragment {
 
     @Bind(R.id.tabLayout_zhihu)
     TabLayout tabLayoutZhihu;
@@ -50,24 +40,21 @@ public class ZhihuFragment extends BaseLazyFragment {
     protected void initEventAndData() {
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getFragmentManager());
-
-        fragmentList.add(new DailyFragment());
-        fragmentList.add(new ThemeFragment());
-        fragmentList.add(new SectionFragment());
-        fragmentList.add(new HotFragment());
+        fragmentList.add(AIFragment.newInstance("Android"));
+        fragmentList.add(AIFragment.newInstance("iOS"));
+        fragmentList.add(new MeiziFragment());
+        fragmentList.add(new VideoFragment());
         viewPagerAdapter.setData(fragmentList);
 
-        titles.add("日报");
-        titles.add("主题");
-        titles.add("专栏");
-        titles.add("热门");
+        titles.add("Android");
+        titles.add("IOS");
+        titles.add("福利");
+        titles.add("视频");
         viewPagerAdapter.setTitles(titles);
 
         viewPagerZhihu.setAdapter(viewPagerAdapter);
         tabLayoutZhihu.setupWithViewPager(viewPagerZhihu);
         tabLayoutZhihu.setTabsFromPagerAdapter(viewPagerAdapter);
 
-
     }
-
 }

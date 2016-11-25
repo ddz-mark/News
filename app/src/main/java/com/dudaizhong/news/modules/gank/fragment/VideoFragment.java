@@ -10,6 +10,7 @@ import com.dudaizhong.news.modules.gank.adapter.AIAdapter;
 import com.dudaizhong.news.modules.gank.domain.AIList;
 import com.dudaizhong.news.modules.gank.presenter.AIPresenter;
 import com.dudaizhong.news.modules.gank.presenter.contract.AIContract;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 
@@ -72,7 +73,8 @@ public class VideoFragment extends BaseFragment<AIPresenter> implements AIContra
     @Override
     public void showContent(ArrayList<AIList> aiList) {
         datas.clear();
-        aiList.addAll(datas);
+        datas.addAll(aiList);
+        Logger.d(aiList);
         adapter.notifyDataSetChanged();
     }
 

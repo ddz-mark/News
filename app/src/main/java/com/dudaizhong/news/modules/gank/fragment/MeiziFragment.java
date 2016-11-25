@@ -64,7 +64,6 @@ public class MeiziFragment extends BaseFragment<AIPresenter> implements AIContra
         adapter = new GirlAdapter(datas, getContext());
         mRecyclerZhihuSection.setAdapter(adapter);
         mRecyclerZhihuSection.setItemAnimator(new DefaultItemAnimator());
-//        mRecyclerZhihuSection.addItemDecoration();
         mRecyclerZhihuSection.setHasFixedSize(true);
         mSwipeZhihuSection.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

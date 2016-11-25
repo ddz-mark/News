@@ -50,8 +50,13 @@
             android:name=".modules.zhihu.activity.ZhihuCommentActivity"
             android:screenOrientation="portrait"/>
 
-        <activity android:name=".modules.gank.GankActivity"
-                  android:screenOrientation="portrait"/>
+        <activity
+            android:name=".modules.gank.activity.MeiziActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Meizi"/>
+
+        <activity android:name=".modules.gank.activity.AIActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

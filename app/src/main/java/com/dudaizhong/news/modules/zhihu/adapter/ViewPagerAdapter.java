@@ -10,9 +10,10 @@ import java.util.ArrayList;
 
 /**
  * Created by Dudaizhong on 2016/9/18.
+ * 这里注意 FragmentStatePagerAdapter 与 FragmentPagerAdapter 的区别
  */
 
-public class ViewPagerAdapter extends FragmentPagerAdapter {
+public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     ArrayList<Fragment> datas;
     ArrayList<String> titles;
@@ -42,11 +43,6 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         return titles == null ? null : titles.get(position);
-    }
-
-    @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
-//        super.destroyItem(container, position, object);
     }
 
 

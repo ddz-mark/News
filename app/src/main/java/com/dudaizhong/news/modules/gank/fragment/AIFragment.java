@@ -13,6 +13,7 @@ import com.dudaizhong.news.app.Constants;
 import com.dudaizhong.news.base.BaseFragment;
 import com.dudaizhong.news.modules.gank.adapter.AIAdapter;
 import com.dudaizhong.news.modules.gank.domain.AIList;
+import com.dudaizhong.news.modules.gank.domain.VideoList;
 import com.dudaizhong.news.modules.gank.presenter.AIPresenter;
 import com.dudaizhong.news.modules.gank.presenter.contract.AIContract;
 import com.dudaizhong.news.modules.zhihu.adapter.HotAdapter;
@@ -103,5 +104,7 @@ public class AIFragment extends BaseFragment<AIPresenter> implements AIContract.
         datas.addAll(aiList);
         adapter.notifyDataSetChanged();
     }
+
+
 
 }
