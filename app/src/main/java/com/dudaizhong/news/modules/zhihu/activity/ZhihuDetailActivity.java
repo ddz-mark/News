@@ -69,6 +69,7 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
 
     private int id;
     private boolean isShow = true;
+    ZhihuDetail zhihuDetail;
 
     @Override
     protected void initInject() {
@@ -122,12 +123,16 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
                 getPresenter().mainToCommentActivity(this);
                 break;
             case R.id.tv_detail_bottom_share:
-
+                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                sharingIntent.putExtra(Intent.EXTRA_TEXT, zhihuDetail.shareUrl);
+                startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_app)));
                 break;
             case R.id.fab:
                 break;
         }
     }
+
 
     @Override
     public void showLoading() {
@@ -142,7 +147,7 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
     @Override
     public void showContent(ZhihuDetailZip zhihuDetailZip) {
 
-        ZhihuDetail zhihuDetail = zhihuDetailZip.mZhihuDetail;
+        zhihuDetail = zhihuDetailZip.mZhihuDetail;
         ZhihuCommentData zhihuCommentData = zhihuDetailZip.mZhihuCommentData;
 
         Glide.with(this)
@@ -170,7 +175,8 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                mProgressBar.setVisibility(View.GONE);
+                if (null != mProgressBar)
+                    mProgressBar.setVisibility(View.GONE);
             }
         });
 
