@@ -1,4 +1,4 @@
-package com.dudaizhong.news.base.utils;
+package com.dudaizhong.news.base.utils.rxUtils;
 
 import rx.Observable;
 import rx.Subscriber;

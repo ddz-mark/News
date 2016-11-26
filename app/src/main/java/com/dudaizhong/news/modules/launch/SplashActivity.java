@@ -1,17 +1,13 @@
 package com.dudaizhong.news.modules.launch;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import com.dudaizhong.news.base.BaseActivity;
 import com.dudaizhong.news.base.utils.SharedPreferencesUtil;
-import com.dudaizhong.news.modules.main.MainActivity;
-
-import rx.Observable;
+import com.dudaizhong.news.modules.main.activity.MainActivity;
 
 /**
  * Created by Dudaizhong on 2016/10/15.

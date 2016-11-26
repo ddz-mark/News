@@ -46,4 +46,6 @@ public class SharedPreferencesUtil {
         SharedPreferences preferences = context.getSharedPreferences(FIRST, Context.MODE_PRIVATE);
         return preferences.getBoolean(Constants.FIRST, false);
     }
+
+
 }

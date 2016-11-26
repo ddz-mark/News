@@ -143,8 +143,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
         android:clickable="true"
-        android:src="@drawable/ic_menu_camera"
+        android:src="@drawable/selector_like"
+        app:elevation="6dp"
         app:layout_anchor="@id/appbar"
-        app:layout_anchorGravity="bottom|right|end"/>
+        app:layout_anchorGravity="bottom|right|end"
+        app:pressedTranslationZ="12dp"/>
 
 </android.support.design.widget.CoordinatorLayout>

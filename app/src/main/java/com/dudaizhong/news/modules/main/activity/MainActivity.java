@@ -1,4 +1,4 @@
-package com.dudaizhong.news.modules.main;
+package com.dudaizhong.news.modules.main.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,16 +18,24 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.FitCenter;
 import com.dudaizhong.news.R;
 import com.dudaizhong.news.app.Constants;
+import com.dudaizhong.news.base.utils.rxUtils.RxBus;
 import com.dudaizhong.news.modules.gank.fragment.GankFragment;
-import com.dudaizhong.news.modules.login.LoginActivity;
+import com.dudaizhong.news.modules.login.activity.LoginActivity;
+import com.dudaizhong.news.modules.login.domain.event.RefreshEvent;
 import com.dudaizhong.news.modules.setting.SettingActivity;
 import com.dudaizhong.news.modules.zhihu.fragment.ZhihuFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
+import rx.Subscription;
+import rx.functions.Action1;
 
 /**
  * Created by Dudaizhong on 2016/9/16.
@@ -42,10 +50,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Bind(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
 
+    ImageView mImageView;
+    TextView login;
+    TextView desc;
     FragmentManager fragmentManager;
     ZhihuFragment mZhihuFragment;
     GankFragment mGankFragment;
 
+    private Subscription subscription;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,6 +67,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         initView();
         //默认显示知乎fragment
         setNowFragment(Constants.ZHIHU_FRAGMENT);
+        subscription = RxBus.getDefault().toObserverable(RefreshEvent.class).subscribe(new Action1<RefreshEvent>() {
+            @Override
+            public void call(RefreshEvent event) {
+                Glide.with(MainActivity.this)
+                        .load(R.mipmap.view2)
+                        .bitmapTransform(new CropCircleTransformation(MainActivity.this), new FitCenter(MainActivity.this))
+                        .into(mImageView);
+                login.setText(event.getName());
+                desc.setText("成功登陆");
+            }
+        });
     }
 
     private void initView() {
@@ -67,14 +90,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         mNavView.setNavigationItemSelectedListener(this);
         View headerView = mNavView.getHeaderView(0);
-        ImageView imageView = (ImageView) headerView.findViewById(R.id.imageView);
-        imageView.setOnClickListener(new View.OnClickListener() {
+        mImageView = (ImageView) headerView.findViewById(R.id.imageView);
+        mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 mDrawerLayout.closeDrawer(GravityCompat.START);
             }
         });
+        login = (TextView) headerView.findViewById(R.id.login);
+        desc = (TextView) headerView.findViewById(R.id.desc);
+
     }
 
     public void setNowFragment(int index) {
@@ -140,11 +166,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(new Intent(MainActivity.this, SettingActivity.class));
         } else if (id == R.id.nav_send) {
             startActivity(new Intent(MainActivity.this, AboutActivity.class));
+        } else if (id == R.id.nav_like) {
+            startActivity(new Intent(MainActivity.this, LikeActivity.class));
         }
 
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (!subscription.isUnsubscribed()) {
+            subscription.unsubscribe();
+        }
+    }
 
 }

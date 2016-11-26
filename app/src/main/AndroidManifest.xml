@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".app.App"
@@ -27,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".modules.main.MainActivity"
+            android:name=".modules.main.activity.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
@@ -35,7 +36,8 @@
             android:name=".modules.launch.LaunchActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".modules.login.LoginActivity"
+            android:name=".modules.login.activity.LoginActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".modules.zhihu.activity.ZhihuDetailActivity"
@@ -60,11 +62,19 @@
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".modules.main.AboutActivity"
+            android:name=".modules.main.activity.AboutActivity"
             android:screenOrientation="portrait"/>
 
         <activity
             android:name=".modules.setting.SettingActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".modules.main.activity.LikeActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".modules.login.activity.RegisterActivity"
             android:screenOrientation="portrait"/>
 
     </application>

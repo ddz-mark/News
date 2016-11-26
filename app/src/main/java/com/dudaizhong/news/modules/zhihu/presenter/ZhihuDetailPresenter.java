@@ -2,10 +2,11 @@ package com.dudaizhong.news.modules.zhihu.presenter;
 
 import android.content.Context;
 
+import com.dudaizhong.news.common.db.RealmHelper;
 import com.dudaizhong.news.common.api.RetrofitSingleton;
+import com.dudaizhong.news.modules.main.domain.RealmLikeBean;
 import com.dudaizhong.news.modules.zhihu.activity.ZhihuCommentActivity;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuCommentData;
-import com.dudaizhong.news.modules.zhihu.domain.ZhihuShortCommentData;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuDetail;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuDetailZip;
 import com.dudaizhong.news.modules.zhihu.presenter.contract.ZhihuDetailContract;
@@ -60,7 +61,7 @@ public class ZhihuDetailPresenter extends ZhihuDetailContract.Presenter {
 
                     @Override
                     public void onError(Throwable e) {
-
+//                        RetrofitSingleton.disposeFailureInfo(e);
                     }
 
                     @Override
@@ -73,13 +74,24 @@ public class ZhihuDetailPresenter extends ZhihuDetailContract.Presenter {
     }
 
     @Override
-    public void insertLike() {
-
+    public void insertLike(Context context) {
+        RealmLikeBean bean = new RealmLikeBean();
+        bean.setId(mZhihuDetailZip.mZhihuDetail.id);
+        bean.setImage(mZhihuDetailZip.mZhihuDetail.image);
+        bean.setTitle(mZhihuDetailZip.mZhihuDetail.title);
+        bean.setType(mZhihuDetailZip.mZhihuDetail.type);
+        bean.setTime(System.currentTimeMillis());
+        RealmHelper.getIntance(context).insertLikeBean(bean);
     }
 
     @Override
-    public void deleteLike() {
+    public void deleteLike(Context context) {
+        RealmHelper.getIntance(context).deleteLikeBean(mZhihuDetailZip.mZhihuDetail.id);
+    }
 
+    @Override
+    public void queryLike(Context context,int id) {
+        getView().showIsLike(RealmHelper.getIntance(context).queryLikeId(id));
     }
 
     @Override

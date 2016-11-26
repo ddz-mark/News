@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt' // 注释处理
+apply plugin: 'realm-android'
 
 buildscript {
     repositories {
@@ -85,4 +86,7 @@ dependencies {
     compile 'com.google.dagger:dagger:2.0.2'
     compile 'com.google.dagger:dagger-compiler:2.0.2'
     provided 'javax.annotation:jsr250-api:1.0'
+
+    //数据库
+
 }

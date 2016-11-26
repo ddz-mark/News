@@ -5,23 +5,28 @@
         <item
             android:id="@+id/nav_camera"
             android:icon="@drawable/ic_menu_camera"
-            android:title="知乎" />
+            android:title="知乎"/>
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Gank" />
+            android:title="Gank"/>
     </group>
 
     <item android:title="Communicate">
         <menu>
             <item
+                android:id="@+id/nav_like"
+                android:icon="@drawable/ic_menu_share"
+                android:title="收藏"/>
+
+            <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
-                android:title="设置" />
+                android:title="设置"/>
             <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"
-                android:title="关于" />
+                android:title="关于"/>
         </menu>
     </item>
 

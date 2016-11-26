@@ -1,5 +1,7 @@
 package com.dudaizhong.news.base;
 
+import android.content.Context;
+
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
 
@@ -40,10 +42,12 @@ public abstract class BasePresenter<V extends BaseView> {
 
     /**
      * 此方法用于在presenter里取消Subscription,防止内存泄露
+     *
      * @param <V>
      * @return
      */
     protected <V> Observable.Transformer<V, V> bindToLifeCycle() {
         return getView().bind();
     }
+
 }

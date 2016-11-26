@@ -1,7 +1,13 @@
 package com.dudaizhong.news.base.utils;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.text.TextUtils;
 
+import com.dudaizhong.news.app.App;
 import com.orhanobut.logger.Logger;
 
 import java.text.SimpleDateFormat;
@@ -47,5 +53,32 @@ public class Util {
             Logger.e("formatDate?" + e.toString());
         }
         return "-1";
+    }
+
+    /**
+     * 只关注是否联网
+     */
+    public static boolean isNetworkConnected(Context context) {
+        if (context != null) {
+            ConnectivityManager mConnectivityManager =
+                    (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
+            if (mNetworkInfo != null) {
+                return mNetworkInfo.isAvailable();
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 保存文字到剪贴板
+     * @param context
+     * @param text
+     */
+    public static void copyToClipBoard(Context context, String text) {
+        ClipData clipData = ClipData.newPlainText("url", text);
+        ClipboardManager manager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        manager.setPrimaryClip(clipData);
+        ToastUtil.showToast(App.getAppContext(),"已复制到剪贴板");
     }
 }

@@ -1,4 +1,4 @@
-package com.dudaizhong.news.modules.main;
+package com.dudaizhong.news.modules.main.activity;
 
 import android.content.Intent;
 import android.net.Uri;

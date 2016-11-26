@@ -78,7 +78,8 @@ public class AIActivity extends BaseActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                mProgressBar.setVisibility(View.GONE);
+                if (null != mProgressBar)
+                    mProgressBar.setVisibility(View.GONE);
             }
         });
 

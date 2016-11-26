@@ -23,7 +23,6 @@ public class App extends Application {
 
     public static String cacheDir = "";
     public static Context context;
-//    private Set<Activity> activitySet;
     public static AppComponent appComponent;
 
     public static int SCREEN_WIDTH = -1;
@@ -87,7 +86,7 @@ public class App extends Application {
         }
     }
 
-    public static Context getContext() {
+    public static Context getAppContext() {
         return context;
     }
 

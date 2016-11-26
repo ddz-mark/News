@@ -92,6 +92,7 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
         Intent getId = getIntent();
         id = getId.getIntExtra("id", 0);
         initView();
+        getPresenter().queryLike(ZhihuDetailActivity.this, id);
         getPresenter().getContent(id);
     }
 
@@ -129,6 +130,13 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
                 startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_app)));
                 break;
             case R.id.fab:
+                if (mFab.isSelected()) {
+                    mFab.setSelected(false);
+                    mPresenter.deleteLike(ZhihuDetailActivity.this);
+                } else {
+                    mFab.setSelected(true);
+                    mPresenter.insertLike(ZhihuDetailActivity.this);
+                }
                 break;
         }
     }
@@ -141,7 +149,8 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
 
     @Override
     public void hideLoading() {
-
+        if (null != mProgressBar)
+            mProgressBar.setVisibility(View.GONE);
     }
 
     @Override
@@ -160,23 +169,20 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                // TODO Auto-generated method stub
-                view.loadUrl(url);// 使用当前WebView处理跳转
-                return true;//true表示此事件在此处被处理，不需要再广播
+                view.loadUrl(url);
+                return true;
             }
 
-            @Override   //转向错误时的处理
+            @Override
             public void onReceivedError(WebView view, int errorCode,
                                         String description, String failingUrl) {
-                // TODO Auto-generated method stub
                 ToastUtil.showToast(ZhihuDetailActivity.this, "网络错误");
             }
 
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                if (null != mProgressBar)
-                    mProgressBar.setVisibility(View.GONE);
+                hideLoading();
             }
         });
 
@@ -186,12 +192,7 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
 
     @Override
     public void showIsLike(boolean isLike) {
-
-    }
-
-    @Override
-    public void showShare() {
-
+        mFab.setSelected(isLike);
     }
 
     //监听WebView内的返回键

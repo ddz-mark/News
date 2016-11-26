@@ -1,34 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/nav_header_height"
-    android:background="@mipmap/view2"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/nav_header_height"
+                android:background="@mipmap/view2"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
-        android:src="@mipmap/ic_launcher"
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"/>
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerInParent="true"
+        android:src="@mipmap/ic_launcher"/>
 
     <TextView
         android:id="@+id/login"
-        android:paddingLeft="20dp"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/imageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/imageView"
+        android:paddingLeft="20dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:text="登录"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
     <TextView
-        android:paddingTop="20dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/imageView"
+        android:id="@+id/desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="登陆之后更多精彩..." />
+        android:layout_below="@id/imageView"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="20dp"
+        android:text="登陆之后更多精彩..."/>
 
 </RelativeLayout>

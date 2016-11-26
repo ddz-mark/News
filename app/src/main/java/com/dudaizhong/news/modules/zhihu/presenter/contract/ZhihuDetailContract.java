@@ -13,7 +13,7 @@ import com.dudaizhong.news.modules.zhihu.domain.ZhihuDetailZip;
 
 public interface ZhihuDetailContract {
 
-    interface View extends BaseView{
+    interface View extends BaseView {
 
         void showLoading();
 
@@ -23,7 +23,6 @@ public interface ZhihuDetailContract {
 
         void showIsLike(boolean isLike);
 
-        void showShare();
     }
 
     abstract static class Presenter extends BasePresenter<View> {
@@ -32,9 +31,11 @@ public interface ZhihuDetailContract {
 
         public abstract void getContent(int id);
 
-        public abstract void insertLike();
+        public abstract void insertLike(Context context);
 
-        public abstract void deleteLike();
+        public abstract void deleteLike(Context context);
+
+        public abstract void queryLike(Context context,int id);
 
         public abstract void mainToCommentActivity(Context context);
     }

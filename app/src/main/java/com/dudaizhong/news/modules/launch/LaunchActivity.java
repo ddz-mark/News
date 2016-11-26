@@ -1,12 +1,10 @@
 package com.dudaizhong.news.modules.launch;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
@@ -17,14 +15,12 @@ import android.widget.TextView;
 import com.dudaizhong.news.R;
 import com.dudaizhong.news.base.BaseActivity;
 import com.dudaizhong.news.base.utils.SharedPreferencesUtil;
-import com.dudaizhong.news.modules.main.MainActivity;
+import com.dudaizhong.news.modules.main.activity.MainActivity;
 
 import java.util.ArrayList;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import rx.Observable;
 
 /**
  * Created by Dudaizhong on 2016/9/27.
@@ -50,11 +46,6 @@ public class LaunchActivity extends BaseActivity<LaunchPresenter> implements Lau
     // 引导页图片资源
     private static final int[] pics = {R.mipmap.view1,
             R.mipmap.view2, R.mipmap.view3};
-
-//    @Override
-//    protected LaunchContract.Presenter createPresenter() {
-//        return new LaunchPresenter();
-//    }
 
     @Override
     protected void initInject() {

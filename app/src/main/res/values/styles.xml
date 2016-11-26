@@ -49,4 +49,12 @@
         <item name="android:textSize">20sp</item>
     </style>
 
+    <style name="OverflowText" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textColor">#f3672b</item>
+    </style>
+
+    <style name="ErrorStyle">
+        <item name="android:textColor">#ec4722</item>
+    </style>
+
 </resources>

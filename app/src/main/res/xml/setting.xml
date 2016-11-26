@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="界面">
+
+        <CheckBoxPreference
+            android:key="animation_start"
+            android:title="夜间模式"
+            />
+        <CheckBoxPreference
+            android:key="animation_start"
+            android:title="自动缓存"
+            />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="系统">
+        <Preference
+            android:key="change_update_time"
+            android:title="自动刷新频率"/>
+        <Preference
+            android:key="clear_cache"
+            android:title="清除缓存"/>
+        <Preference
+            android:key="suggest"
+            android:title="意见反馈"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>

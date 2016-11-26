@@ -8,8 +8,7 @@ import java.util.List;
  */
 
 public class SectionList implements Serializable {
-
-
+    private static final long serialVersionUID = -8830239789804332766L;
     /**
      * description : 看别人的经历，理解自己的生活
      * id : 1

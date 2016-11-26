@@ -1,4 +1,6 @@
-package com.dudaizhong.news.modules.login;
+package com.dudaizhong.news.modules.login.presenter.contract;
+
+import android.content.Context;
 
 import com.dudaizhong.news.base.BasePresenter;
 import com.dudaizhong.news.base.BaseView;
@@ -21,8 +23,7 @@ public interface LoginContract {
 
     abstract static class Presenter extends BasePresenter<View> {
 
-        protected abstract void login(String userName,String password);
+        public abstract void login(Context context,String userName,String password);
 
-        protected abstract void register();
     }
 }
