@@ -30,7 +30,7 @@ import butterknife.ButterKnife;
  * Created by Markable on 2016/11/22.
  */
 
-public class MeiziFragment extends BaseFragment<AIPresenter> implements AIContract.View {
+public class MeiziFragment extends BaseFragment<AIPresenter> implements AIContract.View{
 
     @Bind(R.id.recycler_zhihu_section)
     RecyclerView mRecyclerZhihuSection;
@@ -40,8 +40,9 @@ public class MeiziFragment extends BaseFragment<AIPresenter> implements AIContra
     private ArrayList<AIList> datas;
     private GirlAdapter adapter;
     StaggeredGridLayoutManager mStaggeredGridLayoutManager;
-    private int page = 1;
+    private int currentPage = 1;
     private static final int SPAN_COUNT = 2;
+    private static final int NUM = 10;
 
     @Override
     protected AIPresenter createPresenter() {
@@ -68,11 +69,11 @@ public class MeiziFragment extends BaseFragment<AIPresenter> implements AIContra
         mSwipeZhihuSection.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                getPresenter().getContent("福利", 10, 1);
+                getPresenter().getContent("福利", NUM, 1);
             }
         });
 
-        getPresenter().getContent("福利", 10, page);
+        getPresenter().getContent("福利", NUM, currentPage);
     }
 
     @Override
@@ -88,7 +89,7 @@ public class MeiziFragment extends BaseFragment<AIPresenter> implements AIContra
     }
 
     @Override
-    public void showContent(ArrayList<AIList> aiList) {
+    public void showContent(ArrayList<AIList> aiList,int page) {
         datas.clear();
         datas.addAll(aiList);
         adapter.notifyDataSetChanged();

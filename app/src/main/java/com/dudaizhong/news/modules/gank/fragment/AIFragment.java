@@ -11,18 +11,14 @@ import android.view.ViewGroup;
 import com.dudaizhong.news.R;
 import com.dudaizhong.news.app.Constants;
 import com.dudaizhong.news.base.BaseFragment;
+import com.dudaizhong.news.common.widget.LoadMoreRecyclerView;
 import com.dudaizhong.news.modules.gank.adapter.AIAdapter;
 import com.dudaizhong.news.modules.gank.domain.AIList;
-import com.dudaizhong.news.modules.gank.domain.VideoList;
 import com.dudaizhong.news.modules.gank.presenter.AIPresenter;
 import com.dudaizhong.news.modules.gank.presenter.contract.AIContract;
-import com.dudaizhong.news.modules.zhihu.adapter.HotAdapter;
-import com.dudaizhong.news.modules.zhihu.domain.HotList;
-import com.dudaizhong.news.modules.zhihu.fragment.CommentFragment;
 import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -33,15 +29,16 @@ import butterknife.ButterKnife;
 
 public class AIFragment extends BaseFragment<AIPresenter> implements AIContract.View {
 
-    @Bind(R.id.recycler_zhihu_section)
-    RecyclerView mRecyclerZhihuSection;
     @Bind(R.id.swipe_zhihu_section)
     SwipeRefreshLayout mSwipeZhihuSection;
+    @Bind(R.id.recycler_zhihu_section)
+    LoadMoreRecyclerView mRecyclerZhihuSection;
 
-    private ArrayList<AIList> datas;
+    private ArrayList<AIList> datas = new ArrayList<>();
     private AIAdapter adapter;
     private String type;
-    private int page = 1;
+    private int currentPage = 1;
+    private static final int NUM = 10;
 
     @Override
     protected AIPresenter createPresenter() {
@@ -50,7 +47,7 @@ public class AIFragment extends BaseFragment<AIPresenter> implements AIContract.
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_zhihu_hot;
+        return R.layout.fragment_gank;
     }
 
     public static AIFragment newInstance(String type) {
@@ -71,19 +68,23 @@ public class AIFragment extends BaseFragment<AIPresenter> implements AIContract.
         }
 
         mRecyclerZhihuSection.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerZhihuSection.setHasFixedSize(true);
-
-        datas = new ArrayList<>();
-        adapter = new AIAdapter(getContext(), datas);
-        mRecyclerZhihuSection.setAdapter(adapter);
+        mRecyclerZhihuSection.setLoadMoreListener(new LoadMoreRecyclerView.LoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                getPresenter().getContent(type, NUM, currentPage + 1);
+                Logger.d("加载更多调用");
+            }
+        });
         mSwipeZhihuSection.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                getPresenter().getContent(type, 10, 1);
+                getPresenter().getContent(type, NUM, 1);
             }
         });
 
-        getPresenter().getContent(type, 10, page);
+        adapter = new AIAdapter(getContext(), datas);
+        mRecyclerZhihuSection.setAdapter(adapter);
+        getPresenter().getContent(type, NUM, currentPage);
     }
 
     @Override
@@ -99,12 +100,13 @@ public class AIFragment extends BaseFragment<AIPresenter> implements AIContract.
     }
 
     @Override
-    public void showContent(ArrayList<AIList> aiList) {
-        datas.clear();
+    public void showContent(ArrayList<AIList> aiList, int page) {
+        currentPage = page;
+        if (currentPage == 1 && null != datas) {
+            datas.clear();
+        }
         datas.addAll(aiList);
-        adapter.notifyDataSetChanged();
+        mRecyclerZhihuSection.notifyDataChange(currentPage, aiList.size() * 10);
     }
-
-
 
 }

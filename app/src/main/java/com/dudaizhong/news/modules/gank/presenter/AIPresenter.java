@@ -31,7 +31,7 @@ public class AIPresenter extends AIContract.Presenter {
     }
 
     @Override
-    public void getContent(String type, int num, int page) {
+    public void getContent(String type, int num, final int page) {
         RetrofitSingleton.getInstance().getGankList(type, num, page)
                 .filter(new Func1<GankHttpResponse<List<AIList>>, Boolean>() {
                     @Override
@@ -59,7 +59,7 @@ public class AIPresenter extends AIContract.Presenter {
 
                     @Override
                     public void onNext(GankHttpResponse<List<AIList>> response) {
-                        getView().showContent((ArrayList<AIList>) response.getResults());
+                        getView().showContent((ArrayList<AIList>) response.getResults(), page);
                     }
                 });
 

@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.dudaizhong.news.R;
 import com.dudaizhong.news.base.BaseFragment;
+import com.dudaizhong.news.common.widget.LoadMoreRecyclerView;
 import com.dudaizhong.news.modules.gank.adapter.AIAdapter;
 import com.dudaizhong.news.modules.gank.domain.AIList;
 import com.dudaizhong.news.modules.gank.presenter.AIPresenter;
@@ -22,13 +23,14 @@ import butterknife.Bind;
 
 public class VideoFragment extends BaseFragment<AIPresenter> implements AIContract.View {
     @Bind(R.id.recycler_zhihu_section)
-    RecyclerView mRecyclerZhihuSection;
+    LoadMoreRecyclerView mRecyclerZhihuSection;
     @Bind(R.id.swipe_zhihu_section)
     SwipeRefreshLayout mSwipeZhihuSection;
 
-    private ArrayList<AIList> datas;
+    private ArrayList<AIList> datas = new ArrayList<>();
     private AIAdapter adapter;
-    private int page = 1;
+    private int currentPage = 1;
+    private static final int NUM = 10;
 
     @Override
     protected AIPresenter createPresenter() {
@@ -37,25 +39,29 @@ public class VideoFragment extends BaseFragment<AIPresenter> implements AIContra
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_zhihu_hot;
+        return R.layout.fragment_gank;
     }
 
     @Override
     protected void initEventAndData() {
         mRecyclerZhihuSection.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerZhihuSection.setHasFixedSize(true);
+        mRecyclerZhihuSection.setLoadMoreListener(new LoadMoreRecyclerView.LoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                getPresenter().getContent("休息视频", NUM, currentPage + 1);
+            }
+        });
 
-        datas = new ArrayList<>();
-        adapter = new AIAdapter(getContext(),datas);
+        adapter = new AIAdapter(getContext(), datas);
         mRecyclerZhihuSection.setAdapter(adapter);
         mSwipeZhihuSection.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                getPresenter().getContent("休息视频", 10, 1);
+                getPresenter().getContent("休息视频", NUM, 1);
             }
         });
 
-        getPresenter().getContent("休息视频", 10, page);
+        getPresenter().getContent("休息视频", NUM, currentPage);
     }
 
     @Override
@@ -71,11 +77,13 @@ public class VideoFragment extends BaseFragment<AIPresenter> implements AIContra
     }
 
     @Override
-    public void showContent(ArrayList<AIList> aiList) {
-        datas.clear();
+    public void showContent(ArrayList<AIList> aiList, int page) {
+        currentPage = page;
+        if (currentPage == 1 && null != datas) {
+            datas.clear();
+        }
         datas.addAll(aiList);
-        Logger.d(aiList);
-        adapter.notifyDataSetChanged();
+        mRecyclerZhihuSection.notifyDataChange(currentPage, aiList.size() * 10);
     }
 
 }

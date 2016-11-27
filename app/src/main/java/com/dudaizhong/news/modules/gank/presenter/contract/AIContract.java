@@ -20,14 +20,13 @@ public interface AIContract {
 
         void hideLoading();
 
-        void showContent(ArrayList<AIList> aiList);
+        void showContent(ArrayList<AIList> aiList, int page);
 
     }
 
     abstract static class Presenter extends BasePresenter<View> {
 
-        public abstract void getContent(String type,int num,int page);
-
+        public abstract void getContent(String type, int num, int page);
 
 
     }
