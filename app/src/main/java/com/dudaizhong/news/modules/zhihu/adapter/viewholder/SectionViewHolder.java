@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.dudaizhong.news.R;
 import com.dudaizhong.news.base.BaseViewHolder;
+import com.dudaizhong.news.base.utils.ImageLoader;
 import com.dudaizhong.news.modules.zhihu.activity.SectionDetailActivity;
 import com.dudaizhong.news.modules.zhihu.domain.SectionList;
 
@@ -36,10 +37,7 @@ public class SectionViewHolder extends BaseViewHolder {
     public void bindData(Object o) {
         final SectionList.DataBean dataBean = (SectionList.DataBean) o;
 
-        Glide.with(getContext())
-                .load(dataBean.getThumbnail())
-                .placeholder(R.mipmap.ic_launcher)
-                .into(image);
+        ImageLoader.load(getContext(),dataBean.getThumbnail(),image);
 
         name.setText(dataBean.getName());
         descriptionc.setText(dataBean.getDescription());

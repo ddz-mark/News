@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide;
 import com.dudaizhong.news.R;
 import com.dudaizhong.news.base.BaseViewHolder;
 import com.dudaizhong.news.base.utils.DensityUtil;
+import com.dudaizhong.news.base.utils.ImageLoader;
 import com.dudaizhong.news.modules.gank.activity.MeiziActivity;
 import com.dudaizhong.news.modules.gank.domain.AIList;
 
@@ -34,10 +35,7 @@ public class GirlViewHolder extends BaseViewHolder {
     public void bindData(Object o) {
         final AIList data = (AIList) o;
 
-        Glide.with(getContext())
-                .load(data.url)
-                .placeholder(R.mipmap.ic_launcher)
-                .into(mImage);
+        ImageLoader.load(getContext(),data.url,mImage);
 //        mImage.setMaxHeight(200 + );
 
         ViewGroup.LayoutParams params = mImage.getLayoutParams();

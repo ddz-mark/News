@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.dudaizhong.news.R;
+import com.dudaizhong.news.base.utils.ImageLoader;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuList;
 
 import java.util.List;
@@ -38,12 +39,8 @@ public class BannerAdapter extends PagerAdapter {
         if (topdatas.size() > 0) {
             View view = LayoutInflater.from(context).inflate(R.layout.item_top_banner, container, false);
             ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
-            Glide.with(context)
-                    .load(topdatas.get(position % topdatas.size()).getImage())
-                    .placeholder(R.mipmap.ic_launcher)
-                    .into(imageView);
+            ImageLoader.load(context,topdatas.get(position % topdatas.size()).getImage(),imageView);
             container.addView(view);
-
             return view;
         }
         return null;

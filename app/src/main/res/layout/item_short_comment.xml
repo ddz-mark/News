@@ -81,7 +81,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
-                android:drawableLeft="@mipmap/ic_daily_like"
+                android:drawableLeft="@mipmap/ic_unlike1"
                 android:drawablePadding="5dp"
                 android:textColor="#000000"/>
         </RelativeLayout>

@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.dudaizhong.news.R;
 import com.dudaizhong.news.base.BaseActivity;
 import com.dudaizhong.news.base.utils.HtmlUtil;
+import com.dudaizhong.news.base.utils.ImageLoader;
 import com.dudaizhong.news.base.utils.ToastUtil;
 import com.dudaizhong.news.modules.gank.activity.AIActivity;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuCommentData;
@@ -159,10 +160,7 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
         zhihuDetail = zhihuDetailZip.mZhihuDetail;
         ZhihuCommentData zhihuCommentData = zhihuDetailZip.mZhihuCommentData;
 
-        Glide.with(this)
-                .load(zhihuDetail.image)
-                .placeholder(R.mipmap.ic_launcher)
-                .into(mBackdrop);
+        ImageLoader.load(this,zhihuDetail.image,mBackdrop);
         mCollapsingToolbar.setTitle(zhihuDetail.title);
         String htmlData = HtmlUtil.createHtmlData(zhihuDetail.body, zhihuDetail.css, zhihuDetail.js);
         mWebView.loadData(htmlData, HtmlUtil.MIME_TYPE, HtmlUtil.ENCODING);

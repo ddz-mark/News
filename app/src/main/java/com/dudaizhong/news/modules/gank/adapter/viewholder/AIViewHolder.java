@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.dudaizhong.news.R;
 import com.dudaizhong.news.base.BaseViewHolder;
+import com.dudaizhong.news.base.utils.ImageLoader;
 import com.dudaizhong.news.base.utils.Util;
 import com.dudaizhong.news.modules.gank.activity.AIActivity;
 import com.dudaizhong.news.modules.gank.domain.AIList;
@@ -38,10 +39,7 @@ public class AIViewHolder extends BaseViewHolder {
     public void bindData(Object o) {
         final AIList data = (AIList) o;
         if(null != data.images){
-            Glide.with(getContext())
-                    .load(data.images.get(0))
-                    .placeholder(R.mipmap.ic_launcher)
-                    .into(mImageItem);
+            ImageLoader.load(getContext(),data.images.get(0),mImageItem);
         }
 
         mDesc.setText(Util.safeText(data.desc));

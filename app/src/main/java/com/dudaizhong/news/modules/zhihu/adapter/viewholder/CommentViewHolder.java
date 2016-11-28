@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.FitCenter;
 import com.dudaizhong.news.R;
 import com.dudaizhong.news.base.BaseViewHolder;
+import com.dudaizhong.news.base.utils.ImageLoader;
 import com.dudaizhong.news.base.utils.Util;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuCommentData;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuShortCommentData;
@@ -50,8 +51,9 @@ public class CommentViewHolder extends BaseViewHolder {
         Glide.with(getContext())
                 .load(Util.safeText(data.avatar))
                 .bitmapTransform(new CropCircleTransformation(getContext()), new FitCenter(getContext()))
-                .placeholder(R.mipmap.ic_launcher)
+                .placeholder(R.mipmap.ic_photo_place)
                 .into(mPhotoImage);
+
         mTvCommentName.setText(Util.safeText(data.author));
         mTvCommentContent.setText(Util.safeText(data.content));
         if (null != data.replyTo)

@@ -1,32 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="3dp"
+    app:cardBackgroundColor="@color/theme_cardview_background"
+    app:cardCornerRadius="6dp"
+    app:elevation="3dp">
 
     <ImageView
-        android:src="@mipmap/ic_launcher"
         android:id="@+id/image"
-        android:scaleType="centerCrop"
         android:layout_width="match_parent"
-        android:layout_height="160dp" />
+        android:layout_height="@dimen/theme_photo"
+        android:scaleType="centerCrop"
+        tools:src="@mipmap/ic_photo_place"/>
 
     <TextView
         android:id="@+id/descriptionc"
-        tools:text="黄钻互打"
-        android:padding="10dp"
-        android:textColor="#ffffff"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignBottom="@+id/image"
-        android:textColor="#f20b0b"
-        tools:text="日报主题" />
+        android:textColor="@color/defaultWhite"
+        tools:text="黄钻互打"/>
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="165dp"
+        android:layout_gravity="bottom"
+        android:gravity="bottom|center_horizontal"
+        android:padding="10dp"
+        android:textColor="@color/theme_cardview_textcolor"
+        tools:text="日报主题"/>
+
+</android.support.v7.widget.CardView>

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.dudaizhong.news.R;
 import com.dudaizhong.news.base.BaseViewHolder;
+import com.dudaizhong.news.base.utils.ImageLoader;
 import com.dudaizhong.news.base.utils.Util;
 import com.dudaizhong.news.modules.zhihu.activity.ZhihuDetailActivity;
 import com.dudaizhong.news.modules.zhihu.domain.HotList;
@@ -34,10 +35,8 @@ public class HotViewHolder extends BaseViewHolder {
     @Override
     public void bindData(Object o) {
         final HotList.RecentBean data = (HotList.RecentBean) o;
-        Glide.with(getContext())
-                .load(Util.safeText(data.getThumbnail()))
-                .placeholder(R.mipmap.ic_launcher)
-                .into(imageItem);
+
+        ImageLoader.load(getContext(),Util.safeText(data.getThumbnail()),imageItem);
 
         contentItem.setText(Util.safeText(data.getTitle()));
 

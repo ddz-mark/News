@@ -72,14 +72,16 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     protected void initEventAndData(Bundle savedInstanceState) {
+        fragmentManager = getSupportFragmentManager();
         initView();
         //默认显示知乎fragment
         setNowFragment(Constants.ZHIHU_FRAGMENT);
+
         subscription = RxBus.getDefault().toObserverable(RefreshEvent.class).subscribe(new Action1<RefreshEvent>() {
             @Override
             public void call(RefreshEvent event) {
                 Glide.with(MainActivity.this)
-                        .load(R.mipmap.view2)
+                        .load(R.mipmap.view1)
                         .bitmapTransform(new CropCircleTransformation(MainActivity.this), new FitCenter(MainActivity.this))
                         .into(mImageView);
                 login.setText(event.getName());
@@ -90,7 +92,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
 
     private void initView() {
-        fragmentManager = getSupportFragmentManager();
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);

@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 import com.bumptech.glide.Glide;
 import com.dudaizhong.news.R;
 import com.dudaizhong.news.base.BaseActivity;
+import com.dudaizhong.news.base.utils.ImageLoader;
 import com.dudaizhong.news.modules.gank.presenter.MeiziPresenter;
 import com.dudaizhong.news.modules.gank.presenter.contract.MeiziContract;
 
@@ -55,10 +56,7 @@ public class MeiziActivity extends BaseActivity<MeiziPresenter> implements Meizi
         showLoading();
 
         mAttacher = new PhotoViewAttacher(mImageView);
-        Glide.with(this)
-                .load(url)
-                .placeholder(R.mipmap.ic_launcher)
-                .into(mImageView);
+        ImageLoader.load(this,url,mImageView);
         mAttacher.update();
         hideLoading();
     }

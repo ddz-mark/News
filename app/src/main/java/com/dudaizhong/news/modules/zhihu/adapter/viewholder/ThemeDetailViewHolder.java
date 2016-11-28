@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.dudaizhong.news.R;
 import com.dudaizhong.news.base.BaseViewHolder;
+import com.dudaizhong.news.base.utils.ImageLoader;
 import com.dudaizhong.news.base.utils.Util;
 import com.dudaizhong.news.modules.zhihu.activity.ZhihuDetailActivity;
 import com.dudaizhong.news.modules.zhihu.domain.ThemeDetail;
@@ -38,10 +39,8 @@ public class ThemeDetailViewHolder extends BaseViewHolder {
         final ThemeDetail.StoriesBean datas = (ThemeDetail.StoriesBean) o;
         if (null != datas.images)
             images = datas.images.get(0);
-        Glide.with(getContext())
-                .load(images)
-                .placeholder(R.mipmap.ic_launcher)
-                .into(mImageItem);
+
+        ImageLoader.load(getContext(),images,mImageItem);
         mContentItem.setText(Util.safeText(datas.title));
 
         itemView.setOnClickListener(new View.OnClickListener() {

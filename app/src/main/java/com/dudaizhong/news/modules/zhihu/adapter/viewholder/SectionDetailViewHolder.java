@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.FitCenter;
 import com.dudaizhong.news.R;
 import com.dudaizhong.news.base.BaseViewHolder;
+import com.dudaizhong.news.base.utils.ImageLoader;
 import com.dudaizhong.news.base.utils.Util;
 import com.dudaizhong.news.modules.zhihu.activity.ZhihuDetailActivity;
 import com.dudaizhong.news.modules.zhihu.domain.SectionDetail;
@@ -37,11 +38,8 @@ public class SectionDetailViewHolder extends BaseViewHolder {
     @Override
     public void bindData(Object o) {
         final SectionDetail.StoriesBean datas = (SectionDetail.StoriesBean) o;
-        Glide.with(getContext())
-                .load(Util.safeText(datas.images.get(0)))
-                .placeholder(R.mipmap.ic_launcher)
-                .into(mImageItem);
 
+        ImageLoader.load(getContext(),Util.safeText(datas.images.get(0)),mImageItem);
         mTitle.setText(Util.safeText(datas.title));
         mDate.setText(Util.safeText(datas.date));
 

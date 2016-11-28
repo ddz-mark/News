@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.dudaizhong.news.R;
 import com.dudaizhong.news.base.BaseViewHolder;
+import com.dudaizhong.news.base.utils.ImageLoader;
 import com.dudaizhong.news.modules.zhihu.activity.ZhihuDetailActivity;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuList;
 
@@ -33,10 +34,7 @@ public class DailyViewHolder extends BaseViewHolder {
     @Override
     public void bindData(Object o) {
         final ZhihuList.StoriesBean data = (ZhihuList.StoriesBean) o;
-        Glide.with(getContext())
-                .load(data.getImages().get(0))
-                .placeholder(R.mipmap.ic_launcher)
-                .into(imageItem);
+        ImageLoader.load(getContext(),data.getImages().get(0),imageItem);
 
         contentItem.setText(data.getTitle());
         itemView.setOnClickListener(new View.OnClickListener() {
