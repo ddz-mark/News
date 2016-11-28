@@ -24,6 +24,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.FitCenter;
 import com.dudaizhong.news.R;
 import com.dudaizhong.news.app.Constants;
+import com.dudaizhong.news.base.BaseActivity;
 import com.dudaizhong.news.base.utils.rxUtils.RxBus;
 import com.dudaizhong.news.modules.gank.fragment.GankFragment;
 import com.dudaizhong.news.modules.login.activity.LoginActivity;
@@ -41,7 +42,7 @@ import rx.functions.Action1;
  * Created by Dudaizhong on 2016/9/16.
  */
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
@@ -60,10 +61,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Subscription subscription;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_news);
-        ButterKnife.bind(this);
+    protected void initInject() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_news;
+    }
+
+    @Override
+    protected void initEventAndData(Bundle savedInstanceState) {
         initView();
         //默认显示知乎fragment
         setNowFragment(Constants.ZHIHU_FRAGMENT);
@@ -79,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
     }
+
 
     private void initView() {
         fragmentManager = getSupportFragmentManager();
@@ -138,7 +147,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void showExitDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("提示");
         builder.setMessage("确定退出GeekNews吗");
         builder.setNegativeButton("取消", null);
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {

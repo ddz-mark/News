@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@mipmap/view_background"
-    android:gravity="center"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@mipmap/view_background"
+              android:gravity="center"
+              android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/ic_launcher"/>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -26,7 +26,7 @@
                 android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black" />
+                android:textColor="@android:color/black"/>
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
 
@@ -39,7 +39,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/ic_launcher"/>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -50,7 +50,7 @@
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black" />
+                android:textColor="@android:color/black"/>
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>
 
@@ -66,7 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/shape_launch"
-            android:text="登录" />
+            android:text="登录"/>
 
         <Button
             android:id="@+id/register"
@@ -74,6 +74,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/shape_launch"
-            android:text="注册" />
+            android:text="注册"/>
     </LinearLayout>
 </LinearLayout>

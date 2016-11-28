@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dudaizhong.news.R;
+import com.dudaizhong.news.base.BaseActivity;
 import com.dudaizhong.news.base.utils.ToastUtil;
 
 import butterknife.Bind;
@@ -25,7 +26,7 @@ import butterknife.OnClick;
  * Created by Markable on 2016/11/25.
  */
 
-public class AboutActivity extends AppCompatActivity {
+public class AboutActivity extends BaseActivity {
 
     @Bind(R.id.bannner)
     ImageView mBannner;
@@ -48,33 +49,19 @@ public class AboutActivity extends AppCompatActivity {
     @Bind(R.id.bt_update)
     Button mBtUpdate;
 
+    @Override
+    protected void initInject() {
+
+    }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
-        ButterKnife.bind(this);
+    protected int getLayoutId() {
+        return R.layout.activity_about;
+    }
+
+    @Override
+    protected void initEventAndData(Bundle savedInstanceState) {
         setToolBar(mToolbar, "就读");
-    }
-
-
-    public void setToolBar(Toolbar toolbar, String title) {
-        toolbar.setTitle(title);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ButterKnife.unbind(this);
     }
 
     @OnClick({R.id.bt_blog, R.id.bt_code, R.id.bt_share, R.id.bt_update, R.id.fab})

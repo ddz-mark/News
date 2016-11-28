@@ -49,13 +49,12 @@ public abstract class BaseActivity<T extends BasePresenter> extends RxAppCompatA
         initEventAndData(savedInstanceState);
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
     protected void initWindow(){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 //            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
             SystemBarTintManager tintManager = new SystemBarTintManager(this);
-            tintManager.setNavigationBarTintColor(getColor(R.color.colorPrimary));
+            tintManager.setNavigationBarTintColor(R.color.colorPrimary);
             tintManager.setStatusBarTintEnabled(true);
         }
     }
