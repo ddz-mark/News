@@ -1,14 +1,21 @@
 package com.dudaizhong.news.base;
 
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.WindowManager;
 
+import com.dudaizhong.news.R;
 import com.dudaizhong.news.app.App;
 import com.dudaizhong.news.di.component.ActivityComponent;
 import com.dudaizhong.news.di.component.DaggerActivityComponent;
 import com.dudaizhong.news.di.module.ActivityModule;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
 import javax.inject.Inject;
@@ -18,7 +25,7 @@ import rx.Observable;
 
 /**
  * Created by Dudaizhong on 2016/9/13.
- * mvp Activity基类
+ * mvp Activity基类,所有Activity都应继承自
  */
 
 public abstract class BaseActivity<T extends BasePresenter> extends RxAppCompatActivity implements BaseView {
@@ -31,6 +38,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends RxAppCompatA
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
+        initWindow();
         ButterKnife.bind(this);
 //        mPresenter = createPresenter();
         initInject();
@@ -39,6 +47,17 @@ public abstract class BaseActivity<T extends BasePresenter> extends RxAppCompatA
             mPresenter.attachView(this);
 
         initEventAndData(savedInstanceState);
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    protected void initWindow(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            tintManager.setNavigationBarTintColor(getColor(R.color.colorPrimary));
+            tintManager.setStatusBarTintEnabled(true);
+        }
     }
 
     protected T getPresenter() {

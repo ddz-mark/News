@@ -42,7 +42,7 @@ public class MeiziFragment extends BaseFragment<AIPresenter> implements AIContra
     StaggeredGridLayoutManager mStaggeredGridLayoutManager;
     private int currentPage = 1;
     private static final int SPAN_COUNT = 2;
-    private static final int NUM = 10;
+    private static final int NUM = 100;
 
     @Override
     protected AIPresenter createPresenter() {
