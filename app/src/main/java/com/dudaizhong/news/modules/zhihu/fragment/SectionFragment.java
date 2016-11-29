@@ -7,14 +7,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.dudaizhong.news.R;
 import com.dudaizhong.news.base.BaseFragment;
 import com.dudaizhong.news.base.utils.DensityUtil;
 import com.dudaizhong.news.modules.zhihu.adapter.SectionAdapter;
-import com.dudaizhong.news.modules.zhihu.adapter.ThemeAdapter;
 import com.dudaizhong.news.modules.zhihu.domain.SectionList;
-import com.dudaizhong.news.modules.zhihu.domain.ThemeList;
 import com.dudaizhong.news.modules.zhihu.presenter.SectionPresenter;
 import com.dudaizhong.news.modules.zhihu.presenter.contract.SectionContract;
 
@@ -22,7 +21,7 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import rx.Observable;
+import butterknife.OnClick;
 
 /**
  * Created by Dudaizhong on 2016/9/18.
@@ -34,6 +33,8 @@ public class SectionFragment extends BaseFragment<SectionPresenter> implements S
     RecyclerView recyclerZhihuSection;
     @Bind(R.id.swipe_zhihu_section)
     SwipeRefreshLayout swipeZhihuSection;
+    @Bind(R.id.error)
+    LinearLayout mError;
 
     private ArrayList<SectionList.DataBean> datas;
     private SectionAdapter adapter;
@@ -55,8 +56,8 @@ public class SectionFragment extends BaseFragment<SectionPresenter> implements S
         adapter = new SectionAdapter(getContext(), datas);
         recyclerZhihuSection.setAdapter(adapter);
         swipeZhihuSection.setOnRefreshListener(this);
-
-        getPresenter().getContent();
+        showLoading();
+        getPresenter().getContent(getContext());
     }
 
     @Override
@@ -69,6 +70,8 @@ public class SectionFragment extends BaseFragment<SectionPresenter> implements S
     public void hideLoading() {
         if (null != swipeZhihuSection && swipeZhihuSection.isRefreshing())
             swipeZhihuSection.setRefreshing(false);
+        recyclerZhihuSection.setVisibility(View.VISIBLE);
+        mError.setVisibility(View.GONE);
     }
 
     @Override
@@ -79,7 +82,19 @@ public class SectionFragment extends BaseFragment<SectionPresenter> implements S
     }
 
     @Override
+    public void showError() {
+        recyclerZhihuSection.setVisibility(View.GONE);
+        mError.setVisibility(View.VISIBLE);
+    }
+
+    @Override
     public void onRefresh() {
-        getPresenter().getContent();
+        getPresenter().getContent(getContext());
+    }
+
+    @OnClick(R.id.error)
+    public void onClick() {
+        showLoading();
+        getPresenter().getContent(getContext());
     }
 }

@@ -7,13 +7,14 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import com.dudaizhong.news.R;
 import com.dudaizhong.news.base.BaseActivity;
+import com.dudaizhong.news.base.utils.DensityUtil;
 import com.dudaizhong.news.modules.zhihu.adapter.SectionDetailAdapter;
-import com.dudaizhong.news.modules.zhihu.adapter.ThemeDetailAdapter;
 import com.dudaizhong.news.modules.zhihu.domain.SectionDetail;
-import com.dudaizhong.news.modules.zhihu.domain.ThemeDetail;
 import com.dudaizhong.news.modules.zhihu.presenter.SectionDetailPresenter;
 import com.dudaizhong.news.modules.zhihu.presenter.contract.SectionDetailContract;
 
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Markable on 2016/11/19.
@@ -34,6 +36,8 @@ public class SectionDetailActivity extends BaseActivity<SectionDetailPresenter> 
     RecyclerView mRecyclerView;
     @Bind(R.id.swipe_refresh)
     SwipeRefreshLayout mSwipeRefresh;
+    @Bind(R.id.error)
+    LinearLayout mError;
 
     private String title;
     private int id;
@@ -64,7 +68,7 @@ public class SectionDetailActivity extends BaseActivity<SectionDetailPresenter> 
         title = getId.getStringExtra("title");
         initView();
         showLoading();
-        getPresenter().getContent(id);
+        getPresenter().getContent(this, id);
     }
 
     private void initView() {
@@ -79,14 +83,15 @@ public class SectionDetailActivity extends BaseActivity<SectionDetailPresenter> 
         mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                getPresenter().getContent(id);
+                getPresenter().getContent(SectionDetailActivity.this, id);
             }
         });
     }
 
     @Override
     public void showLoading() {
-
+        mSwipeRefresh.setProgressViewOffset(false, 0, DensityUtil.dip2px(this, 24));
+        mSwipeRefresh.setRefreshing(true);
     }
 
     @Override
@@ -94,6 +99,8 @@ public class SectionDetailActivity extends BaseActivity<SectionDetailPresenter> 
         if (null != mSwipeRefresh) {
             mSwipeRefresh.setRefreshing(false);
         }
+        mRecyclerView.setVisibility(View.VISIBLE);
+        mError.setVisibility(View.GONE);
     }
 
     @Override
@@ -101,5 +108,17 @@ public class SectionDetailActivity extends BaseActivity<SectionDetailPresenter> 
         datas.clear();
         datas.addAll(sectionDetail.stories);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showError() {
+        mRecyclerView.setVisibility(View.GONE);
+        mError.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick(R.id.error)
+    public void onClick() {
+        showLoading();
+        getPresenter().getContent(this, id);
     }
 }

@@ -94,7 +94,7 @@ public class ZhihuDetailActivity extends BaseActivity<ZhihuDetailPresenter> impl
         id = getId.getIntExtra("id", 0);
         initView();
         getPresenter().queryLike(ZhihuDetailActivity.this, id);
-        getPresenter().getContent(id);
+        getPresenter().getContent(this,id);
     }
 
     private void initView() {

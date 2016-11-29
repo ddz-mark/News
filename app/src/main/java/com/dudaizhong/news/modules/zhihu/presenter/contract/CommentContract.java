@@ -1,5 +1,7 @@
 package com.dudaizhong.news.modules.zhihu.presenter.contract;
 
+import android.content.Context;
+
 import com.dudaizhong.news.base.BasePresenter;
 import com.dudaizhong.news.base.BaseView;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuShortCommentData;
@@ -10,7 +12,7 @@ import com.dudaizhong.news.modules.zhihu.domain.ZhihuShortCommentData;
 
 public interface CommentContract {
 
-    interface  View extends BaseView {
+    interface View extends BaseView {
 
         void showLoading();
 
@@ -18,11 +20,12 @@ public interface CommentContract {
 
         void showShortComment(ZhihuShortCommentData zhihuShortCommentData);
 
+        void showError();
     }
 
     abstract static class Presenter extends BasePresenter<View> {
 
-        public abstract void getContent(int id,int kind);
+        public abstract void getContent(Context context, int id, int kind);
 
     }
 }

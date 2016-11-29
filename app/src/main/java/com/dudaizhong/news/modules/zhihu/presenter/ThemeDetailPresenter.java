@@ -1,9 +1,12 @@
 package com.dudaizhong.news.modules.zhihu.presenter;
 
+import android.content.Context;
+
 import com.dudaizhong.news.common.api.RetrofitSingleton;
 import com.dudaizhong.news.modules.zhihu.domain.SectionDetail;
 import com.dudaizhong.news.modules.zhihu.domain.ThemeDetail;
 import com.dudaizhong.news.modules.zhihu.presenter.contract.ThemeDetailContract;
+import com.orhanobut.logger.Logger;
 
 import javax.inject.Inject;
 
@@ -21,7 +24,7 @@ public class ThemeDetailPresenter extends ThemeDetailContract.Presenter {
     }
 
     @Override
-    public void getContent(int id) {
+    public void getContent(final Context context, int id) {
         RetrofitSingleton.getInstance().getThemeDetail(id)
                 .compose(this.<ThemeDetail>bindToLifeCycle())
                 .doOnTerminate(new Action0() {
@@ -38,7 +41,12 @@ public class ThemeDetailPresenter extends ThemeDetailContract.Presenter {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        try {
+                            getView().showError();
+                            RetrofitSingleton.disposeFailureInfo(e, context);
+                        } catch (Exception e1) {
+                            Logger.e(e1.getMessage());
+                        }
                     }
 
                     @Override

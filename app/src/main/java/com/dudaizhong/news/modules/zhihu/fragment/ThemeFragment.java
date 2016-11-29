@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.dudaizhong.news.R;
 import com.dudaizhong.news.base.BaseFragment;
@@ -20,18 +21,20 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import rx.Observable;
+import butterknife.OnClick;
 
 /**
  * Created by Dudaizhong on 2016/9/18.
  */
 
-public class ThemeFragment extends BaseFragment<ThemePresenter> implements ThemeContract.View ,SwipeRefreshLayout.OnRefreshListener {
+public class ThemeFragment extends BaseFragment<ThemePresenter> implements ThemeContract.View, SwipeRefreshLayout.OnRefreshListener {
 
     @Bind(R.id.recycler_zhihu_theme)
     RecyclerView recyclerZhihuTheme;
     @Bind(R.id.swipe_zhihu_theme)
     SwipeRefreshLayout swipeZhihuTheme;
+    @Bind(R.id.error)
+    LinearLayout mError;
 
     private ArrayList<ThemeList.OthersBean> datas;
     private ThemeAdapter adapter;
@@ -49,18 +52,18 @@ public class ThemeFragment extends BaseFragment<ThemePresenter> implements Theme
     @Override
     protected void initEventAndData() {
         //网格布局，设置成2列
-        recyclerZhihuTheme.setLayoutManager(new GridLayoutManager(getContext(),2));
+        recyclerZhihuTheme.setLayoutManager(new GridLayoutManager(getContext(), 2));
         datas = new ArrayList<>();
-        adapter = new ThemeAdapter(getContext(),datas);
+        adapter = new ThemeAdapter(getContext(), datas);
         recyclerZhihuTheme.setAdapter(adapter);
         swipeZhihuTheme.setOnRefreshListener(this);
-
-        getPresenter().getContent();
+        showLoading();
+        getPresenter().getContent(getContext());
     }
 
     @Override
     public void onRefresh() {
-        getPresenter().getContent();
+        getPresenter().getContent(getContext());
     }
 
     @Override
@@ -71,7 +74,10 @@ public class ThemeFragment extends BaseFragment<ThemePresenter> implements Theme
 
     @Override
     public void hideLoading() {
-        swipeZhihuTheme.setRefreshing(false);
+        if (null != swipeZhihuTheme)
+            swipeZhihuTheme.setRefreshing(false);
+        recyclerZhihuTheme.setVisibility(View.VISIBLE);
+        mError.setVisibility(View.GONE);
     }
 
     @Override
@@ -79,5 +85,18 @@ public class ThemeFragment extends BaseFragment<ThemePresenter> implements Theme
         datas.clear();
         datas.addAll(themeList.getOthers());
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showError() {
+        recyclerZhihuTheme.setVisibility(View.GONE);
+        mError.setVisibility(View.VISIBLE);
+    }
+
+
+    @OnClick(R.id.error)
+    public void onClick() {
+        showLoading();
+        getPresenter().getContent(getContext());
     }
 }

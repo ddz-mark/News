@@ -19,7 +19,7 @@
             android:layout_marginRight="2dp"
             android:layout_marginTop="2dp"
             android:scaleType="centerCrop"
-            tools:src="@mipmap/ic_photo_place"/>
+            android:src="@mipmap/ic_photo_place"/>
 
         <TextView
             android:id="@+id/desc"

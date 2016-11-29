@@ -3,19 +3,16 @@ package com.dudaizhong.news.modules.gank.fragment;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.dudaizhong.news.R;
 import com.dudaizhong.news.base.BaseFragment;
-import com.dudaizhong.news.base.BasePresenter;
-import com.dudaizhong.news.modules.gank.adapter.AIAdapter;
+import com.dudaizhong.news.base.utils.DensityUtil;
 import com.dudaizhong.news.modules.gank.adapter.GirlAdapter;
 import com.dudaizhong.news.modules.gank.domain.AIList;
 import com.dudaizhong.news.modules.gank.presenter.AIPresenter;
@@ -25,17 +22,20 @@ import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Markable on 2016/11/22.
  */
 
-public class MeiziFragment extends BaseFragment<AIPresenter> implements AIContract.View{
+public class MeiziFragment extends BaseFragment<AIPresenter> implements AIContract.View {
 
     @Bind(R.id.recycler_zhihu_section)
     RecyclerView mRecyclerZhihuSection;
     @Bind(R.id.swipe_zhihu_section)
     SwipeRefreshLayout mSwipeZhihuSection;
+    @Bind(R.id.error)
+    LinearLayout mError;
 
     private ArrayList<AIList> datas;
     private GirlAdapter adapter;
@@ -73,12 +73,14 @@ public class MeiziFragment extends BaseFragment<AIPresenter> implements AIContra
             }
         });
 
+        showLoading();
         getPresenter().getContent("福利", NUM, currentPage);
     }
 
     @Override
     public void showLoading() {
-
+        mSwipeZhihuSection.setProgressViewOffset(false, 0, DensityUtil.dip2px(getContext(), 24));
+        mSwipeZhihuSection.setRefreshing(true);
     }
 
     @Override
@@ -86,12 +88,27 @@ public class MeiziFragment extends BaseFragment<AIPresenter> implements AIContra
         if (null != mSwipeZhihuSection) {
             mSwipeZhihuSection.setRefreshing(false);
         }
+        mRecyclerZhihuSection.setVisibility(View.VISIBLE);
+        mError.setVisibility(View.GONE);
     }
 
     @Override
-    public void showContent(ArrayList<AIList> aiList,int page) {
+    public void showContent(ArrayList<AIList> aiList, int page) {
         datas.clear();
         datas.addAll(aiList);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showError() {
+        mRecyclerZhihuSection.setVisibility(View.GONE);
+        mError.setVisibility(View.VISIBLE);
+    }
+
+
+    @OnClick(R.id.error)
+    public void onClick() {
+        showLoading();
+        getPresenter().getContent("福利", NUM, 1);
     }
 }

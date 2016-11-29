@@ -1,5 +1,7 @@
 package com.dudaizhong.news.modules.gank.presenter.contract;
 
+import android.content.Context;
+
 import com.dudaizhong.news.base.BasePresenter;
 import com.dudaizhong.news.base.BaseView;
 import com.dudaizhong.news.modules.gank.domain.AIList;
@@ -22,11 +24,12 @@ public interface AIContract {
 
         void showContent(ArrayList<AIList> aiList, int page);
 
+        void showError();
     }
 
     abstract static class Presenter extends BasePresenter<View> {
 
-        public abstract void getContent(String type, int num, int page);
+        public abstract void getContent( String type, int num, int page);
 
 
     }

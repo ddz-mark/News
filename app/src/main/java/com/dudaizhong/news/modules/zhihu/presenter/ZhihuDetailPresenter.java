@@ -10,6 +10,7 @@ import com.dudaizhong.news.modules.zhihu.domain.ZhihuCommentData;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuDetail;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuDetailZip;
 import com.dudaizhong.news.modules.zhihu.presenter.contract.ZhihuDetailContract;
+import com.orhanobut.logger.Logger;
 
 import javax.inject.Inject;
 
@@ -30,13 +31,9 @@ public class ZhihuDetailPresenter extends ZhihuDetailContract.Presenter {
     public ZhihuDetailPresenter() {
     }
 
-    @Override
-    public void showLoading() {
-        getView().showLoading();
-    }
 
     @Override
-    public void getContent(int id) {
+    public void getContent(final Context context, int id) {
         Observable<ZhihuDetail> zhihuDetailObservable = RetrofitSingleton.getInstance().getZhihuDetail(id);
         Observable<ZhihuCommentData> zhihuCommentDataObservable = RetrofitSingleton.getInstance().getZhihuCommentInfo(id);
         Observable<ZhihuDetailZip> zhihuZipObservable = Observable.zip(zhihuDetailObservable, zhihuCommentDataObservable, new Func2<ZhihuDetail, ZhihuCommentData, ZhihuDetailZip>() {
@@ -61,7 +58,11 @@ public class ZhihuDetailPresenter extends ZhihuDetailContract.Presenter {
 
                     @Override
                     public void onError(Throwable e) {
-//                        RetrofitSingleton.disposeFailureInfo(e);
+                        try {
+                            RetrofitSingleton.disposeFailureInfo(e, context);
+                        } catch (Exception e1) {
+                            Logger.e(e1.getMessage());
+                        }
                     }
 
                     @Override
@@ -90,7 +91,7 @@ public class ZhihuDetailPresenter extends ZhihuDetailContract.Presenter {
     }
 
     @Override
-    public void queryLike(Context context,int id) {
+    public void queryLike(Context context, int id) {
         getView().showIsLike(RealmHelper.getIntance(context).queryLikeId(id));
     }
 

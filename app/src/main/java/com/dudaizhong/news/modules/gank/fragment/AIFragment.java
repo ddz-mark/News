@@ -3,25 +3,26 @@ package com.dudaizhong.news.modules.gank.fragment;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.dudaizhong.news.R;
 import com.dudaizhong.news.app.Constants;
 import com.dudaizhong.news.base.BaseFragment;
+import com.dudaizhong.news.base.utils.DensityUtil;
 import com.dudaizhong.news.common.widget.LoadMoreRecyclerView;
 import com.dudaizhong.news.modules.gank.adapter.AIAdapter;
 import com.dudaizhong.news.modules.gank.domain.AIList;
 import com.dudaizhong.news.modules.gank.presenter.AIPresenter;
 import com.dudaizhong.news.modules.gank.presenter.contract.AIContract;
-import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Markable on 2016/11/22.
@@ -33,6 +34,8 @@ public class AIFragment extends BaseFragment<AIPresenter> implements AIContract.
     SwipeRefreshLayout mSwipeZhihuSection;
     @Bind(R.id.recycler_zhihu_section)
     LoadMoreRecyclerView mRecyclerZhihuSection;
+    @Bind(R.id.error)
+    LinearLayout mError;
 
     private ArrayList<AIList> datas = new ArrayList<>();
     private AIAdapter adapter;
@@ -72,7 +75,6 @@ public class AIFragment extends BaseFragment<AIPresenter> implements AIContract.
             @Override
             public void onLoadMore() {
                 getPresenter().getContent(type, NUM, currentPage + 1);
-                Logger.d("加载更多调用");
             }
         });
         mSwipeZhihuSection.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -84,12 +86,14 @@ public class AIFragment extends BaseFragment<AIPresenter> implements AIContract.
 
         adapter = new AIAdapter(getContext(), datas);
         mRecyclerZhihuSection.setAdapter(adapter);
+        showLoading();
         getPresenter().getContent(type, NUM, currentPage);
     }
 
     @Override
     public void showLoading() {
-
+        mSwipeZhihuSection.setProgressViewOffset(false, 0, DensityUtil.dip2px(getContext(), 24));
+        mSwipeZhihuSection.setRefreshing(true);
     }
 
     @Override
@@ -97,6 +101,8 @@ public class AIFragment extends BaseFragment<AIPresenter> implements AIContract.
         if (null != mSwipeZhihuSection) {
             mSwipeZhihuSection.setRefreshing(false);
         }
+        mRecyclerZhihuSection.setVisibility(View.VISIBLE);
+        mError.setVisibility(View.GONE);
     }
 
     @Override
@@ -109,4 +115,16 @@ public class AIFragment extends BaseFragment<AIPresenter> implements AIContract.
         mRecyclerZhihuSection.notifyDataChange(currentPage, aiList.size() * 10);
     }
 
+    @Override
+    public void showError() {
+        mRecyclerZhihuSection.setVisibility(View.GONE);
+        mError.setVisibility(View.VISIBLE);
+    }
+
+
+    @OnClick(R.id.error)
+    public void onClick() {
+        showLoading();
+        getPresenter().getContent(type, NUM, 1);
+    }
 }

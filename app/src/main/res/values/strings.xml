@@ -8,7 +8,11 @@
     <string name="title_activity_scrolling">ScrollingActivity</string>
 
     <string name="project_about">这是一款阅读类APP,包含知乎日报、gank等内容，主要设计思路来自开源，也是本人的练手项目，从零开始到项目上线，收获颇多，希望大家喜欢!</string>
-    <string name="technology">MVP,Dragger2,RxJava,Retrofit,Glide,Reaml</string>
+    <string name="technology"> " "> 主体框架MVP,减少View的逻辑代码"\n"
+        > 解耦Dragger2,统一管理注入"\n"
+        > 网络框架RxJava,Retrofit"\n"
+        > 图片加载Glide"\n"
+        > 简约数据库Realm"\n"</string>
     <string name="share_txt">欢迎使用“就读日报”，希望每天都是好心情,项目地址https://github.com/ddz-mark/News</string>
     <string name="share_app">分享就读</string>
 

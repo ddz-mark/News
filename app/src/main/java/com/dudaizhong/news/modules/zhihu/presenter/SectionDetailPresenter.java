@@ -1,5 +1,7 @@
 package com.dudaizhong.news.modules.zhihu.presenter;
 
+import android.content.Context;
+
 import com.dudaizhong.news.common.api.RetrofitSingleton;
 import com.dudaizhong.news.modules.zhihu.domain.HotList;
 import com.dudaizhong.news.modules.zhihu.domain.SectionDetail;
@@ -21,7 +23,7 @@ public class SectionDetailPresenter extends SectionDetailContract.Presenter {
     }
 
     @Override
-    public void getContent(int id) {
+    public void getContent(Context context,int id) {
         RetrofitSingleton.getInstance().getSetionDetail(id)
                 .compose(this.<SectionDetail>bindToLifeCycle())
                 .doOnTerminate(new Action0() {

@@ -54,7 +54,12 @@ public class AIPresenter extends AIContract.Presenter {
 
                     @Override
                     public void onError(Throwable e) {
-                        RetrofitSingleton.disposeFailureInfo(e, mContext);
+                        try {
+                            getView().showError();
+                            RetrofitSingleton.disposeFailureInfo(e, mContext);
+                        } catch (Exception e1) {
+                            Logger.e(e1.getMessage());
+                        }
                     }
 
                     @Override

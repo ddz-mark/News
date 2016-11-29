@@ -1,8 +1,11 @@
 package com.dudaizhong.news.modules.zhihu.presenter;
 
+import android.content.Context;
+
 import com.dudaizhong.news.common.api.RetrofitSingleton;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuShortCommentData;
 import com.dudaizhong.news.modules.zhihu.presenter.contract.CommentContract;
+import com.orhanobut.logger.Logger;
 
 import rx.Observer;
 import rx.functions.Action0;
@@ -15,7 +18,7 @@ public class CommentPresenter extends CommentContract.Presenter {
 
 
     @Override
-    public void getContent(int id, int kind) {
+    public void getContent(final Context context, int id, int kind) {
         if (kind == 0) {
             RetrofitSingleton.getInstance().getZhihuShortCommentInfo(id)
                     .compose(this.<ZhihuShortCommentData>bindToLifeCycle())
@@ -33,7 +36,12 @@ public class CommentPresenter extends CommentContract.Presenter {
 
                         @Override
                         public void onError(Throwable e) {
-
+                            try {
+                                getView().showError();
+                                RetrofitSingleton.disposeFailureInfo(e, context);
+                            } catch (Exception e1) {
+                                Logger.e(e1.getMessage());
+                            }
                         }
 
                         @Override
@@ -58,7 +66,12 @@ public class CommentPresenter extends CommentContract.Presenter {
 
                         @Override
                         public void onError(Throwable e) {
-
+                            try {
+                                getView().showError();
+                                RetrofitSingleton.disposeFailureInfo(e, context);
+                            } catch (Exception e1) {
+                                Logger.e(e1.getMessage());
+                            }
                         }
 
                         @Override

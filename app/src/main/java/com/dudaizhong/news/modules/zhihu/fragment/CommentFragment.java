@@ -4,20 +4,25 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.dudaizhong.news.R;
 import com.dudaizhong.news.app.Constants;
 import com.dudaizhong.news.base.BaseFragment;
+import com.dudaizhong.news.base.utils.DensityUtil;
 import com.dudaizhong.news.modules.zhihu.adapter.CommentAdapter;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuShortCommentData;
 import com.dudaizhong.news.modules.zhihu.presenter.CommentPresenter;
 import com.dudaizhong.news.modules.zhihu.presenter.contract.CommentContract;
-import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Markable on 2016/11/20.
@@ -29,6 +34,8 @@ public class CommentFragment extends BaseFragment<CommentPresenter> implements C
     RecyclerView mRecyclerView;
     @Bind(R.id.swipe_refresh)
     SwipeRefreshLayout mSwipeRefresh;
+    @Bind(R.id.error)
+    LinearLayout mError;
 
     private ArrayList<ZhihuShortCommentData.CommentsBean> datas;
     private CommentAdapter adapter;
@@ -76,17 +83,22 @@ public class CommentFragment extends BaseFragment<CommentPresenter> implements C
             }
         });
         showLoading();
-        getPresenter().getContent(id,kind);
+        getPresenter().getContent(getContext(), id, kind);
     }
 
     @Override
     public void showLoading() {
-
+        mSwipeRefresh.setProgressViewOffset(false, 0, DensityUtil.dip2px(getContext(), 24));
+        mSwipeRefresh.setRefreshing(true);
     }
 
     @Override
     public void hideLoading() {
-
+        if (null != mSwipeRefresh) {
+            mSwipeRefresh.setRefreshing(false);
+        }
+        mRecyclerView.setVisibility(View.VISIBLE);
+        mError.setVisibility(View.GONE);
     }
 
     @Override
@@ -96,5 +108,15 @@ public class CommentFragment extends BaseFragment<CommentPresenter> implements C
         adapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void showError() {
+        mRecyclerView.setVisibility(View.GONE);
+        mError.setVisibility(View.VISIBLE);
+    }
 
+    @OnClick(R.id.error)
+    public void onClick() {
+        showLoading();
+        getPresenter().getContent(getContext(), id, kind);
+    }
 }

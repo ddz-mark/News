@@ -27,9 +27,7 @@ public interface ZhihuDetailContract {
 
     abstract static class Presenter extends BasePresenter<View> {
 
-        public abstract void showLoading();
-
-        public abstract void getContent(int id);
+        public abstract void getContent(Context context,int id);
 
         public abstract void insertLike(Context context);
 

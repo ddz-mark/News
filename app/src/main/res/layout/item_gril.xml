@@ -10,6 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
-        tools:src="@mipmap/ic_photo_place"/>
+        android:src="@mipmap/ic_photo_place"/>
 
 </LinearLayout>

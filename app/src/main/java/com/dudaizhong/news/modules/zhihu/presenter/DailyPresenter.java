@@ -1,8 +1,11 @@
 package com.dudaizhong.news.modules.zhihu.presenter;
 
+import android.content.Context;
+
 import com.dudaizhong.news.common.api.RetrofitSingleton;
 import com.dudaizhong.news.modules.zhihu.domain.ZhihuList;
 import com.dudaizhong.news.modules.zhihu.presenter.contract.DailyContract;
+import com.orhanobut.logger.Logger;
 
 import rx.Observer;
 import rx.functions.Action0;
@@ -14,7 +17,7 @@ import rx.functions.Action0;
 public class DailyPresenter extends DailyContract.Presenter {
 
     @Override
-    public void getContent() {
+    public void getContent(final Context context) {
 
         RetrofitSingleton.getInstance().getZhihuListNews()
                 .compose(this.<ZhihuList>bindToLifeCycle())
@@ -32,7 +35,12 @@ public class DailyPresenter extends DailyContract.Presenter {
 
                     @Override
                     public void onError(Throwable e) {
-//                        RetrofitSingleton.disposeFailureInfo(e,context);
+                        try {
+                            getView().showError();
+                            RetrofitSingleton.disposeFailureInfo(e, context);
+                        } catch (Exception e1) {
+                            Logger.e(e1.getMessage());
+                        }
                     }
 
                     @Override
@@ -40,12 +48,6 @@ public class DailyPresenter extends DailyContract.Presenter {
                         getView().showContent(zhihuList);
                     }
                 });
-    }
-
-
-    @Override
-    public void showLoading() {
-        getView().showLoading();
     }
 
 }

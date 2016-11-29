@@ -1,5 +1,7 @@
 package com.dudaizhong.news.modules.zhihu.presenter.contract;
 
+import android.content.Context;
+
 import com.dudaizhong.news.base.BasePresenter;
 import com.dudaizhong.news.base.BaseView;
 import com.dudaizhong.news.modules.zhihu.domain.ThemeDetail;
@@ -16,11 +18,13 @@ public interface ThemeDetailContract {
         void hideLoading();
 
         void showContent(ThemeDetail themeDetail);
+
+        void showError();
     }
 
     abstract static class Presenter extends BasePresenter<View> {
 
-        public abstract void getContent(int id);
+        public abstract void getContent(Context context, int id);
 
     }
 
