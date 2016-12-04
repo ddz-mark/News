@@ -13,8 +13,8 @@
  ---------------
 
 #### 软件截图
-![](app_1.jpg)
-![](app_2.jpg)
+![][image-0]
+![][image-1]
 
 
 
@@ -52,3 +52,6 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 
 __软件中图片素材均来源于网络，版权属于原作者。__
+
+[image-0]:  images/app_1.png
+[image-1]:  images/app_2.png
