@@ -8,10 +8,10 @@
     android:padding="10dp">
 
     <ImageView
-        android:layout_marginRight="10dp"
         android:id="@+id/photo_image"
         android:layout_width="50dp"
-        android:layout_height="50dp"/>
+        android:layout_height="50dp"
+        android:layout_marginRight="10dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -45,8 +45,8 @@
             android:ellipsize="end"
             android:lineSpacingMultiplier="1.2"
             android:paddingLeft="6dp"
-            tools:text="我不是这的又要熬夜写代码啊"
-            android:textColor="#000000"/>
+            android:textColor="#000000"
+            tools:text="我不是这的又要熬夜写代码啊"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -56,13 +56,13 @@
             >
 
             <TextView
-                tools:text="五分钟前"
                 android:id="@+id/tv_comment_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:textColor="#000000"/>
+                android:textColor="#000000"
+                tools:text="五分钟前"/>
 
             <TextView
                 android:id="@+id/tv_comment_expand"
@@ -71,8 +71,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@id/tv_comment_time"
-                tools:text="收起"
-                android:textColor="#000000"/>
+                android:textColor="#000000"
+                tools:text="收起"/>
 
             <TextView
                 android:id="@+id/tv_comment_like"
@@ -83,7 +83,9 @@
                 android:layout_marginRight="10dp"
                 android:drawableLeft="@mipmap/ic_unlike1"
                 android:drawablePadding="5dp"
-                android:textColor="#000000"/>
+                android:gravity="center"
+                android:textSize="20sp"
+                tools:text="2"/>
         </RelativeLayout>
 
         <TextView

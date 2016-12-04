@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory
-        android:summary="界面"
-        android:title="界面">
+    <PreferenceCategory android:title="界面">
 
         <CheckBoxPreference
             android:key="day_night"
-            android:title="夜间模式"
-            />
+            android:title="夜间模式"/>
         <CheckBoxPreference
             android:key="auto_cache"
             android:title="自动缓存"

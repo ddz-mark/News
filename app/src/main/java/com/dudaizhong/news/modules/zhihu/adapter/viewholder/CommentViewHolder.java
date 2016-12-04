@@ -1,6 +1,11 @@
 package com.dudaizhong.news.modules.zhihu.adapter.viewholder;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -56,10 +61,17 @@ public class CommentViewHolder extends BaseViewHolder {
 
         mTvCommentName.setText(Util.safeText(data.author));
         mTvCommentContent.setText(Util.safeText(data.content));
-        if (null != data.replyTo)
-            mTvCommentReply.setText(Util.safeText(data.replyTo.content));
-        mTvCommentTime.setText(Util.formatDate("HH:mm:ss",data.time));
+        mTvCommentTime.setText(Util.formatDate("HH:mm:ss", data.time));
         mTvCommentLike.setText(Util.safeText(data.likes));
+        if (null != data.replyTo && data.replyTo.id != 0) {
+            mTvCommentReply.setVisibility(View.VISIBLE);
+            SpannableString ss = new SpannableString("@" + data.replyTo.author + ": " + data.replyTo.content);
+            ss.setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(), R.color.colorPrimary)), 0, data.replyTo.author.length() + 2, Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+//            holder.tvReply.setText(String.format("@%s: %s",info.getReply_to().getAuthor(),info.getReply_to().getContent()));
+            mTvCommentReply.setText(Util.safeText(data.replyTo.content));
+        } else {
+            mTvCommentReply.setVisibility(View.GONE);
+        }
     }
 
     @OnClick(R.id.tv_comment_expand)

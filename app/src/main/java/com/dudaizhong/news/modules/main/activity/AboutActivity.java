@@ -1,6 +1,8 @@
 package com.dudaizhong.news.modules.main.activity;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -30,8 +32,6 @@ public class AboutActivity extends BaseActivity {
 
     @Bind(R.id.bannner)
     ImageView mBannner;
-    @Bind(R.id.tv_version)
-    TextView mTvVersion;
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
     @Bind(R.id.toolbar_layout)
@@ -61,7 +61,7 @@ public class AboutActivity extends BaseActivity {
 
     @Override
     protected void initEventAndData(Bundle savedInstanceState) {
-        setToolBar(mToolbar, "就读");
+        setToolBar(mToolbar, "Reader");
     }
 
     @OnClick({R.id.bt_blog, R.id.bt_code, R.id.bt_share, R.id.bt_update, R.id.fab})
@@ -81,10 +81,17 @@ public class AboutActivity extends BaseActivity {
                 startActivity(Intent.createChooser(sharingIntent, getString(R.string.share_app)));
                 break;
             case R.id.bt_update:
-                ToastUtil.showToast(AboutActivity.this,"最新版本");
+                try {
+                    PackageManager pm = getPackageManager();
+                    PackageInfo pi = pm.getPackageInfo(getPackageName(), PackageManager.GET_ACTIVITIES);
+                    String versionName = pi.versionName;
+                    ToastUtil.showToast(AboutActivity.this, "当前版本：" + versionName);
+                } catch (PackageManager.NameNotFoundException e) {
+                    e.printStackTrace();
+                }
                 break;
             case R.id.fab:
-                ToastUtil.showToast(AboutActivity.this,"谢谢赞赏");
+                ToastUtil.showToast(AboutActivity.this, "谢谢赞赏");
                 break;
         }
     }

@@ -21,7 +21,7 @@ import com.orhanobut.logger.Logger;
 
 public class App extends Application {
 
-    public static String cacheDir = "";
+    public static String cacheDir;
     public static Context context;
     public static AppComponent appComponent;
 
@@ -36,16 +36,9 @@ public class App extends Application {
         super.onCreate();
         context = this.getApplicationContext();
 
-        //初始化屏幕宽高
         getScreenSize();
-
-        //初始化网络
-        RetrofitSingleton.getInstance();
-
-        //初始化日志
         Logger.init(getPackageName()).hideThreadInfo();
 
-        //初始化SharedPreferences
         SharedPreferencesUtil.init(this);
 
         /**
@@ -56,7 +49,6 @@ public class App extends Application {
         } else {
             cacheDir = getApplicationContext().getCacheDir().toString();
         }
-
         /**
          * 初始化依赖加载器
          */
@@ -66,7 +58,7 @@ public class App extends Application {
                 .build();
     }
 
-    public static AppComponent getAppComponent(){
+    public static AppComponent getAppComponent() {
         return appComponent;
     }
 
@@ -88,6 +80,10 @@ public class App extends Application {
 
     public static Context getAppContext() {
         return context;
+    }
+
+    public static String getCachedir(){
+        return cacheDir;
     }
 
 }

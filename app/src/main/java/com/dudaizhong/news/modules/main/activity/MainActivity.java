@@ -26,6 +26,7 @@ import com.dudaizhong.news.R;
 import com.dudaizhong.news.app.Constants;
 import com.dudaizhong.news.base.BaseActivity;
 import com.dudaizhong.news.base.utils.rxUtils.RxBus;
+import com.dudaizhong.news.common.widget.CharAvatarView;
 import com.dudaizhong.news.modules.gank.fragment.GankFragment;
 import com.dudaizhong.news.modules.login.activity.LoginActivity;
 import com.dudaizhong.news.modules.login.domain.event.RefreshEvent;
@@ -51,8 +52,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Bind(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
 
-    ImageView mImageView;
-    TextView login;
+    CharAvatarView mImageView;
     TextView desc;
     FragmentManager fragmentManager;
     ZhihuFragment mZhihuFragment;
@@ -80,12 +80,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         subscription = RxBus.getDefault().toObserverable(RefreshEvent.class).subscribe(new Action1<RefreshEvent>() {
             @Override
             public void call(RefreshEvent event) {
-                Glide.with(MainActivity.this)
-                        .load(R.mipmap.view1)
-                        .bitmapTransform(new CropCircleTransformation(MainActivity.this), new FitCenter(MainActivity.this))
-                        .into(mImageView);
-                login.setText(event.getName());
-                desc.setText("成功登陆");
+                mImageView.setText(event.getName());
+                desc.setText(event.getName());
             }
         });
     }
@@ -100,7 +96,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         mNavView.setNavigationItemSelectedListener(this);
         View headerView = mNavView.getHeaderView(0);
-        mImageView = (ImageView) headerView.findViewById(R.id.imageView);
+        mImageView = (CharAvatarView) headerView.findViewById(R.id.imageView);
+        mImageView.setText("登录");
         mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,9 +105,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 mDrawerLayout.closeDrawer(GravityCompat.START);
             }
         });
-        login = (TextView) headerView.findViewById(R.id.login);
         desc = (TextView) headerView.findViewById(R.id.desc);
-
     }
 
     public void setNowFragment(int index) {

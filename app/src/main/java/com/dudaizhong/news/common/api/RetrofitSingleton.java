@@ -67,18 +67,17 @@ public class RetrofitSingleton {
         private static final RetrofitSingleton INSTANCE = new RetrofitSingleton();
     }
 
-   /* private static void initOkHttp() {
-
+    private static void initOkHttp() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
-//        if (BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG) {
             // https://drakeet.me/retrofit-2-0-okhttp-3-0-config
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
+            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             builder.addInterceptor(loggingInterceptor);
-//        }
+        }
 
         // http://www.jianshu.com/p/93153b34310e
-        File cacheFile = new File(App.cacheDir,"/NetCache");
+        File cacheFile = new File(App.getCachedir(), "/NetCache");
         Cache cache = new Cache(cacheFile, 1024 * 1024 * 50);
         Interceptor cacheInterceptor = new Interceptor() {
             @Override
@@ -108,18 +107,23 @@ public class RetrofitSingleton {
                 return response;
             }
         };
-//        Interceptor apikey = new Interceptor() {
+//
+//        CookieJar mCookieJar = new CookieJar() {
+//            private final HashMap<String, List<Cookie>> cookieStore = new HashMap<>();
+//
 //            @Override
-//            public Response intercept(Chain chain) throws IOException {
-//                Request request = chain.request();
-//                request = request.newBuilder()
-//                        .addHeader("apikey",Constants.KEY_API)
-//                        .build();
-//                return chain.proceed(request);
+//            public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
+//                cookieStore.put(url.host(), cookies);
+//            }
+//
+//            @Override
+//            public List<Cookie> loadForRequest(HttpUrl url) {
+//                List<Cookie> cookies = cookieStore.get(url.host());
+//
+//                //cookies.get(0).getClass().
+//                return cookies != null ? cookies : new ArrayList<Cookie>();
 //            }
 //        };
-//        builder.addInterceptor(apikey);
-
         //设置缓存
         builder.addNetworkInterceptor(cacheInterceptor);
         builder.addInterceptor(cacheInterceptor);
@@ -132,87 +136,6 @@ public class RetrofitSingleton {
         builder.retryOnConnectionFailure(true);
         okHttpClient = builder.build();
 
-       /* CookieJar mCookieJar = new CookieJar() {
-            private final HashMap<String, List<Cookie>> cookieStore = new HashMap<>();
-
-            @Override
-            public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
-                cookieStore.put(url.host(), cookies);
-            }
-
-            @Override
-            public List<Cookie> loadForRequest(HttpUrl url) {
-                List<Cookie> cookies = cookieStore.get(url.host());
-
-                //cookies.get(0).getClass().
-                return cookies != null ? cookies : new ArrayList<Cookie>();
-            }
-        };
-    }*/
-
-    private static void initOkHttp() {
-        // https://drakeet.me/retrofit-2-0-okhttp-3-0-config
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-
-        // http://www.jianshu.com/p/93153b34310e
-        File cacheFile = new File(App.cacheDir, "/NetCache");
-        Cache cache = new Cache(cacheFile, 1024 * 1024 * 50);
-        Interceptor cacheInterceptor = new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Request request = chain.request();
-                if (!Util.isNetworkConnected(App.getAppContext())) {
-                    request = request.newBuilder()
-                            .cacheControl(CacheControl.FORCE_CACHE)
-                            .build();
-                }
-                Response response = chain.proceed(request);
-                if (Util.isNetworkConnected(App.getAppContext())) {
-                    int maxAge = 0;
-                    // 有网络时, 不缓存, 最大保存时长为0
-                    response.newBuilder()
-                            .header("Cache-Control", "public, max-age=" + maxAge)
-                            .removeHeader("Pragma")
-                            .build();
-                } else {
-                    // 无网络时，设置超时为4周
-                    int maxStale = 60 * 60 * 24 * 28;
-                    response.newBuilder()
-                            .header("Cache-Control", "public, only-if-cached, max-stale=" + maxStale)
-                            .removeHeader("Pragma")
-                            .build();
-                }
-                return response;
-            }
-        };
-
-        CookieJar mCookieJar = new CookieJar() {
-            private final HashMap<String, List<Cookie>> cookieStore = new HashMap<>();
-
-            @Override
-            public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
-                cookieStore.put(url.host(), cookies);
-            }
-
-            @Override
-            public List<Cookie> loadForRequest(HttpUrl url) {
-                List<Cookie> cookies = cookieStore.get(url.host());
-
-                //cookies.get(0).getClass().
-                return cookies != null ? cookies : new ArrayList<Cookie>();
-            }
-        };
-
-        okHttpClient = new OkHttpClient.Builder()
-                .addInterceptor(interceptor)
-                .addNetworkInterceptor(cacheInterceptor)
-                .addInterceptor(cacheInterceptor)
-                .cache(cache)
-                .cookieJar(mCookieJar)
-                .retryOnConnectionFailure(true)
-                .connectTimeout(15, TimeUnit.SECONDS)
-                .build();
     }
 
     private static ZhihuApi getZhihuApiService() {
