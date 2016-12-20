@@ -26,7 +26,12 @@
     <style name="AppTheme.Launch"
            parent="AppTheme">
         <item name="android:windowFullscreen">true</item>
+
         <item name="android:windowBackground">@mipmap/launch</item>
+    </style>
+
+    <style name="Splash">
+        <item name="android:windowFullscreen">true</item>
     </style>
 
     <style name="textToolbarTitle">

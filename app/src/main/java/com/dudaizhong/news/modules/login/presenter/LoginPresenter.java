@@ -20,7 +20,6 @@ public class LoginPresenter extends LoginContract.Presenter {
 
     @Override
     public void login(Context context, String userName, String password) {
-
         if (RealmHelper.getIntance(context).login(userName, password)) {
             getView().onLoginSuccess();
         } else {

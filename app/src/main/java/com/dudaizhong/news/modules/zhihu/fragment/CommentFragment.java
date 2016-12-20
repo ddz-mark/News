@@ -79,7 +79,7 @@ public class CommentFragment extends BaseFragment<CommentPresenter> implements C
         mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
+                getPresenter().getContent(getContext(), id, kind);
             }
         });
         showLoading();

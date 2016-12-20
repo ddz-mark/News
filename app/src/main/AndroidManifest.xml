@@ -37,8 +37,7 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".modules.login.activity.LoginActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:launchMode="singleTask"/>
         <activity
             android:name=".modules.zhihu.activity.ZhihuDetailActivity"
             android:screenOrientation="portrait"/>
