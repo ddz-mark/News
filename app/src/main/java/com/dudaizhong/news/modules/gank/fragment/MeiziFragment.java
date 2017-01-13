@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import com.dudaizhong.news.R;
 import com.dudaizhong.news.base.BaseFragment;
 import com.dudaizhong.news.base.utils.DensityUtil;
+import com.dudaizhong.news.common.widget.LoadMoreRecyclerView;
 import com.dudaizhong.news.modules.gank.adapter.GirlAdapter;
 import com.dudaizhong.news.modules.gank.domain.AIList;
 import com.dudaizhong.news.modules.gank.presenter.AIPresenter;
@@ -30,19 +31,19 @@ import butterknife.OnClick;
 
 public class MeiziFragment extends BaseFragment<AIPresenter> implements AIContract.View {
 
-    @Bind(R.id.recycler_zhihu_section)
-    RecyclerView mRecyclerZhihuSection;
     @Bind(R.id.swipe_zhihu_section)
     SwipeRefreshLayout mSwipeZhihuSection;
     @Bind(R.id.error)
     LinearLayout mError;
+    @Bind(R.id.recycler_zhihu_section)
+    LoadMoreRecyclerView mRecyclerZhihuSection;
 
     private ArrayList<AIList> datas;
     private GirlAdapter adapter;
     StaggeredGridLayoutManager mStaggeredGridLayoutManager;
     private int currentPage = 1;
     private static final int SPAN_COUNT = 2;
-    private static final int NUM = 100;
+    private static final int NUM = 10;
 
     @Override
     protected AIPresenter createPresenter() {
@@ -51,7 +52,7 @@ public class MeiziFragment extends BaseFragment<AIPresenter> implements AIContra
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_zhihu_hot;
+        return R.layout.fragment_gank;
     }
 
     @Override
@@ -66,15 +67,21 @@ public class MeiziFragment extends BaseFragment<AIPresenter> implements AIContra
         mRecyclerZhihuSection.setAdapter(adapter);
         mRecyclerZhihuSection.setItemAnimator(new DefaultItemAnimator());
         mRecyclerZhihuSection.setHasFixedSize(true);
+        mRecyclerZhihuSection.setLoadMoreListener(new LoadMoreRecyclerView.LoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                getPresenter().getContent(getString(R.string.meizi), NUM, ++currentPage);
+            }
+        }, false);
         mSwipeZhihuSection.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                getPresenter().getContent("福利", NUM, 1);
+                getPresenter().getContent(getString(R.string.meizi), NUM, 1);
             }
         });
 
         showLoading();
-        getPresenter().getContent("福利", NUM, currentPage);
+        getPresenter().getContent(getString(R.string.meizi), NUM, currentPage);
     }
 
     @Override
@@ -94,9 +101,12 @@ public class MeiziFragment extends BaseFragment<AIPresenter> implements AIContra
 
     @Override
     public void showContent(ArrayList<AIList> aiList, int page) {
-        datas.clear();
+        currentPage = page;
+        if (currentPage == 1 && null != datas) {
+            datas.clear();
+        }
         datas.addAll(aiList);
-        adapter.notifyDataSetChanged();
+        mRecyclerZhihuSection.notifyDataChange(currentPage, aiList.size() * 10);
     }
 
     @Override
@@ -109,6 +119,7 @@ public class MeiziFragment extends BaseFragment<AIPresenter> implements AIContra
     @OnClick(R.id.error)
     public void onClick() {
         showLoading();
-        getPresenter().getContent("福利", NUM, 1);
+        getPresenter().getContent(getString(R.string.meizi), NUM, 1);
     }
+
 }

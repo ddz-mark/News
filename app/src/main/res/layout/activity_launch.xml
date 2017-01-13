@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager_launch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"/>
 
     <TextView
         android:id="@+id/textView_launch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/re_point"
-        android:layout_marginBottom="20dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/shape_launch"
         android:gravity="center"
         android:paddingBottom="5dp"
@@ -23,15 +24,15 @@
         android:paddingRight="20dp"
         android:paddingTop="5dp"
         android:text="立即进入"
-        android:visibility="gone" />
+        android:visibility="gone"/>
 
     <RelativeLayout
         android:id="@+id/re_point"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="20dp">
 
         <LinearLayout
             android:id="@+id/point_group"

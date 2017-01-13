@@ -1,8 +1,12 @@
 package com.dudaizhong.news.modules.gank.fragment;
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.dudaizhong.news.R;
 import com.dudaizhong.news.base.BaseLazyFragment;
@@ -11,6 +15,7 @@ import com.dudaizhong.news.modules.zhihu.adapter.ViewPagerAdapter;
 import java.util.ArrayList;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * Created by Markable on 2016/11/25.
@@ -18,10 +23,10 @@ import butterknife.Bind;
 
 public class GankFragment extends BaseLazyFragment {
 
-    @Bind(R.id.tabLayout_zhihu)
-    TabLayout tabLayoutZhihu;
     @Bind(R.id.viewPager_zhihu)
-    ViewPager viewPagerZhihu;
+    ViewPager mViewPager;
+    @Bind(R.id.tabLayout_zhihu)
+    TabLayout mTabLayout;
 
     private ArrayList<Fragment> fragmentList = new ArrayList<>();
     private ArrayList<String> titles = new ArrayList<>();
@@ -51,10 +56,10 @@ public class GankFragment extends BaseLazyFragment {
         titles.add("福利");
         titles.add("视频");
         viewPagerAdapter.setTitles(titles);
-
-        viewPagerZhihu.setAdapter(viewPagerAdapter);
-        tabLayoutZhihu.setupWithViewPager(viewPagerZhihu);
-        tabLayoutZhihu.setTabsFromPagerAdapter(viewPagerAdapter);
+        mViewPager.setAdapter(viewPagerAdapter);
+        mTabLayout.setupWithViewPager(mViewPager);
+        mTabLayout.setTabsFromPagerAdapter(viewPagerAdapter);
 
     }
+
 }

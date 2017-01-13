@@ -10,6 +10,7 @@ import javax.inject.Inject;
 
 /**
  * Created by Dudaizhong on 2016/9/30.
+ * Github:ddz-mark
  */
 
 public class LoginPresenter extends LoginContract.Presenter {

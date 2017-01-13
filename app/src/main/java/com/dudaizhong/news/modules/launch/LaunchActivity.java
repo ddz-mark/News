@@ -24,6 +24,7 @@ import butterknife.OnClick;
 
 /**
  * Created by Dudaizhong on 2016/9/27.
+ * Github: https://github.com/ddz-mark
  */
 
 public class LaunchActivity extends BaseActivity<LaunchPresenter> implements LaunchContract.View {

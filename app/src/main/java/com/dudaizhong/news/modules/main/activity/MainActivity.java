@@ -97,7 +97,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mNavView.setNavigationItemSelectedListener(this);
         View headerView = mNavView.getHeaderView(0);
         mImageView = (CharAvatarView) headerView.findViewById(R.id.imageView);
-        mImageView.setText("登录");
+        mImageView.setText(getString(R.string.login));
         mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,14 +116,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     mZhihuFragment = new ZhihuFragment();
                 }
                 fragmentTransaction.replace(R.id.fragment_container, mZhihuFragment);
-                mToolbar.setTitle("知乎");
+                mToolbar.setTitle(R.string.zhihu);
                 break;
             case Constants.GANK_FRAGMENT:
                 if (mGankFragment == null) {
                     mGankFragment = new GankFragment();
                 }
                 fragmentTransaction.replace(R.id.fragment_container, mGankFragment);
-                mToolbar.setTitle("Gank");
+                mToolbar.setTitle(R.string.Gank);
                 break;
             default:
                 break;

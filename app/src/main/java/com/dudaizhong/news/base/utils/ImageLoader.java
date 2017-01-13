@@ -19,6 +19,10 @@ public class ImageLoader {
         Glide.with(context).load(url).placeholder(R.mipmap.ic_photo_place).crossFade().into(view);
     }
 
+    public static void loadWithNoBg(Context context,String url,ImageView view){
+        Glide.with(context).load(url).crossFade().into(view);
+    }
+
     public static void clear(Context context) {
         Glide.get(context).clearMemory();
     }

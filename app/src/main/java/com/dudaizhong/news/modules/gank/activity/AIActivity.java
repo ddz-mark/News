@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
@@ -37,6 +38,7 @@ public class AIActivity extends BaseActivity {
 
     @Override
     protected void initInject() {
+
     }
 
     public static Intent getAIActivityIntent(Context context, String type, String url) {

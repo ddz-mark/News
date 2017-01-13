@@ -21,7 +21,6 @@ import butterknife.Bind;
 
 public class GirlViewHolder extends BaseViewHolder {
 
-
     @Bind(R.id.image)
     ImageView mImage;
     private Context mContext;
@@ -35,7 +34,7 @@ public class GirlViewHolder extends BaseViewHolder {
     public void bindData(Object o) {
         final AIList data = (AIList) o;
 
-        ImageLoader.load(getContext(),data.url,mImage);
+        ImageLoader.loadWithNoBg(getContext(),data.url,mImage);
 //        mImage.setMaxHeight(200 + );
 
         ViewGroup.LayoutParams params = mImage.getLayoutParams();

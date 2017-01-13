@@ -15,5 +15,9 @@
         > 简约数据库Realm"\n"</string>
     <string name="share_txt">欢迎使用“就读日报”，希望每天都是好心情,项目地址https://github.com/ddz-mark/News</string>
     <string name="share_app">分享就读</string>
+    <string name="zhihu">知乎</string>
+    <string name="Gank">Gank</string>
+    <string name="login">登录</string>
+    <string name="meizi">福利</string>
 
 </resources>

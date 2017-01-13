@@ -23,6 +23,7 @@ import butterknife.OnClick;
 
 /**
  * Created by Dudaizhong on 2016/9/30.
+ * Github:ddz-mark
  */
 
 public class LoginActivity extends BaseActivity<LoginPresenter> implements LoginContract.View {

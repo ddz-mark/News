@@ -11,11 +11,16 @@ import com.bumptech.glide.Glide;
 import com.dudaizhong.news.R;
 import com.dudaizhong.news.base.BaseActivity;
 import com.dudaizhong.news.base.utils.ImageLoader;
+import com.dudaizhong.news.base.utils.rxUtils.SimpleSubscriber;
 import com.dudaizhong.news.modules.gank.presenter.MeiziPresenter;
 import com.dudaizhong.news.modules.gank.presenter.contract.MeiziContract;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import rx.Observable;
+import rx.functions.Action0;
+import rx.functions.Action1;
+import rx.functions.Func1;
 import uk.co.senab.photoview.PhotoView;
 import uk.co.senab.photoview.PhotoViewAttacher;
 
@@ -29,8 +34,6 @@ public class MeiziActivity extends BaseActivity<MeiziPresenter> implements Meizi
     ProgressBar mProgressBar;
     @Bind(R.id.imageView)
     PhotoView mImageView;
-
-    PhotoViewAttacher mAttacher;
     private String url;
 
     @Override
@@ -54,11 +57,26 @@ public class MeiziActivity extends BaseActivity<MeiziPresenter> implements Meizi
         Intent intent = getIntent();
         url = intent.getStringExtra("url");
         showLoading();
+        Observable.just(1)
+                .doOnNext(new Action1<Integer>() {
+                    @Override
+                    public void call(Integer integer) {
+                        showLoading();
+                    }
+                })
+                .doOnTerminate(new Action0() {
+                    @Override
+                    public void call() {
+                        hideLoading();
+                    }
+                })
+                .subscribe(new SimpleSubscriber<Integer>() {
+                    @Override
+                    public void onNext(Integer integer) {
+                        ImageLoader.load(MeiziActivity.this, url, mImageView);
+                    }
+                });
 
-        mAttacher = new PhotoViewAttacher(mImageView);
-        ImageLoader.load(this,url,mImageView);
-        mAttacher.update();
-        hideLoading();
     }
 
     @Override

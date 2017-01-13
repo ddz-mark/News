@@ -74,7 +74,7 @@ public class AIFragment extends BaseFragment<AIPresenter> implements AIContract.
         mRecyclerZhihuSection.setLoadMoreListener(new LoadMoreRecyclerView.LoadMoreListener() {
             @Override
             public void onLoadMore() {
-                getPresenter().getContent(type, NUM, currentPage + 1);
+                getPresenter().getContent(type, NUM, ++currentPage);
             }
         });
         mSwipeZhihuSection.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

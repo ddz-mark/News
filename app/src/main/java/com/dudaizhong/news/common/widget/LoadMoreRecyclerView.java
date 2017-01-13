@@ -35,6 +35,9 @@ public class LoadMoreRecyclerView extends RecyclerView {
     // 是否正在加载更多，防止多次调用接口
     private boolean isLoadingMore = false;
 
+    // 是否显示footer
+    private boolean loadFooter = true;
+
     public LoadMoreRecyclerView(Context context) {
         this(context, null);
     }
@@ -134,7 +137,7 @@ public class LoadMoreRecyclerView extends RecyclerView {
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             if (viewType == TYPE_FOOT) {
                 return new FooterViewHolder(LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.loadmorerecycler_foot, parent, false));
+                        .inflate(R.layout.loadmorerecycler_foot, parent, false));
             } else {
                 return adapter.onCreateViewHolder(parent, viewType);
             }
@@ -144,17 +147,23 @@ public class LoadMoreRecyclerView extends RecyclerView {
         public void onBindViewHolder(ViewHolder holder, int position) {
             if (getItemViewType(position) == TYPE_FOOT) {
                 FooterViewHolder footerViewHolder = (FooterViewHolder) holder;
-                if (currentStatus == NO_MORE) {
-                    footerViewHolder.load.setVisibility(View.GONE);
-                    footerViewHolder.loadFail.setVisibility(View.GONE);
-                    footerViewHolder.noMore.setVisibility(View.VISIBLE);
-                } else if (currentStatus == LOAD) {
-                    footerViewHolder.load.setVisibility(View.VISIBLE);
-                    footerViewHolder.loadFail.setVisibility(View.GONE);
-                    footerViewHolder.noMore.setVisibility(View.GONE);
+                if (loadFooter) {
+                    if (currentStatus == NO_MORE) {
+                        footerViewHolder.load.setVisibility(View.GONE);
+                        footerViewHolder.loadFail.setVisibility(View.GONE);
+                        footerViewHolder.noMore.setVisibility(View.VISIBLE);
+                    } else if (currentStatus == LOAD) {
+                        footerViewHolder.load.setVisibility(View.VISIBLE);
+                        footerViewHolder.loadFail.setVisibility(View.GONE);
+                        footerViewHolder.noMore.setVisibility(View.GONE);
+                    } else {
+                        footerViewHolder.load.setVisibility(View.GONE);
+                        footerViewHolder.loadFail.setVisibility(View.VISIBLE);
+                        footerViewHolder.noMore.setVisibility(View.GONE);
+                    }
                 } else {
                     footerViewHolder.load.setVisibility(View.GONE);
-                    footerViewHolder.loadFail.setVisibility(View.VISIBLE);
+                    footerViewHolder.loadFail.setVisibility(View.GONE);
                     footerViewHolder.noMore.setVisibility(View.GONE);
                 }
             } else {
@@ -197,7 +206,12 @@ public class LoadMoreRecyclerView extends RecyclerView {
     }
 
     public void setLoadMoreListener(LoadMoreListener loadMoreListener) {
+        setLoadMoreListener(loadMoreListener, true);
+    }
+
+    public void setLoadMoreListener(LoadMoreListener loadMoreListener, boolean loadFooter) {
         this.loadMoreListener = loadMoreListener;
+        this.loadFooter = loadFooter;
     }
 
     public interface LoadMoreListener {
@@ -208,7 +222,7 @@ public class LoadMoreRecyclerView extends RecyclerView {
      * 通知recycleView数据改变
      *
      * @param currentPage 当前共有几页数据
-     * @param rows 总共有多少条数据
+     * @param rows        总共有多少条数据
      */
     public void notifyDataChange(int currentPage, int rows) {
         notifyDataChange(isLoadNoMore(currentPage, rows));
