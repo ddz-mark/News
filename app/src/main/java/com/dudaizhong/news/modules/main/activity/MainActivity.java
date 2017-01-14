@@ -14,6 +14,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +26,7 @@ import com.bumptech.glide.load.resource.bitmap.FitCenter;
 import com.dudaizhong.news.R;
 import com.dudaizhong.news.app.Constants;
 import com.dudaizhong.news.base.BaseActivity;
+import com.dudaizhong.news.base.utils.SharedPreferencesUtil;
 import com.dudaizhong.news.base.utils.rxUtils.RxBus;
 import com.dudaizhong.news.common.widget.CharAvatarView;
 import com.dudaizhong.news.modules.gank.fragment.GankFragment;
@@ -84,6 +86,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 desc.setText(event.getName());
             }
         });
+
+        if (SharedPreferencesUtil.getDayNight()) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 
 

@@ -102,7 +102,7 @@
                 android:drawableTop="@mipmap/ic_like1"
                 android:gravity="center"
                 android:text="点赞"
-                android:textColor="#000000"/>
+                android:textColor="@color/black"/>
 
             <TextView
                 android:id="@+id/tv_detail_bottom_comment"
@@ -112,7 +112,7 @@
                 android:drawableTop="@mipmap/ic_comment"
                 android:gravity="center"
                 android:text="评论"
-                android:textColor="#000000"/>
+                android:textColor="@color/black"/>
 
             <TextView
                 android:id="@+id/tv_detail_bottom_share"
@@ -122,14 +122,14 @@
                 android:drawableTop="@mipmap/ic_share2"
                 android:gravity="center"
                 android:text="分享"
-                android:textColor="#000000"/>
+                android:textColor="@color/black"/>
         </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_gravity="top"
-            android:background="#e8e8e8"/>
+            android:background="@color/zhihu_detail_textview"/>
     </FrameLayout>
 
     <android.support.design.widget.FloatingActionButton

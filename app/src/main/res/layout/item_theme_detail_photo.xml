@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_margin="10dp"
-        android:textColor="#ffffff"
+        android:textColor="@color/defaultWhite"
         android:textSize="20sp"
         tools:text="这是什么"/>
 

@@ -18,6 +18,7 @@
             android:layout_height="78dp"
             android:layout_marginRight="2dp"
             android:layout_marginTop="2dp"
+            android:background="@color/defaultWhite"
             android:scaleType="centerCrop"
             tools:src="@mipmap/ic_launcher" />
 

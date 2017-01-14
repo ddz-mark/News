@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:lineSpacingMultiplier="1.3"
-            android:textColor="#000000"
+            android:textColor="@color/black"
             android:textSize="14sp"
             tools:text="我不是这样的又要熬夜写代码我也是醉了"/>
 
@@ -45,7 +45,7 @@
             android:ellipsize="end"
             android:lineSpacingMultiplier="1.2"
             android:paddingLeft="6dp"
-            android:textColor="#000000"
+            android:textColor="@color/black"
             tools:text="我不是这的又要熬夜写代码啊"/>
 
         <RelativeLayout
@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:textColor="#000000"
+                android:textColor="@color/black"
                 tools:text="五分钟前"/>
 
             <TextView
@@ -71,7 +71,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@id/tv_comment_time"
-                android:textColor="#000000"
+                android:textColor="@color/black"
                 tools:text="收起"/>
 
             <TextView
@@ -91,6 +91,6 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="#000000"/>
+            android:background="@color/black"/>
     </LinearLayout>
 </RelativeLayout>

@@ -1,5 +1,7 @@
 package com.dudaizhong.news.modules.setting;
 
+import android.app.UiModeManager;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
@@ -7,6 +9,7 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatDelegate;
 
 import com.dudaizhong.news.R;
 import com.dudaizhong.news.app.App;
@@ -16,6 +19,7 @@ import com.dudaizhong.news.base.utils.SharedUtil;
 import com.dudaizhong.news.base.utils.rxUtils.RxHelper;
 import com.dudaizhong.news.base.utils.rxUtils.RxUtils;
 import com.dudaizhong.news.base.utils.rxUtils.SimpleSubscriber;
+import com.dudaizhong.news.modules.main.activity.MainActivity;
 
 import java.io.File;
 
@@ -24,6 +28,8 @@ import rx.functions.Func1;
 
 /**
  * Created by Markable on 2016/11/26.
+ * Github: https://github.com/ddz-mark
+ * Info:
  */
 
 public class SettingFragment extends PreferenceFragment {
@@ -61,10 +67,14 @@ public class SettingFragment extends PreferenceFragment {
         mDayNight.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                if (SharedPreferencesUtil.getDayNight())
+                if (SharedPreferencesUtil.getDayNight()) {
                     SharedPreferencesUtil.setDayNight(false);
-                else
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                } else {
                     SharedPreferencesUtil.setDayNight(true);
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                }
+                startActivity(new Intent().setClass(getActivity(), MainActivity.class));
                 return true;
             }
         });
@@ -103,13 +113,12 @@ public class SettingFragment extends PreferenceFragment {
             }
         });
 
-        mSuggest.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                SharedUtil.sendEmail(getActivity(), "选择邮件客户端");
-                return false;
-            }
-        });
+        mSuggest.setOnPreferenceClickListener(preference -> {
+                    SharedUtil.sendEmail(getActivity(), "选择邮件客户端");
+                    return false;
+                }
+
+        );
     }
 
 }
