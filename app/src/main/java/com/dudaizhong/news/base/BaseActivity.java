@@ -25,7 +25,8 @@ import rx.Observable;
 
 /**
  * Created by Dudaizhong on 2016/9/13.
- * mvp Activity基类,所有Activity都应继承自
+ * mvp Activity基类,所有Activity都应继承
+ * TODO: 2017/1/15 权限管理需优化
  */
 
 public abstract class BaseActivity<T extends BasePresenter> extends RxAppCompatActivity implements BaseView {
