@@ -7,12 +7,15 @@ import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
 
+import com.dudaizhong.news.base.AppBlockCanaryContext;
 import com.dudaizhong.news.base.utils.SharedPreferencesUtil;
 import com.dudaizhong.news.common.api.RetrofitSingleton;
 import com.dudaizhong.news.di.component.AppComponent;
 import com.dudaizhong.news.di.component.DaggerAppComponent;
 import com.dudaizhong.news.di.module.AppModule;
+import com.github.moduth.blockcanary.BlockCanary;
 import com.orhanobut.logger.Logger;
+import com.squareup.leakcanary.LeakCanary;
 
 /**
  * Created by Dudaizhong on 2016/9/13.
@@ -37,10 +40,14 @@ public class App extends Application {
         context = this.getApplicationContext();
 
         getScreenSize();
+        //初始化Logger
         Logger.init(getPackageName()).hideThreadInfo();
-
+        //初始化SP
         SharedPreferencesUtil.init(this);
-
+        //初始化内存泄露
+        LeakCanary.install(this);
+        //界面卡顿检测
+        BlockCanary.install(this, new AppBlockCanaryContext()).start();
         /**
          * 如果存在SD卡则将缓存写入SD卡,否则写入手机内存
          */

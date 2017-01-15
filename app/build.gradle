@@ -84,4 +84,9 @@ dependencies {
     provided 'javax.annotation:jsr250-api:1.0'
     //数据库
     compile files('libs/systembartint-1.0.3.jar')
+    //内存检测，界面卡顿
+    debugCompile 'com.github.moduth:blockcanary-android:1.2.1'
+    releaseCompile 'com.github.moduth:blockcanary-no-op:1.2.1'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
 }
