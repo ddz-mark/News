@@ -23,12 +23,33 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    buildTypes {
+
+    signingConfigs {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            storeFile file(StoreFile)
+            storePassword StorePassWord
+            keyAlias KeyAlias
+            keyPassword KeyPassword
         }
     }
+    buildTypes {
+        release {
+            // 不显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            //混淆
+            minifyEnabled true
+            //Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources true
+            //加载默认混淆配置文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            debuggable true
+        }
+    }
+
     repositories {
         flatDir {
             dirs 'libs'
@@ -84,7 +105,7 @@ dependencies {
     provided 'javax.annotation:jsr250-api:1.0'
     //数据库
     compile files('libs/systembartint-1.0.3.jar')
-    //内存检测，界面卡顿
+    //检测库
     debugCompile 'com.github.moduth:blockcanary-android:1.2.1'
     releaseCompile 'com.github.moduth:blockcanary-no-op:1.2.1'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
