@@ -13,7 +13,8 @@
         android:gravity="center"
         android:padding="30dp"
         android:text="Reader"
-        android:textSize="80sp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="60sp"
         android:textStyle="bold"/>
 
     <android.support.design.widget.TextInputLayout

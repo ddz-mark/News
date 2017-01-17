@@ -13,5 +13,5 @@
     <dimen name="app_bar_height">256dp</dimen>
     <dimen name="text_margin">16dp</dimen>
 
-    <dimen name="theme_photo">130dp</dimen>
+    <dimen name="theme_photo">150dp</dimen>
 </resources>

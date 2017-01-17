@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/selector_recycler_item"
-    android:orientation="vertical">
+    android:layout_margin="3dp"
+    app:cardBackgroundColor="@color/theme_cardview_background"
+    app:cardCornerRadius="6dp"
+    app:elevation="3dp">
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -20,7 +24,7 @@
             android:layout_marginTop="2dp"
             android:background="@color/defaultWhite"
             android:scaleType="centerCrop"
-            tools:src="@mipmap/ic_launcher" />
+            tools:src="@mipmap/ic_launcher"/>
 
         <TextView
             android:id="@+id/content_item"
@@ -29,13 +33,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:layout_toRightOf="@id/image_item"
-            tools:text="hi礼服啊发掘of接发哦放啊分手拉发送啊分四级发丝发送i发送i家假哦的啊分离发抖啊石佛后啊放松和啊佛i啊的司机哦啊石佛诶vjaaivoea阿佛i家啊飞机警方iso" />
+            tools:text="hi礼服啊发掘of接发哦放啊分手拉发送啊分四级发丝发送i发送i家假哦的啊分离发抖啊石佛后啊放松和啊佛i啊的司机哦啊石佛诶vjaaivoea阿佛i家啊飞机警方iso"/>
     </RelativeLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/item_view" />
-
-</LinearLayout>
+</android.support.v7.widget.CardView>

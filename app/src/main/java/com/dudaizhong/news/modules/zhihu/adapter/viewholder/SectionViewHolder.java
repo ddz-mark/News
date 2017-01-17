@@ -24,8 +24,6 @@ public class SectionViewHolder extends BaseViewHolder {
 
     @Bind(R.id.image)
     ImageView image;
-    @Bind(R.id.descriptionc)
-    TextView descriptionc;
     @Bind(R.id.name)
     TextView name;
 
@@ -37,10 +35,9 @@ public class SectionViewHolder extends BaseViewHolder {
     public void bindData(Object o) {
         final SectionList.DataBean dataBean = (SectionList.DataBean) o;
 
-        ImageLoader.load(getContext(),dataBean.getThumbnail(),image);
+        ImageLoader.load(getContext(), dataBean.getThumbnail(), image);
 
         name.setText(dataBean.getName());
-        descriptionc.setText(dataBean.getDescription());
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

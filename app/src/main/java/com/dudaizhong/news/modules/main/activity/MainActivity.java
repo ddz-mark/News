@@ -26,7 +26,7 @@ import com.dudaizhong.news.base.utils.rxUtils.RxBus;
 import com.dudaizhong.news.common.widget.CharAvatarView;
 import com.dudaizhong.news.modules.gank.fragment.GankFragment;
 import com.dudaizhong.news.modules.login.activity.LoginActivity;
-import com.dudaizhong.news.modules.event.RefreshEvent;
+import com.dudaizhong.news.common.event.RefreshEvent;
 import com.dudaizhong.news.modules.setting.SettingActivity;
 import com.dudaizhong.news.modules.zhihu.fragment.ZhihuFragment;
 

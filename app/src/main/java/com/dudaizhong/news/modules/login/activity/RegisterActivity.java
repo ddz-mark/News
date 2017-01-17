@@ -1,5 +1,6 @@
 package com.dudaizhong.news.modules.login.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
@@ -22,6 +23,8 @@ import butterknife.ButterKnife;
 
 public class RegisterActivity extends BaseActivity<RegisterPresenter> implements RegisterContract.View {
 
+    ProgressDialog mProgressDialog;
+
     @Bind(R.id.input_name)
     EditText mInputName;
     @Bind(R.id.input_password)
@@ -41,6 +44,7 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
 
     @Override
     protected void initEventAndData(Bundle savedInstanceState) {
+        initWindow();
         mRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,14 +54,32 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     }
 
     @Override
+    public void showLoading() {
+        showProgressDialog();
+    }
+
+    @Override
     public void registerSuccess() {
         ToastUtil.showToast(RegisterActivity.this, "注册成功");
-        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+        mProgressDialog.dismiss();
+        startActivity(LoginActivity.getLoginAvtivityIntent(RegisterActivity.this, mInputName.getText().toString(), mInputPassword.getText().toString()));
     }
 
     @Override
     public void registerFailed() {
+        mProgressDialog.dismiss();
         ToastUtil.showToast(RegisterActivity.this, "注册失败，请重新输入");
     }
+
+    public void showProgressDialog() {
+        mProgressDialog = new ProgressDialog(RegisterActivity.this);
+        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        mProgressDialog.setMessage("注册中...");
+        mProgressDialog.setIcon(android.R.drawable.btn_star);
+        mProgressDialog.setIndeterminate(false);
+        mProgressDialog.setCancelable(true);
+        mProgressDialog.show();
+    }
+
 
 }

@@ -14,6 +14,8 @@ public interface RegisterContract {
 
     interface View extends BaseView {
 
+        void showLoading();
+
         void registerSuccess();
 
         void registerFailed();

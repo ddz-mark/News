@@ -10,22 +10,28 @@
     app:cardCornerRadius="6dp"
     app:elevation="3dp">
 
-    <ImageView
-        android:id="@+id/image"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/theme_photo"
-        android:scaleType="centerCrop"
-        tools:src="@mipmap/ic_photo_place"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-    <TextView
-        android:textColor="@color/theme_cardview_textcolor"
-        android:id="@+id/name"
-        android:layout_width="match_parent"
-        android:layout_height="165dp"
-        android:layout_gravity="bottom"
-        android:gravity="bottom|center_horizontal"
-        android:padding="10dp"
-        tools:text="日报主题"/>
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/theme_photo"
+            android:scaleType="centerCrop"
+            tools:src="@mipmap/ic_photo_place"/>
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="bottom|center_horizontal"
+            android:padding="10dp"
+            android:textColor="@color/theme_cardview_textcolor"
+            tools:text="日报主题"/>
+    </LinearLayout>
 
 </android.support.v7.widget.CardView>
 
